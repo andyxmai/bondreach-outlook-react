@@ -1,0 +1,15 @@
+.container {
+  overflow-y: scroll; 
+}
+
+.header {
+  font-weight: 600;
+  font-size: 20px;
+  padding: 20px;
+  padding-bottom: 0px;
+}
+
+.rightIcon {
+  width: 20px;
+  height: 20px;
+}

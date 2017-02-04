@@ -1,0 +1,35 @@
+.btnGreen {
+  background-color: #22BBB3;
+  color: white;
+  border-color: #22BBB3;
+}
+
+.btnGreen:hover {
+  background-color: #00B0A9;
+  color: white;
+  border-color: #00B0A9;
+}
+
+.btnRed {
+  background-color: #FC6D69;
+  color: white;
+  border-color: #FC6D69;
+}
+
+.btnRed:hover {
+  background-color: #DF4642;
+  color: white;
+  border-color: #DF4642;
+}
+
+.btnBlue {
+  background-color: #00A7CF;
+  color: white;
+  border-color: #00A7CF;
+}
+
+.btnBlue:hover {
+  background-color: #007995;
+  color: white;
+  border-color: #007995;
+}

@@ -1,0 +1,13 @@
+.container {
+  width: 100%;
+}
+
+.innerContainer {
+  margin: auto;
+}
+
+.leftContainer {
+  background-color: #white;
+  border-right: 1px solid;
+  composes: borderColor from 'sharedStyles/styles.css';
+}
