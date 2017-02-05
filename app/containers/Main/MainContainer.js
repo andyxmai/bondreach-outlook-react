@@ -33,7 +33,6 @@ const MainContainer = React.createClass({
           this.context.router.replace('feed')
         }
       } else {
-        console.log('here')
         this.props.removeFetchingUser()
       }
     })
