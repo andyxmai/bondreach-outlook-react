@@ -27,6 +27,10 @@
   width: 15px;
 }
 
-.expenseTitle {
+.tableSpacer {
+  height: 50px;
+}
+
+.sectionTitle {
   font-weight: 600;
 }

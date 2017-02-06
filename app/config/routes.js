@@ -3,7 +3,7 @@ import { Router, Route, IndexRoute } from 'react-router'
 import {
   MainContainer, HomeContainer, AuthenticateContainer, FeedContainer,
   LogoutContainer, UserContainer, DuckDetailsContainer, NewPropertyContainer,
-  ExpensesContainer
+  ExpensesContainer, RentRollContainer
 } from 'containers'
 
 export default function getRoutes (checkAuth, history) {
@@ -15,6 +15,7 @@ export default function getRoutes (checkAuth, history) {
         <Route path='logout' component={LogoutContainer} />
         <Route path='new-property' component={NewPropertyContainer} />
         <Route path='expenses' component={ExpensesContainer} />
+        <Route path='rent-roll' component={RentRollContainer} />
         <Route path='/:uid' component={UserContainer} onEnter={checkAuth} />
         <Route path='/duckDetail/:duckId' component={DuckDetailsContainer} onEnter={checkAuth} />
         <IndexRoute component={ HomeContainer } onEnter={checkAuth} />

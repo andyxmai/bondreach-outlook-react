@@ -33,3 +33,15 @@
   color: white;
   border-color: #007995;
 }
+
+.btnGray {
+  background-color: #FBFBFB;
+  color: #6E7777;
+  border-color: #D7DADA;
+}
+
+.btnGray:hover {
+  background-color: #CBCBCB;
+  color: #6E7777;
+  border-color: #D7DADA;
+}

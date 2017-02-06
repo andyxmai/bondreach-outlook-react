@@ -16,3 +16,6 @@ export LeftPaneButtonSection from './LeftPaneButtonSection/LeftPaneButtonSection
 export NewProperty from './NewProperty/NewProperty'
 export Expenses from './Expenses/Expenses'
 export ExpenseTable from './ExpenseTable/ExpenseTable'
+export RentRoll from './RentRoll/RentRoll'
+export MLATable from './MLATable/MLATable'
+export RentRollTable from './RentRollTable/RentRollTable'
