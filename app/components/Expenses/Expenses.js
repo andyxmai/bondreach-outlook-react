@@ -1,10 +1,12 @@
 import React, { PropTypes } from 'react'
+import { Button } from 'react-bootstrap'
 import { ExpenseTableContainer } from 'containers'
-import { container, title, subtitle, subtitleElem } from './styles.css'
+import { container, title, subtitle, subtitleElem, actionButtonContainer, spacer, expenseTitle } from './styles.css'
+import { btnBlue, btnGray } from 'sharedStyles/buttons.css'
 
 function ExpenseSection ({title}) {
   return (
-    <div>
+    <div className={expenseTitle}>
       {title}
       <ExpenseTableContainer />
     </div>
@@ -21,6 +23,11 @@ export default function Expenses (props) {
           <div className={subtitleElem}>{'Office'}</div>
           <div className={subtitleElem}>{'50,000 sqft'}</div>
         </div>
+      </div>
+      <div className={actionButtonContainer}>
+        <Button className={btnGray}>{'Cancel'}</Button>
+        <div className={spacer}></div>
+        <Button className={btnBlue}>{'Go to rent roll'}</Button>
       </div>
       <div>
         <ExpenseSection title={'Reimbursable Expenses'} />

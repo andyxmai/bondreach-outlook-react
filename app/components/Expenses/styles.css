@@ -16,3 +16,17 @@
 .subtitleElem {
   margin-right: 20px;
 }
+
+.actionButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.spacer {
+  width: 15px;
+}
+
+.expenseTitle {
+  font-weight: 600;
+}
