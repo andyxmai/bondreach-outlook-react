@@ -3,7 +3,7 @@ import { Router, Route, IndexRoute } from 'react-router'
 import {
   MainContainer, HomeContainer, AuthenticateContainer, FeedContainer,
   LogoutContainer, UserContainer, DuckDetailsContainer, NewPropertyContainer,
-  ExpensesContainer, RentRollContainer
+  ExpensesContainer, RentRollContainer, PropertyContainer
 } from 'containers'
 
 export default function getRoutes (checkAuth, history) {
@@ -13,6 +13,7 @@ export default function getRoutes (checkAuth, history) {
         <Route path='auth' component={AuthenticateContainer} onEnter={checkAuth} />
         <Route path='feed' component={FeedContainer} onEnter={checkAuth} />
         <Route path='logout' component={LogoutContainer} />
+        <Route path='property' component={PropertyContainer} />
         <Route path='new-property' component={NewPropertyContainer} />
         <Route path='expenses' component={ExpensesContainer} />
         <Route path='rent-roll' component={RentRollContainer} />

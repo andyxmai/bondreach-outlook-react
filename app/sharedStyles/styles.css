@@ -10,6 +10,15 @@ html, body {
   letter-spacing: 1px;
 }
 
+a {
+  color: #464646;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #464646;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -21,13 +30,32 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* Overriding styling from modules */
+:global .react-grid-Container {
+  width: 100% !important;
+}
+
+:global .react-grid-Main {
+  font-size: 15px;
+  outline: none !important;
+}
+
+:global .react-grid-HeaderCell {
+  border-right: none !important;
+  text-align: right;
+}
+
+:global .react-grid-Cell {
+  border: none !important;
+  text-align: right;
+}
+
 :global .react-bs-container-body {
   background-color: white;
   font-weight: normal;
 }
 
 :global .react-bs-container-header {
-  background-color: #FBFBFB; 
+  background-color: #FBFBFB;
 }
 
 :global .react-bs-table-container {

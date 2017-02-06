@@ -1,0 +1,39 @@
+.container {
+  padding: 40px;
+}
+
+.title {
+  font-size: 36px;
+}
+
+.subtitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.subtitleElem {
+  margin-right: 20px;
+}
+
+.tabsContainer {
+  padding-top: 40px;
+}
+
+.tab {
+  color: inherit;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 15px 0px;
+}
+
+.formLabel {
+  font-weight: normal;
+}

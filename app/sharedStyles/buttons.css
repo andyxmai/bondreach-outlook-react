@@ -4,7 +4,7 @@
   border-color: #22BBB3;
 }
 
-.btnGreen:hover {
+.btnGreen:hover, .btnGreen:focus, .btnGreen:active {
   background-color: #00B0A9;
   color: white;
   border-color: #00B0A9;
@@ -16,7 +16,7 @@
   border-color: #FC6D69;
 }
 
-.btnRed:hover {
+.btnRed:hover, .btnRed:focus, .btnRed:active {
   background-color: #DF4642;
   color: white;
   border-color: #DF4642;
@@ -28,7 +28,7 @@
   border-color: #00A7CF;
 }
 
-.btnBlue:hover {
+.btnBlue:hover, .btnBlue:focus, .btnBlue:active {
   background-color: #007995;
   color: white;
   border-color: #007995;
@@ -40,8 +40,20 @@
   border-color: #D7DADA;
 }
 
-.btnGray:hover {
+.btnGray:hover, .btnGray:focus, .btnGray:active {
   background-color: #CBCBCB;
   color: #6E7777;
   border-color: #D7DADA;
+}
+
+.btnGrayInverse {
+  background-color: #6E7777;
+  color: #fff;
+  border-color: #6E7777;
+}
+
+.btnGrayInverse:hover, .btnGrayInverse:focus, .btnGrayInverse:active {
+  background-color: #556262;
+  color: #fff;
+  border-color: #556262;
 }
