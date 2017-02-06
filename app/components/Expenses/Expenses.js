@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Panel } from 'react-bootstrap'
 import { ExpenseTableContainer } from 'containers'
-import { container, title, subtitle, subtitleElem, actionButtonContainer, spacer, expenseTitle } from './styles.css'
+import { container, title, subtitle, subtitleElem, actionButtonContainer, spacer, expenseTitle, section } from './styles.css'
 import { btnBlue, btnGray } from 'sharedStyles/buttons.css'
 
 function ExpenseSection ({title}) {
@@ -31,8 +31,10 @@ export default function Expenses (props) {
         <div className={spacer}></div>
         <Button className={btnBlue}>{'Go to rent roll'}</Button>
       </div>
-      <div>
-        <ExpenseSection title={'Reimbursable Expenses'} />
+      <div className={section}>
+        <Panel>
+          <ExpenseSection title={'Reimbursable Expenses'} />
+        </Panel>
       </div>
     </div>
   )

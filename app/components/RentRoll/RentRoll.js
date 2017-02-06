@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { MLATableContainer, RentRollTableContainer } from 'containers'
-import { Button } from 'react-bootstrap'
-import { container, title, subtitle, subtitleElem, actionButtonContainer, spacer, tableSpacer, sectionTitle } from './styles.css'
+import { Button, Panel } from 'react-bootstrap'
+import { container, title, subtitle, subtitleElem, actionButtonContainer, spacer, tableSpacer, sectionTitle, section } from './styles.css'
 import { btnBlue, btnGray } from 'sharedStyles/buttons.css'
 
 export default function RentRoll (props) {
@@ -20,19 +20,21 @@ export default function RentRoll (props) {
         <div className={spacer}></div>
         <Button className={btnBlue}>{'Go to property'}</Button>
       </div>
-      <div>
-        <div className={sectionTitle}>
-          {'Market Leasing Assumptions'}
-        </div>
-        <MLATableContainer />
+      <div className={section}>
+        <Panel>
+          <div className={sectionTitle}>
+            {'Market Leasing Assumptions'}
+          </div>
+          <MLATableContainer />
+        </Panel>
       </div>
-      <div className={tableSpacer}>
-      </div>
-      <div>
-        <div className={sectionTitle}>
-          {'Rent Roll'}
-        </div>
-        <RentRollTableContainer />
+      <div className={section}>
+        <Panel>
+          <div className={sectionTitle}>
+            {'Rent Roll'}
+          </div>
+          <RentRollTableContainer />
+        </Panel>
       </div>
     </div>
   )

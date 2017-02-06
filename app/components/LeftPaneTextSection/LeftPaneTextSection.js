@@ -4,9 +4,14 @@ import { Col } from 'react-bootstrap'
 import { container, title } from './styles.css'
 import { rightIcon } from 'containers/LeftPane/styles.css'
 
+LeftPaneTextSection.propTypes = {
+  handleTextSectionHeaderClick: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+}
+
 export default function LeftPaneTextSection (props) {
   return (
-    <div className={container}>
+    <div className={container} onClick={props.handleTextSectionHeaderClick}>
       <Col sm={10}><div className={title}>{props.title}</div></Col>
       <Col sm={2}><FaAngleRight className={rightIcon} /></Col>
     </div>
