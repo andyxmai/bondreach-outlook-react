@@ -23,14 +23,16 @@ export default function ExpenseTable (props) {
     blurToSave: true
   }
   const selectRowProp = {
-    mode: 'checkbox'
+    mode: 'checkbox',
+    bgColor: 'pink'
   }
 
   const options = {
     insertText: 'Add expense',
     deleteText: 'Delete expense',
     saveText: 'Add expense',
-    closeText: 'Cancel'
+    closeText: 'Cancel',
+    noDataText: 'No expenses entered yet'
   }
 
   function numberValidator(value) {
@@ -46,15 +48,18 @@ export default function ExpenseTable (props) {
       <BootstrapTable data={expenses} cellEdit={ cellEditProp } options={ options }
         insertRow
         deleteRow
-        selectRow={ selectRowProp }>
-          <TableHeaderColumn dataField='name' isKey>Name</TableHeaderColumn>
-          <TableHeaderColumn dataField='acct'>Acct Code</TableHeaderColumn>
-          <TableHeaderColumn dataField='amount' editable={ { validator: numberValidator } }>Amount</TableHeaderColumn>
-          <TableHeaderColumn dataField='units'>Units</TableHeaderColumn>
-          <TableHeaderColumn dataField='area'>Area</TableHeaderColumn>
-          <TableHeaderColumn dataField='frequency' editable={ { type: 'select', options: { values: frequencyTypes } } }>Frequency</TableHeaderColumn>
-          <TableHeaderColumn dataField='fixed' editable={ { type: 'number' } }>% Fixed</TableHeaderColumn>
-          <TableHeaderColumn dataField='inflation'>Inflation</TableHeaderColumn>
+        hover
+        selectRow={ selectRowProp }
+        >
+          <TableHeaderColumn dataField='id' isKey hidden autoValue={ true }>Expense ID</TableHeaderColumn>
+          <TableHeaderColumn dataField='name' headerAlign='center'>Name</TableHeaderColumn>
+          <TableHeaderColumn dataField='acct' headerAlign='center' dataAlign='center'>Acct Code</TableHeaderColumn>
+          <TableHeaderColumn dataField='amount' headerAlign='center' dataAlign='center' editable={ { validator: numberValidator } }>Amount</TableHeaderColumn>
+          <TableHeaderColumn dataField='units' headerAlign='center' dataAlign='center'>Units</TableHeaderColumn>
+          <TableHeaderColumn dataField='area' headerAlign='center' dataAlign='center'>Area</TableHeaderColumn>
+          <TableHeaderColumn dataField='frequency' headerAlign='center' dataAlign='center' editable={ { type: 'select', options: { values: frequencyTypes } } }>Frequency</TableHeaderColumn>
+          <TableHeaderColumn dataField='fixed' headerAlign='center' dataAlign='center' editable={ { type: 'number' } }>% Fixed</TableHeaderColumn>
+          <TableHeaderColumn dataField='inflation' headerAlign='center' dataAlign='center'>Inflation</TableHeaderColumn>
       </BootstrapTable>
     </div>
   )

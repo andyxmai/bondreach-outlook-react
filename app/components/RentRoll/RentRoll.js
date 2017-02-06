@@ -1,21 +1,10 @@
 import React, { PropTypes } from 'react'
+import { MLATableContainer, RentRollTableContainer } from 'containers'
 import { Button } from 'react-bootstrap'
-import { ExpenseTableContainer } from 'containers'
-import { container, title, subtitle, subtitleElem, actionButtonContainer, spacer, expenseTitle } from './styles.css'
+import { container, title, subtitle, subtitleElem, actionButtonContainer, spacer, tableSpacer, sectionTitle } from './styles.css'
 import { btnBlue, btnGray } from 'sharedStyles/buttons.css'
 
-function ExpenseSection ({title}) {
-  return (
-    <div>
-      <div className={expenseTitle}>
-        {title}
-      </div>
-      <ExpenseTableContainer />
-    </div>
-  )
-}
-
-export default function Expenses (props) {
+export default function RentRoll (props) {
   return (
     <div className={container}>
       <div>
@@ -29,10 +18,21 @@ export default function Expenses (props) {
       <div className={actionButtonContainer}>
         <Button className={btnGray}>{'Cancel'}</Button>
         <div className={spacer}></div>
-        <Button className={btnBlue}>{'Go to rent roll'}</Button>
+        <Button className={btnBlue}>{'Go to property'}</Button>
       </div>
       <div>
-        <ExpenseSection title={'Reimbursable Expenses'} />
+        <div className={sectionTitle}>
+          {'Market Leasing Assumptions'}
+        </div>
+        <MLATableContainer />
+      </div>
+      <div className={tableSpacer}>
+      </div>
+      <div>
+        <div className={sectionTitle}>
+          {'Rent Roll'}
+        </div>
+        <RentRollTableContainer />
       </div>
     </div>
   )

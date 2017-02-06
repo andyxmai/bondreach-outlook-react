@@ -14,3 +14,6 @@ export LeftPaneAssumptionsContainer from './LeftPaneAssumptions/LeftPaneAssumpti
 export NewPropertyContainer from './NewProperty/NewPropertyContainer'
 export ExpensesContainer from './Expenses/ExpensesContainer'
 export ExpenseTableContainer from './ExpenseTable/ExpenseTableContainer'
+export RentRollContainer from './RentRoll/RentRollContainer'
+export MLATableContainer from './MLATable/MLATableContainer'
+export RentRollTableContainer from './RentRollTable/RentRollTableContainer'
