@@ -9,7 +9,7 @@
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-  padding-top: 20px;
+  padding: 20px 0px;
 }
 
 .formLabel {

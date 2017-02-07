@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import ReactDataGrid from 'react-data-grid'
 import { Form, FormGroup, FormControl, ControlLabel, Col, Panel, Button } from 'react-bootstrap'
 import { container, title, toggleContainer, formLabel, tableHeaderContainer } from './styles.css'
-import { btnGreen } from 'sharedStyles/buttons.css'
+import { btnGreen, btnGray, btnGrayInverse } from 'sharedStyles/buttons.css'
 
 const { Row } = ReactDataGrid
 const RowRenderer = React.createClass({
@@ -78,19 +78,10 @@ export default function Home (props) {
     <div className={container}>
       <div className={toggleContainer}>
         <div>
-          <Form horizontal>
-            <FormGroup controlId="formHorizontalEmail">
-              <Col componentClass={ControlLabel} sm={4} className={formLabel}>
-                {'Unit:'}
-              </Col>
-              <Col sm={8}>
-                <FormControl componentClass="select" placeholder="select">
-                  <option value="nominal">{'Nominal'}</option>
-                  <option value="sqft">{'Per Sqft'}</option>
-                </FormControl>
-              </Col>
-            </FormGroup>
-          </Form>
+          <ButtonGroup>
+            <Button bsSize="small" className={btnGrayInverse}>Nominal</Button>
+            <Button bsSize="small" className={btnGray}>Per Sqft</Button>
+          </ButtonGroup>
         </div>
       </div>
       <Panel>
