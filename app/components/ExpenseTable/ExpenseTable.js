@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import ReactDataGrid from 'react-data-grid'
 import { Editors, Toolbar, Formatters }  from 'react-data-grid-addons'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
-import { NewExpenseAmountModal } from 'components'
+import { NewExpenseAmountModalContainer } from 'containers'
 
 export default function ExpenseTable (props) {
   const rowHeight = 35
@@ -16,9 +16,11 @@ export default function ExpenseTable (props) {
 
   return (
     <div>
-      <NewExpenseAmountModal
+      <NewExpenseAmountModalContainer
         amountModalOpened={props.amountModalOpened}
         closeModal={props.closeModal}
+        selectedExpenseName={props.selectedExpenseName}
+        handleDetailAdded={props.handleDetailAdded}
       />
       <ReactDataGrid
         columns={props.columns}

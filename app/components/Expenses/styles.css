@@ -34,3 +34,43 @@
 .section {
   padding: 20px 0px;
 }
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* New Expense Modal */
+.modalHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.modalTitle {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px 0px
+}
+
+.formLabel {
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.formGroup {
+  padding: 10px 0px;
+}
+
+.detailTable {
+  padding: 10px;
+}
+
+.pointer {
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+}
