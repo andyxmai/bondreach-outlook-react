@@ -45,7 +45,7 @@ export default function NewExpenseAmountModal (props) {
       <div>
         <form>
           <Row className={formGroup}>
-            <FormGroup>
+            <FormGroup bsSize="large">
               <Col sm={8} smOffset={2}>
                 <div><ControlLabel className={formLabel}>{'Type'}</ControlLabel></div>
                 <Radio name='amountType' value='simple' checked={props.amountType === 'simple'} inline onChange={props.onTypeChange}>
@@ -61,7 +61,7 @@ export default function NewExpenseAmountModal (props) {
           { props.amountType === 'simple'
             ? <div>
                 <Row className={formGroup}>
-                  <FormGroup controlId="formBasicText">
+                  <FormGroup controlId="formBasicText" bsSize="large">
                     <Col sm={4} smOffset={2}>
                       <ControlLabel className={formLabel}>{'Amount'}</ControlLabel>
                       <Cleave placeholder='Enter amount' className="form-control"
@@ -80,7 +80,7 @@ export default function NewExpenseAmountModal (props) {
                   </FormGroup>
                 </Row>
                 <Row className={formGroup}>
-                  <FormGroup>
+                  <FormGroup bsSize="large">
                     <Col sm={4} smOffset={2}>
                       <ControlLabel className={formLabel}>{'Frequency'}</ControlLabel>
                       <FormControl componentClass="select" placeholder="select frequency" value={props.frequency} onChange={props.handleFrequencyChanged}>

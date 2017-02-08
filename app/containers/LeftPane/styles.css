@@ -1,5 +1,5 @@
 .container {
-  overflow-y: scroll; 
+  overflow-y: scroll;
 }
 
 .header {
@@ -12,4 +12,8 @@
 .rightIcon {
   width: 20px;
   height: 20px;
+}
+
+.buttons {
+  padding: 20px 10px;
 }

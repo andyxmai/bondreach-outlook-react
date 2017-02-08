@@ -1,7 +1,9 @@
 import React, {PropTypes} from 'react'
 import { LeftPanePropertyContainer, LeftPaneAssumptionsContainer } from 'containers'
 import { LeftPaneTextSection, LeftPaneButtonSection, LeftPaneProperty, LeftPaneAssumptions,  } from 'components'
-import { container, header } from './styles.css'
+import { Button } from 'react-bootstrap'
+import { container, header, buttons } from './styles.css'
+import { btnGreen } from 'sharedStyles/buttons.css'
 
 const LeftPaneContainer = React.createClass({
   contextTypes: {
@@ -41,7 +43,9 @@ const LeftPaneContainer = React.createClass({
           handleTextSectionHeaderClick={this.goToExpenses} />
         <LeftPaneTextSection title={'Market Leasing Assumptions & Rent Roll'}
           handleTextSectionHeaderClick={this.gotoRentRoll} />
-        <LeftPaneButtonSection />
+        <div className={buttons}>
+          <Button bsSize="large" block className={btnGreen}>{'Analyze'}</Button>
+        </div>
       </div>
     )
   }

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { Panel, Form, FormGroup, FormControl, Col, ControlLabel, InputGroup, Button } from 'react-bootstrap'
 import { container, title, formLabel, formHeader } from './styles.css'
 import { btnBlue } from 'sharedStyles/buttons.css'
+import Cleave from 'cleave.js/dist/cleave-react'
 
 export default function NewProperty (props) {
   return (
@@ -67,7 +68,9 @@ export default function NewProperty (props) {
               </Col>
               <Col sm={4}>
                 <InputGroup>
-                  <FormControl type="text" placeholder="" />
+                  <Cleave className="form-control"
+                    options={ {numeral: true, numeralThousandsGroupStyle: 'thousand'} }
+                  />
                   <InputGroup.Addon>sqft</InputGroup.Addon>
                 </InputGroup>
               </Col>
@@ -80,7 +83,9 @@ export default function NewProperty (props) {
               <Col sm={6}>
                 <InputGroup>
                   <InputGroup.Addon>$</InputGroup.Addon>
-                  <FormControl type="text" placeholder="" />
+                  <Cleave className="form-control"
+                    options={ {numeral: true, numeralThousandsGroupStyle: 'thousand'} }
+                  />
                 </InputGroup>
               </Col>
             </FormGroup>
@@ -92,8 +97,10 @@ export default function NewProperty (props) {
               <Col componentClass={ControlLabel} sm={3}>
                 <span className={formLabel}>{'Analysis start date'}</span>
               </Col>
-              <Col sm={4}>
-                <FormControl type="text" placeholder="" />
+              <Col sm={3}>
+              <Cleave className="form-control" placeholder="MM/YYYY"
+                options={{date: true, datePattern: ['m', 'Y']}}
+              />
               </Col>
             </FormGroup>
 
@@ -101,8 +108,10 @@ export default function NewProperty (props) {
               <Col componentClass={ControlLabel} sm={3}>
                 <span className={formLabel}>{'End date'}</span>
               </Col>
-              <Col sm={4}>
-                <FormControl type="text" placeholder="" />
+              <Col sm={3}>
+                <Cleave className="form-control" placeholder="MM/YYYY"
+                  options={{date: true, datePattern: ['m', 'Y']}}
+                />
               </Col>
             </FormGroup>
             <br/>
@@ -115,7 +124,9 @@ export default function NewProperty (props) {
               </Col>
               <Col sm={3}>
                 <InputGroup>
-                  <FormControl type="text" placeholder="" />
+                  <Cleave className="form-control"
+                    options={ {numeral: true, numeralThousandsGroupStyle: 'thousand'} }
+                  />
                   <InputGroup.Addon>%</InputGroup.Addon>
                 </InputGroup>
               </Col>
@@ -127,7 +138,9 @@ export default function NewProperty (props) {
               </Col>
               <Col sm={3}>
                 <InputGroup>
-                  <FormControl type="text" placeholder="" />
+                  <Cleave className="form-control"
+                    options={ {numeral: true, numeralThousandsGroupStyle: 'thousand'} }
+                  />
                   <InputGroup.Addon>%</InputGroup.Addon>
                 </InputGroup>
               </Col>
@@ -139,7 +152,9 @@ export default function NewProperty (props) {
               </Col>
               <Col sm={3}>
                 <InputGroup>
-                  <FormControl type="text" placeholder="" />
+                  <Cleave className="form-control"
+                    options={ {numeral: true, numeralThousandsGroupStyle: 'thousand'} }
+                  />
                   <InputGroup.Addon>%</InputGroup.Addon>
                 </InputGroup>
               </Col>
