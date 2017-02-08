@@ -36,6 +36,11 @@ export default function Expenses (props) {
           <ExpenseSection title={'Reimbursable Expenses'} />
         </Panel>
       </div>
+      <div className={section}>
+        <Panel>
+          <ExpenseSection title={'Capital Expenditures'} />
+        </Panel>
+      </div>
     </div>
   )
 }

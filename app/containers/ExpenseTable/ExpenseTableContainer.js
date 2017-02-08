@@ -37,10 +37,11 @@ const ExpenseTableContainer = React.createClass({
   },
 
   handleDetailAdded (amountDetail) {
+    var amountDisplayNamme = 'detail'
     if (amountDetail.amountType === 'simple') {
       amountDisplayNamme = `${amountDetail.amount} ${amountDetail.unit} ${amountDetail.frequency}`
     }
-
+    
     { /* TODO (Andy): remove this when switching to redux */ }
     var stateCopy = Object.assign({}, this.state);
     const key = this.state.selectedExpenseIndex
