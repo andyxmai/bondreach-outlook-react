@@ -4,10 +4,10 @@ import { Toolbar }  from 'react-data-grid-addons'
 import { RentRollModalContainer } from 'containers'
 
 
-export default function ExpenseTable (props) {
+export default function RentRollTable (props) {
   const rowHeight = 35
   function getHeight () {
-    return rowHeight * (props.rows.length + 1) + 1  // cell height + border height
+    return rowHeight * (props.rows.length + 1) + 2  // cell height + border height
   }
 
   function rowGetter (i) {
@@ -20,8 +20,9 @@ export default function ExpenseTable (props) {
         isModalOpened={props.isModalOpened}
         closeModal={props.closeModal}
         handleReimbursementsSubmission={props.handleReimbursementsSubmission}
-        reimbursementsType={props.selectedReimbursementsType}
-        reimbursements={props.selectedReimbursements}
+        handleLeasingCostsSubmission={props.handleLeasingCostsSubmission}
+        selectedTenant={props.selectedTenant}
+        selectedColumnKey={props.selectedColumnKey}
         />
       <ReactDataGrid
         columns={props.columns}

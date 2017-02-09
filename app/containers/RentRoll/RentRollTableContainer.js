@@ -55,8 +55,8 @@ const displayNameMap ={
 const RentRollTableContainer = React.createClass({
   getInitialState () {
     return {
-      columns: [  // get it from props
-        { key: 'tenant', name: 'Tenant', editable: true, width: 200 },
+      columns: [  // get it from props; TODO (Andy): create constants for these keys
+        { key: 'name', name: 'Tenant', editable: true, width: 200 },
         { key: 'leaseType', name: 'Type', editable: true, width: 100, editor: LeaseTypesEditor, formatter: LeaseTypesFormatter },
         { key: 'leaseStatus', name: 'Status', width: 100, editable: false, modal: true, editor: LeaseStatusEditor, formatter: LeaseStatusFormatter },
         { key: 'size', name: 'Size (sqft)', width: 100, editable: true, },
@@ -64,16 +64,16 @@ const RentRollTableContainer = React.createClass({
         { key: 'term', name: 'Term', width: 100, editable: true, },
         { key: 'baseRent', name: 'Base Rent', width: 100, editable: true, },
         { key: 'baseRentUnit', name: 'Unit', width: 100, editable: true, editor: BaseRentUnitEditor, formatter: BaseRentUnitFormatter },
-        { key: 'reimbursementsDisplayName', name: 'Reimbursements', width: 200, editable: true, },
+        { key: 'reimbursementsDisplayName', name: 'Reimbursements', width: 200, editable: false, },
         { key: 'rentAbatement', name: 'Rent Abatement', width: 200, editable: true, },
-        { key: 'leasingCost', name: 'Leasing Cost', width: 150, editable: true, },
+        { key: 'leasingCostDisplayName', name: 'Leasing Cost', width: 175, editable: false, },
         { key: 'marketingLeasing', name: 'Market Leasing', width: 150, editable: true, editor: MarketLeasingAssumptionEditor, formatter: MarketLeasingAssumptionFormatter },
         { key: 'uponExpiration', name: 'Upon Expiration', width: 250, editable: true, editor: UponExpirationEditor, formatter: UponExpirationFormatter },
       ],
       tenants: [  // get it from props
         {
           id: 0,
-          tenant: 'DoorDash',
+          name: 'DoorDash',
           leaseType: 'NNN',
           leaseStatus: 'Contract',
           size: 50000,
@@ -82,12 +82,17 @@ const RentRollTableContainer = React.createClass({
           reimbursementsDisplayName: 'Base Year',
           reimbursementsType: 'baseYear',
           reimbursements: '',
+          leasingCostDisplayName: '2.50/sqft; 5 percent',
+          leasingCostTenantImprovements: '2.50',
+          leasingCostTenantImprovementsUnit: 'sqft',
+          leasingCostLeasingCommissions: '5',
+          leasingCostLeasingCommissionsUnit: 'percent',
         },
       ],
       isModalOpened: false,
       selectedTenantIndex: '',
-      selectedReimbursementsType: '',
-      selectedReimbursements: '',
+      selectedColumnKey: '',
+      selectedTenant: {},
     }
   },
 
@@ -98,7 +103,7 @@ const RentRollTableContainer = React.createClass({
   handleAddRow ({ newRowIndex }) {
     const newRow = {
       id: newRowIndex,
-      tenant: '',
+      name: '',
       leaseType: '',
       leaseStatus: '',
       size: '',
@@ -110,15 +115,14 @@ const RentRollTableContainer = React.createClass({
   },
 
   onCellSelected ({ rowIdx, idx }) {
-    if (this.state.columns[idx].key === 'leasingCost') {  // open leasing cost modal
-      this.setState({isModalOpened: true})
+    if (this.state.columns[idx].key === 'leasingCostDisplayName') {  // open leasing cost modal
+      this.setState({isModalOpened: true, selectedColumnKey: 'leasingCostDisplayName'})
     } else if (this.state.columns[idx].key === 'reimbursementsDisplayName') {
-      this.setState({isModalOpened: true})
+      this.setState({isModalOpened: true, selectedColumnKey: 'reimbursementsDisplayName'})
     }
     this.setState({
       selectedTenantIndex: rowIdx,
-      selectedReimbursements: this.state.tenants[rowIdx].reimbursements,
-      selectedReimbursementsType: this.state.tenants[rowIdx].reimbursementsType,
+      selectedTenant: this.state.tenants[rowIdx],
     })
   },
 
@@ -141,6 +145,23 @@ const RentRollTableContainer = React.createClass({
     this.setState(stateCopy)
   },
 
+  handleLeasingCostsSubmission ({leasingCostTenantImprovements, leasingCostTenantImprovementsUnit, leasingCostLeasingCommissions, leasingCostLeasingCommissionsUnit}) {
+    console.log('leasing costs submitted');
+    const leasingCostDisplayName = `${leasingCostTenantImprovements}/${leasingCostTenantImprovementsUnit}; ${leasingCostLeasingCommissions} ${leasingCostLeasingCommissionsUnit}`
+    { /* TODO (Andy): remove this when switching to redux */ }
+    var stateCopy = Object.assign({}, this.state)
+    const key = this.state.selectedTenantIndex
+    stateCopy.tenants = stateCopy.tenants.slice()
+    stateCopy.tenants[key] = Object.assign({}, stateCopy.tenants[key])
+    stateCopy.tenants[key].leasingCostDisplayName = leasingCostDisplayName
+    stateCopy.tenants[key].leasingCostTenantImprovements = leasingCostTenantImprovements
+    stateCopy.tenants[key].leasingCostTenantImprovementsUnit = leasingCostTenantImprovementsUnit
+    stateCopy.tenants[key].leasingCostLeasingCommissions = leasingCostLeasingCommissions
+    stateCopy.tenants[key].leasingCostLeasingCommissionsUnit = leasingCostLeasingCommissionsUnit
+    stateCopy.isModalOpened = false
+    this.setState(stateCopy)
+  },
+
   render () {
     return (
       <RentRollTable
@@ -152,8 +173,9 @@ const RentRollTableContainer = React.createClass({
         isModalOpened={this.state.isModalOpened}
         closeModal={this.closeModal}
         handleReimbursementsSubmission={this.handleReimbursementsSubmission}
-        selectedReimbursements={this.state.selectedReimbursements}
-        selectedReimbursementsType={this.state.selectedReimbursementsType}
+        handleLeasingCostsSubmission={this.handleLeasingCostsSubmission}
+        selectedTenant={this.state.selectedTenant}
+        selectedColumnKey={this.state.selectedColumnKey}
        />
     )
   }

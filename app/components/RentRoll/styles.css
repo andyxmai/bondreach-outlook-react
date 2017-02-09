@@ -56,7 +56,19 @@
     padding: 10px 0px;
 }
 
+.multiLabelFormGroup {
+  padding: 10px 0px;
+  padding-left: 60px;
+}
+
 .formLabel {
   font-weight: bold;
   font-size: 15px;
+}
+
+.formSubLabel {
+  font-size: 14px;
+  font-weight: normal;
+  color: #6E7777;
+  margin-bottom: 0px;
 }
