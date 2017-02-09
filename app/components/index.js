@@ -13,12 +13,18 @@ export LeftPaneProperty from './LeftPaneProperty/LeftPaneProperty'
 export LeftPaneAssumptions from './LeftPaneAssumptions/LeftPaneAssumptions'
 export LeftPaneTextSection from './LeftPaneTextSection/LeftPaneTextSection'
 export NewProperty from './NewProperty/NewProperty'
+
 export Expenses from './Expenses/Expenses'
 export ExpenseTable from './Expenses/ExpenseTable'
 export NewExpenseAmountModal from './Expenses/NewExpenseAmountModal'
+
 export RentRoll from './RentRoll/RentRoll'
 export RentRollTable from './RentRoll/RentRollTable'
+export RentRollModal from './RentRoll/RentRollModal'
+
 export MLATable from './MLATable/MLATable'
+export NewMLAModal from './MLATable/NewMLAModal'
+
 export Property from './Property/Property'
 export CashflowTable from './CashflowTable/CashflowTable'
 export TenantCashflowTable from './TenantCashflowTable/TenantCashflowTable'

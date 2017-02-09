@@ -10,12 +10,18 @@ export DuckDetailsContainer from './DuckDetails/DuckDetailsContainer'
 export RepliesContainer from './Replies/RepliesContainer'
 export LeftPaneContainer from './LeftPane/LeftPaneContainer'
 export NewPropertyContainer from './NewProperty/NewPropertyContainer'
+
 export ExpensesContainer from './Expenses/ExpensesContainer'
 export NewExpenseAmountModalContainer from './Expenses/NewExpenseAmountModalContainer'
 export ExpenseTableContainer from './Expenses/ExpenseTableContainer'
+
 export RentRollContainer from './RentRoll/RentRollContainer'
 export RentRollTableContainer from './RentRoll/RentRollTableContainer'
+export RentRollModalContainer from './RentRoll/RentRollModalContainer'
+
 export MLATableContainer from './MLATable/MLATableContainer'
+export NewMLAModalContainer from './MLATable/NewMLAModalContainer'
+
 export PropertyContainer from './Property/PropertyContainer'
 export CashflowTableContainer from './CashflowTable/CashflowTableContainer'
 export TenantCashflowsContainer from './TenantCashflows/TenantCashflowsContainer'

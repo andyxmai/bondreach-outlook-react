@@ -62,7 +62,7 @@ export default function Home (props) {
 
   const rowHeight = 35
   function getHeight () {
-    return rowHeight * (rows.length + 1) + 2  // cell height + border height
+    return rowHeight * (rows.length + 1) + 1  // cell height + border height
   }
 
   function rowGetter (i) {

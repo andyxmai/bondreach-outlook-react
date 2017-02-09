@@ -1,9 +1,15 @@
 .container {
-  padding: 40px;
+  padding: 20px 40px;
+}
+
+.propertyInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .title {
-  font-size: 36px;
 }
 
 .subtitle {
@@ -11,14 +17,21 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  font-size: 12px;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 600px;
 }
 
 .subtitleElem {
-  margin-right: 20px;
+  margin-left: 10px;
+  color: #6E7777;
 }
 
 .tabsContainer {
-  padding-top: 40px;
+  padding-top: 25px;
 }
 
 .tab {

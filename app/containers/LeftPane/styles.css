@@ -1,5 +1,9 @@
 .container {
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height:100%
 }
 
 .header {
@@ -16,4 +20,9 @@
 
 .buttons {
   padding: 20px 10px;
+}
+
+.bottomButtons {
+  padding: 0px 10px;
+  padding-bottom: 70px;
 }

@@ -1,9 +1,8 @@
 .container {
-  padding: 40px;
+  padding: 20px 40px;
 }
 
 .title {
-  font-size: 36px;
 }
 
 .subtitle {
@@ -11,10 +10,24 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  font-size: 12px;
+}
+
+.propertyInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 600px;
 }
 
 .subtitleElem {
-  margin-right: 20px;
+  margin-left: 10px;
+  color: #6E7777;
 }
 
 .actionButtonContainer {
@@ -34,6 +47,7 @@
 .section {
   padding: 20px 0px;
 }
+
 .buttons {
   display: flex;
   flex-direction: row;
@@ -43,20 +57,6 @@
 }
 
 /* New Expense Modal */
-.modalHeader {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.modalTitle {
-  font-size: 24px;
-  font-weight: 600;
-  text-align: center;
-  padding: 20px 0px;
-}
-
 .formLabel {
   font-weight: normal;
   font-size: 16px;
@@ -68,10 +68,4 @@
 
 .detailTable {
   padding: 10px;
-}
-
-.pointer {
-  cursor: pointer;
-  display: flex;
-  justify-content: flex-end;
 }

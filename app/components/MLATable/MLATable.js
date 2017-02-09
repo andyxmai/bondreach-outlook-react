@@ -1,37 +1,35 @@
 import React, { PropTypes } from 'react'
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import ReactDataGrid from 'react-data-grid'
+import { Toolbar }  from 'react-data-grid-addons'
+import { NewMLAModalContainer } from 'containers'
 
 export default function MLATable (props) {
-  var expenses = [{
-      id: 1,
-      name: 'Market',
-      renewal: '75%',
-  }]
-  const frequencyTypes = [ 'Yearly', 'Monthly' ]
-
-  const options = {
-    insertText: 'Add assumption',
-    saveText: 'Add assumption',
-    closeText: 'Cancel'
+  const rowHeight = 35
+  function getHeight () {
+    return rowHeight * (props.rows.length + 1) + 1  // cell height + border height
   }
 
-  function numberValidator(value) {
-    const nan = isNaN(parseInt(value, 10))
-    if (nan) {
-      return 'Input must be a integer!'
-    }
-    return true
+  function rowGetter (i) {
+    return props.rows[i]
   }
-
   return (
     <div>
-      <BootstrapTable data={expenses} options={ options }
-        insertRow
-        bordered={ false }
-        >
-          <TableHeaderColumn dataField='name' isKey>Name</TableHeaderColumn>
-          <TableHeaderColumn dataField='renewal' editable={ { validator: numberValidator } }>Renewal Probability</TableHeaderColumn>
-      </BootstrapTable>
+      <NewMLAModalContainer
+        isModalOpened={props.isModalOpened}
+        closeModal={props.closeModal}
+        handleAssumptionSaved={props.handleAssumptionSaved}
+        selectedAssumption={props.selectedAssumption}
+      />
+      <ReactDataGrid
+        columns={props.columns}
+        rowGetter={rowGetter}
+        rowsCount={props.rows.length}
+        rowHeight={rowHeight}
+        minHeight={getHeight()}
+        enableCellSelect={true}
+        onCellSelected={props.onCellSelected}
+        toolbar={<Toolbar onAddRow={props.handleAddRow}/>}
+        />
     </div>
   )
 }

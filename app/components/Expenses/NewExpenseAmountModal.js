@@ -4,8 +4,9 @@ import ReactDataGrid from 'react-data-grid'
 import FaClose from 'react-icons/lib/fa/close'
 import { FormGroup, FormControl, ControlLabel, Radio, Col, Row, ButtonToolbar, Button } from 'react-bootstrap'
 import Cleave from 'cleave.js/dist/cleave-react'
-import { container, modalHeader, modalTitle, buttons, formLabel, formGroup, detailTable, pointer } from './styles.css'
+import { container, buttons, formLabel, formGroup, detailTable } from './styles.css'
 import { btnBlue } from 'sharedStyles/buttons.css'
+import { modalTitle, pointer } from 'sharedStyles/styles.css'
 
 const modalStyles = {
   content: {
