@@ -24,4 +24,5 @@ export NewMLAModalContainer from './MLATable/NewMLAModalContainer'
 
 export PropertyContainer from './Property/PropertyContainer'
 export CashflowTableContainer from './CashflowTable/CashflowTableContainer'
+export CashflowExplanationContainer from './CashflowTable/CashflowExplanationContainer'
 export TenantCashflowsContainer from './TenantCashflows/TenantCashflowsContainer'

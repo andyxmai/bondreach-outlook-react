@@ -27,4 +27,7 @@ export NewMLAModal from './MLATable/NewMLAModal'
 
 export Property from './Property/Property'
 export CashflowTable from './CashflowTable/CashflowTable'
+export CashflowExplanation from './CashflowTable/CashflowExplanation'
+export CashflowExplanationCalculation from './CashflowTable/CashflowExplanationCalculation'
+export CashflowExplanationCashflows from './CashflowTable/CashflowExplanationCashflows'
 export TenantCashflowTable from './TenantCashflowTable/TenantCashflowTable'

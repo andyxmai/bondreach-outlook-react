@@ -3,6 +3,9 @@
   padding: 10px 0px;
 }
 
+.subtitle {
+}
+
 .toggleContainer {
   display: flex;
   flex-direction: row;
@@ -21,4 +24,25 @@
   flex-direction: row;
   justify-content: space-between;
   padding-bottom: 10px;
+}
+
+.equation {
+  font-weight: 600;
+  font-size: 18px;
+  padding-bottom: 8px;
+}
+
+.formula {
+  color: #6E7777;
+}
+
+.totalContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 5px;
+}
+
+.center {
+  text-align: center;
 }
