@@ -23,8 +23,8 @@
 .tableHeaderContainer {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding-bottom: 10px;
+  justify-content: flex-end;
+  padding: 10px 0px;
 }
 
 .equation {

@@ -20,7 +20,7 @@ const modalStyles = {
     padding: 20,
   },
   overlay : {
-    backgroundColor: 'rgba(28, 28, 28, 0.75)'
+    backgroundColor: 'rgba(0,0,0,.6)'
   },
 }
 
@@ -67,7 +67,7 @@ export default function NewMLAModal (props) {
               </Col>
             </FormGroup>
           </Row>
-          
+
           <Row className={formGroup}>
             <FormGroup controlId="formBasicText">
               <div className={formLabel}>{'Renewal probability'}</div>
@@ -138,7 +138,7 @@ export default function NewMLAModal (props) {
 
           <Row className={formGroup}>
             <FormGroup controlId="formBasicText">
-              <div className={formLabel}>{'Tenant improvement'}</div>
+              <div className={formLabel}>{'Tenant improvements'}</div>
               <Col sm={3}>
                 <ControlLabel className={formSubLabel}>{'new'}</ControlLabel>
                 <InputGroup>

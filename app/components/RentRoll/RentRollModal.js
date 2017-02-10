@@ -21,7 +21,7 @@ const modalStyles = {
     padding: 20,
   },
   overlay : {
-    backgroundColor: 'rgba(28, 28, 28, 0.75)'
+    backgroundColor: 'rgba(0,0,0,.6)'
   },
 }
 

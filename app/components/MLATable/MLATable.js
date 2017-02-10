@@ -4,9 +4,9 @@ import { Toolbar }  from 'react-data-grid-addons'
 import { NewMLAModalContainer } from 'containers'
 
 export default function MLATable (props) {
-  const rowHeight = 35
+  const rowHeight = 45
   function getHeight () {
-    return rowHeight * (props.rows.length + 1) + 1  // cell height + border height
+    return rowHeight * (props.rows.length + 1) + 2  // cell height + border height
   }
 
   function rowGetter (i) {

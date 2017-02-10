@@ -5,9 +5,9 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { NewExpenseAmountModalContainer } from 'containers'
 
 export default function ExpenseTable (props) {
-  const rowHeight = 35
+  const rowHeight = 45
   function getHeight () {
-    return rowHeight * (props.rows.length + 1) + 1  // cell height + border height
+    return rowHeight * (props.rows.length + 1) + 2  // cell height + border height
   }
 
   function rowGetter (i) {

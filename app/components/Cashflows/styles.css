@@ -39,29 +39,6 @@
   color: inherit;
 }
 
-.section {
-  padding: 20px 0px;
-}
-
-.sectionTitle {
-  font-weight: 600;
-}
-
-.form {
-
-}
-
-.horizontalForms {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.horizontalForm {
-  margin: auto;
-}
-
 .headerContainer {
   display: flex;
   flex-direction: row;

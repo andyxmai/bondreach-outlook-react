@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import ReactDataGrid from 'react-data-grid'
-import { Form, FormGroup, FormControl, ControlLabel, Col, Panel, Button } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, ControlLabel, Col, Button } from 'react-bootstrap'
 import { container, title, toggleContainer, formLabel, tableHeaderContainer, note } from './styles.css'
 import { btnGreen, btnGray, btnGrayInverse } from 'sharedStyles/buttons.css'
 
@@ -48,33 +48,28 @@ export default function CashflowTable (props) {
 
   return (
     <div className={container}>
-      <div className={toggleContainer}>
+      {/*<div className={toggleContainer}>
         <div>
           <ButtonGroup>
             <Button bsSize="small" className={btnGrayInverse}>Nominal</Button>
             <Button bsSize="small" className={btnGray}>Per Sqft</Button>
           </ButtonGroup>
         </div>
+      </div>*/}
+      <div className={tableHeaderContainer}>
+        <Button className={btnGreen}>{'Export CSV'}</Button>
       </div>
-      <Panel>
-        <div className={tableHeaderContainer}>
-          <div className={title}>
-            {'Cashflows'}
-          </div>
-          <Button className={btnGreen}>{'Export CSV'}</Button>
-        </div>
-        <div className={note}>{'*Note:* click on any number in base rental revenue, insurance reimbursements, or insurance costs lines and scroll down to see detailed calculations'}</div>
-        <ReactDataGrid
-          columns={props.columns}
-          rowGetter={rowGetter}
-          rowsCount={props.rows.length}
-          rowHeight={rowHeight}
-          minHeight={getHeight()}
-          onCellSelected={props.onCellSelected}
-          onCellDeSelected={props.onCellDeSelected}
-          rowRenderer={RowRenderer}
-          />
-        </Panel>
+      <div className={note}>{'*Note:* click on any number in base rental revenue, insurance reimbursements, or insurance costs lines and scroll down to see detailed calculations'}</div>
+      <ReactDataGrid
+        columns={props.columns}
+        rowGetter={rowGetter}
+        rowsCount={props.rows.length}
+        rowHeight={rowHeight}
+        minHeight={getHeight()}
+        onCellSelected={props.onCellSelected}
+        onCellDeSelected={props.onCellDeSelected}
+        rowRenderer={RowRenderer}
+        />
     </div>
   )
 }

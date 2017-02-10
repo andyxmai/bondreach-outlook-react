@@ -21,8 +21,9 @@
 }
 
 .pageTitle {
-  font-size: 24px;
-  font-weight: 600px;
+  font-size: 28px;
+  font-weight: 600;
+  padding: 8px 0px;
 }
 
 .subtitleElem {

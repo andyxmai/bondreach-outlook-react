@@ -44,6 +44,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .selectField {
   font-size: 14px;
+  height: 50px;
 }
 
 /* Overriding styling from modules */

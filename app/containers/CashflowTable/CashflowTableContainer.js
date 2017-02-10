@@ -95,6 +95,7 @@ const CashflowTableContainer = React.createClass({
           onCellSelected={this.onCellSelected}
           onCellDeSelected={this.onCellDeSelected}
         />
+        <br/>
         { this.state.showCalculation
           ? <CashflowExplanationContainer
               rowSelected={this.state.rowSelected}

@@ -9,10 +9,12 @@ export Duck from './Duck/Duck'
 export User from './User/User'
 export DuckDetails from './DuckDetails/DuckDetails'
 export Replies from './Replies/Replies'
-export LeftPaneProperty from './LeftPaneProperty/LeftPaneProperty'
-export LeftPaneAssumptions from './LeftPaneAssumptions/LeftPaneAssumptions'
+
 export LeftPaneTextSection from './LeftPaneTextSection/LeftPaneTextSection'
+
 export NewProperty from './NewProperty/NewProperty'
+
+export Cashflows from './Cashflows/Cashflows'
 
 export Expenses from './Expenses/Expenses'
 export ExpenseTable from './Expenses/ExpenseTable'

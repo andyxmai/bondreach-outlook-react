@@ -12,7 +12,7 @@ Navigation.propTypes = ActionLinks.propTypes = NavLinks.propTypes = {
 function NavLinks ({isAuthed}) {
   return isAuthed === true
     ? <ul>
-        <li><Link className={link} to='/'>{'CommercialRE'}</Link></li>
+        <li><Link className={link} to='/'>{'ClearCrunch'}</Link></li>
       </ul>
     : null
 }
@@ -33,7 +33,7 @@ export default function Navigation ({isAuthed}) {
   return (
     <div className={container}>
       <nav className={navContainer}>
-        <Link className={link} to='/'>{'CommercialRE'}</Link>
+        <Link className={link} to='/'>{'ClearCrunch'}</Link>
         {/* <NavLinks isAuthed={isAuthed}/>
         <ActionLinks isAuthed={isAuthed}/> */}
         <Button bsSize="large" className={btnRed}>{'New Property'}</Button>

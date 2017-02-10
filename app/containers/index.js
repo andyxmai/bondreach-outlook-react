@@ -11,6 +11,8 @@ export RepliesContainer from './Replies/RepliesContainer'
 export LeftPaneContainer from './LeftPane/LeftPaneContainer'
 export NewPropertyContainer from './NewProperty/NewPropertyContainer'
 
+export CashflowsContainer from './Cashflows/CashflowsContainer'
+
 export ExpensesContainer from './Expenses/ExpensesContainer'
 export NewExpenseAmountModalContainer from './Expenses/NewExpenseAmountModalContainer'
 export ExpenseTableContainer from './Expenses/ExpenseTableContainer'

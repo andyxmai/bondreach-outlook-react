@@ -5,7 +5,7 @@ import { RentRollModalContainer } from 'containers'
 
 
 export default function RentRollTable (props) {
-  const rowHeight = 35
+  const rowHeight = 45
   function getHeight () {
     return rowHeight * (props.rows.length + 1) + 2  // cell height + border height
   }

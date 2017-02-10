@@ -163,7 +163,7 @@ export default function NewProperty (props) {
 
             <FormGroup>
               <Col smOffset={6} sm={3}>
-                <Button type="submit" bsSize="large" className={btnBlue} block>
+                <Button type="submit" bsSize="large" className={btnBlue} block onClick={props.handleSubmit}>
                   {'Add expenses'}
                 </Button>
               </Col>

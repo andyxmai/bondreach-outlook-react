@@ -12,8 +12,16 @@ LeftPaneTextSection.propTypes = {
 export default function LeftPaneTextSection (props) {
   return (
     <div className={container} onClick={props.handleTextSectionHeaderClick}>
-      <Col sm={10}><div className={title}>{props.title}</div></Col>
-      <Col sm={2}><FaAngleRight className={rightIcon} /></Col>
+      { props.isActive
+        ? <b>
+            <Col sm={10}><div className={title}>{props.title}</div></Col>
+            <Col sm={2}><FaAngleRight className={rightIcon} /></Col>
+          </b>
+        : <div>
+            <Col sm={10}><div className={title}>{props.title}</div></Col>
+            <Col sm={2}><FaAngleRight className={rightIcon} /></Col>
+          </div>
+      }
     </div>
   )
 }

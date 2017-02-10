@@ -3,14 +3,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height:100%
+  height:100%;
+  color: #6e7777;
 }
 
 .header {
-  font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: bold;
   padding: 20px;
-  padding-bottom: 0px;
+  padding-bottom: 5px;
+  color: #464646;
 }
 
 .rightIcon {
@@ -25,4 +27,28 @@
 .bottomButtons {
   padding: 0px 10px;
   padding-bottom: 70px;
+}
+
+.propertyInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.subtitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: 12px;
+}
+
+.subtitleElem {
+  margin-right: 10px;
+  color: #6E7777;
 }
