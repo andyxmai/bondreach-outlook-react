@@ -4,6 +4,7 @@
 }
 
 .subtitle {
+  padding-top: 15px;
 }
 
 .toggleContainer {
@@ -45,4 +46,9 @@
 
 .center {
   text-align: center;
+}
+
+.note {
+  font-style: italic;
+  font-size: 12px;
 }
