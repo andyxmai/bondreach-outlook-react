@@ -8,17 +8,17 @@ export default function CashflowExplanationCalculation (props) {
       <div>
         <div className={subtitle}>{'Calculations'}</div>
         <Panel>
-        { Object.keys(props.selectedCashflowExplanationCell).length !== 0 && props.selectedCashflowExplanationCell.constructor === Object
+        { props.showExplanationCalculation === true
           ? <div>
               <div className={equation}>
-                {'2,575,000 = 2,500,000 + (2,500,000 * 0.03)'}
+                {props.explanationCalculation.equation}
               </div>
               <div className={formula}>
-                {'01/2019 rent = 01/2018 rent + (01/2018 rent * rent growth)'}
+                {props.explanationCalculation.formula}
               </div>
             </div>
           : <div className={center}>
-              {'Click on a number in the cashflow table below to see detailed calculation'}
+              {'Click on a number in the cashflow table above to see detailed calculation'}
             </div>
         }
         </Panel>

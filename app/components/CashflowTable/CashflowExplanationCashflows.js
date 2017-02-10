@@ -17,7 +17,8 @@ const RowRenderer = React.createClass({
     return {
       fontWeight: this.getRowWeight(),
       textAlign: 'right',
-      border: 'none'
+      border: 'none',
+      fontSize: 14,
     }
   },
 
@@ -34,7 +35,7 @@ const RowRenderer = React.createClass({
 })
 
 export default function CashflowExplanationCashflows (props) {
-  const rowHeight = 35
+  const rowHeight = 30
   function getHeight () {
     return rowHeight * (props.rows.length + 1) + 2  // cell height + border height
   }
@@ -42,7 +43,7 @@ export default function CashflowExplanationCashflows (props) {
   function rowGetter (i) {
     return props.rows[i]
   }
-  
+
   return (
     <div className={container}>
       <div className={subtitle}>{'Cashflows'}</div>
@@ -52,7 +53,6 @@ export default function CashflowExplanationCashflows (props) {
         rowsCount={props.rows.length}
         rowHeight={rowHeight}
         minHeight={getHeight()}
-        enableCellSelect={true}
         onCellSelected={props.onCashflowExplanationCellSelected}
         onCellDeSelected={props.onCellDeSelected}
         rowRenderer={RowRenderer}
