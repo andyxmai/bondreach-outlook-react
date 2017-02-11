@@ -10,6 +10,18 @@
   border-color: #00B0A9;
 }
 
+.btnGreenInverse {
+  background-color: white;
+  color: #22BBB3;
+  border-color: #22BBB3;
+}
+
+.btnGreenInverse:hover, .btnGreenInverse:focus, .btnGreenInverse:active {
+  background-color: #00B0A9;
+  color: white;
+  border-color: #00B0A9;
+}
+
 .btnRed {
   background-color: #FC6D69;
   color: white;

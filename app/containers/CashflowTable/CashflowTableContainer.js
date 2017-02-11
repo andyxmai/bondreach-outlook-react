@@ -8,6 +8,8 @@ import {
   mockItemData,
 } from 'config/fixtures'
 
+import {CashflowRowRenderer} from 'components'
+
 const columns = [  // get it from props
   { key: 'item', name: '', width: 250, locked: true },
   { key: 'year1', name: '01/2017', width: 125,},

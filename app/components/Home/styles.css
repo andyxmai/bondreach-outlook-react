@@ -1,5 +1,5 @@
 .container {
-  composes: centerContainer from 'sharedStyles/styles.css';
+  padding: 20px 40px;
 }
 
 .title {

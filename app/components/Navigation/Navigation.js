@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react'
 import { Link } from 'react-router'
-import { container, navContainer, link, links } from './styles.css'
+import { container, navContainer, link, links, titleLink } from './styles.css'
 import { ModalContainer } from 'containers'
 import { Button } from 'react-bootstrap'
 import { btnRed } from 'sharedStyles/buttons.css'
@@ -33,7 +33,7 @@ export default function Navigation ({isAuthed}) {
   return (
     <div className={container}>
       <nav className={navContainer}>
-        <Link className={link} to='/'>{'ClearCrunch'}</Link>
+        <Link className={titleLink} to='/'>{'ClearCrunch'}</Link>
         {/* <NavLinks isAuthed={isAuthed}/>
         <ActionLinks isAuthed={isAuthed}/> */}
         <Button bsSize="large" className={btnRed}>{'New Property'}</Button>

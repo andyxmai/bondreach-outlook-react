@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { container, title, totalContainer } from './styles.css'
 import ReactDataGrid from 'react-data-grid'
+import { CashflowRowRenderer } from 'components'
 
 const { Row } = ReactDataGrid
 const RowRenderer = React.createClass({

@@ -13,9 +13,9 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1100px;
   margin: 0px auto;
   height: 100%;
+  padding: 30px;
 }
 
 .links {
@@ -24,6 +24,18 @@
   justify-content: space-between;
   align-items: center;
   height: 100%;
+}
+
+.titleLink {
+  text-decoration: none;
+  color: #00A7CF;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.titleLink:hover, .titleLink:focus, .titleLink:active {
+  color: #00A7CF;
+  text-decoration: none;
 }
 
 .navContainer ul {
