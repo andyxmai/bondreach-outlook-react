@@ -13,7 +13,7 @@ const ExpenseTableContainer = React.createClass({
         { key: 'inflation', name: 'Inflation (%)', editable: true, },
       ],
       expenses: [  // get it from props
-        {id: 0, name: 'Insurance', amountDisplayName: '40,000 annually', fixed: 100, inflation: 2, amountDetail: {}},
+        {id: 0, name: 'Insurance', amountDisplayName: '1,000 annually', fixed: 100, inflation: 2, amountDetail: {}},
       ],
       amountModalOpened: false,
       selectedExpenseIndex: '',

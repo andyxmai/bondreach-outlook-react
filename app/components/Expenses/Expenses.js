@@ -27,9 +27,9 @@ export default function Expenses (props) {
       <div className={section}>
         <ExpenseSection title={'Reimbursable Expenses'} />
       </div>
-      <div className={section}>
+      {/*<div className={section}>
         <ExpenseSection title={'Capital Expenditures'} />
-      </div>
+      </div>*/}
       <div className={actionButtonContainer}>
         <Button className={btnBlue} onClick={props.goToRentRoll}>{'Go to rent roll'}</Button>
       </div>

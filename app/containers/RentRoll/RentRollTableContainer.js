@@ -8,6 +8,7 @@ const { DropDownEditor } = Editors
 const leaseTypes = [
   { id: 'nnn', value: 'nnn', text: 'NNN', title: 'NNN' },
   { id: 'gross', value: 'gross', text: 'Gross', title: 'Gross' },
+  { id: 'modified', value: 'modified', text: 'Modified Gross', title: 'Modified Gross' },
 ]
 const LeaseTypesEditor = <DropDownEditor options={leaseTypes} />
 const LeaseTypesFormatter = <DropDownFormatter options={leaseTypes} />
@@ -52,43 +53,60 @@ const displayNameMap ={
   'expenseStop': 'Expense Stop'
 }
 
+const tableColumns = [  // get it from props; TODO (Andy): create constants for these keys
+  { key: 'name', name: 'Tenant', editable: true, width: 200 },
+  { key: 'leaseType', name: 'Type', editable: true, width: 150, editor: LeaseTypesEditor, formatter: LeaseTypesFormatter },
+  { key: 'leaseStatus', name: 'Status', width: 100, editable: false, modal: true, editor: LeaseStatusEditor, formatter: LeaseStatusFormatter },
+  { key: 'size', name: 'Size (sqft)', width: 100, editable: true, },
+  { key: 'startDate', name: 'Start Date', width: 100, editable: true, },
+  { key: 'term', name: 'Term', width: 100, editable: true, },
+  { key: 'baseRent', name: 'Base Rent', width: 100, editable: true, },
+  { key: 'baseRentUnit', name: 'Unit', width: 100, editable: true, editor: BaseRentUnitEditor, formatter: BaseRentUnitFormatter },
+  { key: 'reimbursementsDisplayName', name: 'Reimbursements', width: 200, editable: false, },
+  { key: 'rentAbatement', name: 'Rent Abatement', width: 200, editable: true, },
+  { key: 'leasingCostDisplayName', name: 'Leasing Cost', width: 175, editable: false, },
+  { key: 'marketingLeasing', name: 'Market Leasing', width: 150, editable: true, editor: MarketLeasingAssumptionEditor, formatter: MarketLeasingAssumptionFormatter },
+  { key: 'uponExpiration', name: 'Upon Expiration', width: 250, editable: true, editor: UponExpirationEditor, formatter: UponExpirationFormatter },
+]
+
+const mockTenants = [
+  {
+    id: 0,
+    name: 'DoorDash',
+    leaseType: 'modified',
+    leaseStatus: 'Contract',
+    size: 250,
+    startDate: '10/2015',
+    term: 5,
+    baseRent: '1,000',
+    baseRentUnit: 'baseRentSqftYear',
+    reimbursementsDisplayName: 'Base Stop',
+    reimbursementsType: 'baseStop',
+    marketingLeasing: 'market',
+    uponExpiration: 'market',
+  },
+  {
+    id: 1,
+    name: 'OpenDoor',
+    leaseType: 'modified',
+    leaseStatus: 'Contract',
+    size: 250,
+    startDate: '10/2015',
+    term: 5,
+    baseRent: '1,000',
+    baseRentUnit: 'baseRentSqftYear',
+    reimbursementsDisplayName: 'Base Stop',
+    reimbursementsType: 'baseStop',
+    marketingLeasing: 'market',
+    uponExpiration: 'market',
+  },
+]
+
 const RentRollTableContainer = React.createClass({
   getInitialState () {
     return {
-      columns: [  // get it from props; TODO (Andy): create constants for these keys
-        { key: 'name', name: 'Tenant', editable: true, width: 200 },
-        { key: 'leaseType', name: 'Type', editable: true, width: 100, editor: LeaseTypesEditor, formatter: LeaseTypesFormatter },
-        { key: 'leaseStatus', name: 'Status', width: 100, editable: false, modal: true, editor: LeaseStatusEditor, formatter: LeaseStatusFormatter },
-        { key: 'size', name: 'Size (sqft)', width: 100, editable: true, },
-        { key: 'startDate', name: 'Start Date', width: 100, editable: true, },
-        { key: 'term', name: 'Term', width: 100, editable: true, },
-        { key: 'baseRent', name: 'Base Rent', width: 100, editable: true, },
-        { key: 'baseRentUnit', name: 'Unit', width: 100, editable: true, editor: BaseRentUnitEditor, formatter: BaseRentUnitFormatter },
-        { key: 'reimbursementsDisplayName', name: 'Reimbursements', width: 200, editable: false, },
-        { key: 'rentAbatement', name: 'Rent Abatement', width: 200, editable: true, },
-        { key: 'leasingCostDisplayName', name: 'Leasing Cost', width: 175, editable: false, },
-        { key: 'marketingLeasing', name: 'Market Leasing', width: 150, editable: true, editor: MarketLeasingAssumptionEditor, formatter: MarketLeasingAssumptionFormatter },
-        { key: 'uponExpiration', name: 'Upon Expiration', width: 250, editable: true, editor: UponExpirationEditor, formatter: UponExpirationFormatter },
-      ],
-      tenants: [  // get it from props
-        {
-          id: 0,
-          name: 'DoorDash',
-          leaseType: 'NNN',
-          leaseStatus: 'Contract',
-          size: 50000,
-          startDate: '10/2015',
-          term: 5, baseRent: '',
-          reimbursementsDisplayName: 'Base Year',
-          reimbursementsType: 'baseYear',
-          reimbursements: '',
-          leasingCostDisplayName: '2.50/sqft; 5 percent',
-          leasingCostTenantImprovements: '2.50',
-          leasingCostTenantImprovementsUnit: 'sqft',
-          leasingCostLeasingCommissions: '5',
-          leasingCostLeasingCommissionsUnit: 'percent',
-        },
-      ],
+      columns: tableColumns,
+      tenants: mockTenants,
       isModalOpened: false,
       selectedTenantIndex: '',
       selectedColumnKey: '',
