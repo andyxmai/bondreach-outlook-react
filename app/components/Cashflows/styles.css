@@ -39,15 +39,6 @@
   color: inherit;
 }
 
-.headerContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 15px 0px;
-}
-
 .formLabel {
   font-weight: normal;
 }

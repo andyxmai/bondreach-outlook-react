@@ -8,6 +8,7 @@ import { checkIfAuthed } from 'helpers/auth'
 import { routerReducer, syncHistoryWithStore } from 'react-router-redux'
 import * as reducers from 'redux/modules'
 import { hashHistory } from 'react-router'
+import 'react-select/dist/react-select.css'
 
 const store = createStore(
   combineReducers({...reducers, routing: routerReducer}),

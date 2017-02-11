@@ -55,6 +55,7 @@ const displayNameMap ={
 
 const tableColumns = [  // get it from props; TODO (Andy): create constants for these keys
   { key: 'name', name: 'Tenant', editable: true, width: 200 },
+  { key: 'suite', name: 'Suite', editable: true, width: 100 },
   { key: 'leaseType', name: 'Type', editable: true, width: 150, editor: LeaseTypesEditor, formatter: LeaseTypesFormatter },
   { key: 'leaseStatus', name: 'Status', width: 100, editable: false, modal: true, editor: LeaseStatusEditor, formatter: LeaseStatusFormatter },
   { key: 'size', name: 'Size (sqft)', width: 100, editable: true, },
@@ -73,6 +74,7 @@ const mockTenants = [
   {
     id: 0,
     name: 'DoorDash',
+    suite: '400',
     leaseType: 'modified',
     leaseStatus: 'Contract',
     size: 250,
@@ -88,6 +90,7 @@ const mockTenants = [
   {
     id: 1,
     name: 'OpenDoor',
+    suite: '800',
     leaseType: 'modified',
     leaseStatus: 'Contract',
     size: 250,
