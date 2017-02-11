@@ -25,10 +25,15 @@ export default function CashflowTable (props) {
           </ButtonGroup>
         </div>
       </div>*/}
-      <div className={tableHeaderContainer}>
-        <Button className={btnGreenInverse}>{'Export CSV'}</Button>
-      </div>
-      <div className={note}>{'*Note:* click on any number in base rental revenue, insurance reimbursements, or insurance costs lines and scroll down to see detailed calculations'}</div>
+      { props.hideButton === true
+        ? null
+        : <div>
+            <div className={tableHeaderContainer}>
+              <Button className={btnGreenInverse}>{'Export CSV'}</Button>
+            </div>
+            <div className={note}>{'*Note:* click on any number in base rental revenue, insurance reimbursements, or insurance costs lines and scroll down to see detailed calculations'}</div>
+          </div>
+      }
       <ReactDataGrid
         columns={props.columns}
         rowGetter={rowGetter}

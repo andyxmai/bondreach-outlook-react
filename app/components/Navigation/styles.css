@@ -30,7 +30,7 @@
   text-decoration: none;
   color: #00A7CF;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 27px;
 }
 
 .titleLink:hover, .titleLink:focus, .titleLink:active {
@@ -50,10 +50,11 @@
 }
 
 .link {
-  color: #00303B;
+  color: white;
   text-decoration: none;
 }
 
-.link:hover {
-  color: #00303B;
+.link:hover, .link:focus, .link:active {
+  color: white;
+  text-decoration: none
 }

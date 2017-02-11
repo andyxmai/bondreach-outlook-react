@@ -36,7 +36,7 @@ export default function Navigation ({isAuthed}) {
         <Link className={titleLink} to='/'>{'ClearCrunch'}</Link>
         {/* <NavLinks isAuthed={isAuthed}/>
         <ActionLinks isAuthed={isAuthed}/> */}
-        <Button bsSize="large" className={btnRed}>{'New Property'}</Button>
+        <Button bsSize="large" className={btnRed}><Link className={link} to='/new-property'>{'New Property'}</Link></Button>
       </nav>
     </div>
   )

@@ -1,0 +1,43 @@
+.container {
+}
+
+.inputs {
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #D7DADA;
+  border-top: none;
+}
+
+.section {
+  padding: 10px 20px;
+}
+
+.disclaimer {
+  padding: 10px 20px;
+}
+
+.actionContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  padding: 10px 20px;
+}
+
+.action {
+  width: 300px;
+}
+
+.btn {
+  width: 200px;
+}
+
+.buttonContainer {
+  padding-left: 20px;
+}
+
+.formLabel {
+  font-weight: normal;
+  font-size: 15px;
+}

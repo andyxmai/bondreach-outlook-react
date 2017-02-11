@@ -37,6 +37,24 @@ const rows = [  // get it from props
   {id: 15, item: 'Net Operating Income', bold: true, year1: '498,800', year2: '513,620', year3: '528,790', year4: '544,424', year5: '560,636', },
 ]
 
+const toggleRows = [  // get it from props
+  {id: 1, item: 'Potential Gross Revenue', bold: true},
+  {id: 2, item: 'Base Rental Revenue', year1: '512,928', year2: '535,345', year3: '560,450', year4: '596,123', year5: '612,281', },
+  {id: 3, item: 'Total Rental Revenue', year1: '512,928', year2: '535,345', year3: '560,450', year4: '596,123', year5: '612,281', },
+  {id: 4, item: ''},
+  {id: 5, item: 'Reimbursable Expenses', },
+  {id: 6, item: 'Insurance', year1: '', year2: '31', year3: '54', year4: '109', year5: '134', },
+  {id: 7, item: 'Total Reimbursable Expenses', year1: '', year2: '31', year3: '54', year4: '109', year5: '134', },
+  {id: 8, item: ''},
+  {id: 9, item: 'Total Gross Revenue', bold: true, year1: '512,928', year2: '535,376', year3: '560,504', year4: '596,232', year5: '612,415', },
+  {id: 10, item: ''},
+  {id: 11, item: 'Operating Expenses', bold: true},
+  {id: 12, item: 'Insurance', year1: '1,000', year2: '1,031', year3: '1,054', year4: '1,109', year5: '1,134', },
+  {id: 13, item: 'Total Expenses', bold: true, year1: '1,000', year2: '1,031', year3: '1,054', year4: '1,109', year5: '1,134', },
+  {id: 14, item: ''},
+  {id: 15, item: 'Net Operating Income', bold: true, year1: '511,928', year2: '534,345', year3: '559,450', year4: '595,123', year5: '611,281', },
+]
+
 const CashflowTableContainer = React.createClass({
   getInitialState () {
     return {
@@ -93,9 +111,10 @@ const CashflowTableContainer = React.createClass({
       <div>
         <CashflowTable
           columns={columns}
-          rows={rows}
+          rows={this.props.toggle ? toggleRows: rows}
           onCellSelected={this.onCellSelected}
           onCellDeSelected={this.onCellDeSelected}
+          hideButton={this.props.hideButton}
         />
         <br/>
         { this.state.showCalculation

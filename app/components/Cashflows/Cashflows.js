@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { CashflowTableContainer, TenantCashflowsContainer } from 'containers'
+import { CashflowTableContainer, TenantCashflowsContainer, SensitivityAnalysisContainer } from 'containers'
 import { Tabs, Tab, Form, FormGroup, FormControl, Col, ControlLabel, Panel, ButtonGroup, Button } from 'react-bootstrap'
 import { container, title, subtitle, subtitleElem, tabsContainer, headerContainer, formLabel, propertyInfo, pageTitle } from './styles.css'
 import { btnGrayInverse, btnGray } from 'sharedStyles/buttons.css'
@@ -9,7 +9,7 @@ export default function Cashflows (props) {
     <div className={container}>
       <div className={pageTitle}>{'Cashflows'}</div>
       <div className={tabsContainer}>
-        <Tabs defaultActiveKey={1} animation={false} id="property">
+        <Tabs defaultActiveKey={3} animation={false} id="property">
           <Tab eventKey={1} title='Cashflows'>
             <CashflowTableContainer />
           </Tab>
@@ -37,7 +37,7 @@ export default function Cashflows (props) {
             </Panel>
           </Tab>
           <Tab eventKey={3} title='Sensitivity Analysis'>
-            {'Sensitivity Analysis'}
+            <SensitivityAnalysisContainer />
           </Tab>
         </Tabs>
       </div>

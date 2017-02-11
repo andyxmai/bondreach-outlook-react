@@ -13,6 +13,7 @@ export Replies from './Replies/Replies'
 export LeftPaneTextSection from './LeftPaneTextSection/LeftPaneTextSection'
 
 export NewProperty from './NewProperty/NewProperty'
+export Property from './Property/Property'
 
 export Cashflows from './Cashflows/Cashflows'
 
@@ -27,11 +28,11 @@ export RentRollModal from './RentRoll/RentRollModal'
 export MLATable from './MLATable/MLATable'
 export NewMLAModal from './MLATable/NewMLAModal'
 
-export Property from './Property/Property'
 export CashflowTable from './CashflowTable/CashflowTable'
 export CashflowExplanation from './CashflowTable/CashflowExplanation'
 export CashflowExplanationCalculation from './CashflowTable/CashflowExplanationCalculation'
 export CashflowExplanationCashflows from './CashflowTable/CashflowExplanationCashflows'
 export TenantCashflowTable from './TenantCashflowTable/TenantCashflowTable'
+export SensitivityAnalysis from './SensitivityAnalysis/SensitivityAnalysis'
 
 export CashflowRowRenderer from './RowRenderer/CashflowRowRenderer'
