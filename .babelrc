@@ -5,7 +5,7 @@
     "stage-0"
   ],
   "env": {
-    "start": {
+    "development": {
       "presets": [
         "react-hmre"
       ]
