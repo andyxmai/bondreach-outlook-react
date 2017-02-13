@@ -14,13 +14,13 @@ const store = createStore(
   combineReducers({...reducers, routing: routerReducer}),
   compose(
    applyMiddleware(thunk),
-   window.devToolsExtension ? window.devToolsExtension() : (f) => f
+{/*   window.devToolsExtension ? window.devToolsExtension() : (f) => f */}
  )
 )
 
 const history = syncHistoryWithStore(browserHistory, store)
 
-window.devToolsExtension()
+{/*window.devToolsExtension()*/}
 
 function checkAuth (nextState, replace) {
   if (store.getState().users.isFetching === true) {
