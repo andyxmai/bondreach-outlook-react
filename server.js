@@ -1,11 +1,17 @@
-const express = require('express');
+'use strict';
 
+const express = require('express');
 const app = express();
 
 // Setup logger
 //app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
 app.use(express.static(__dirname + '/dist'));
+
+// Always return the main index.html, so react-router render the route in the client
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+});
 
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
