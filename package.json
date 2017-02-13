@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production webpack -p --progress && NODE_ENV=production node server.js",
     "dev": "webpack-dev-server",
-    "production": "webpack -p",
+    "production": "webpack -p --progress",
     "lint": "eslint app/.; exit 0",
     "fix": "eslint --fix app/.; exit 0"
   },
@@ -22,7 +22,6 @@
     "numeral": "^2.0.4",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
-    "react-bootstrap-table": "^3.0.0-beta.10",
     "react-data-grid": "^2.0.4",
     "react-data-grid-addons": "^2.0.4",
     "react-dom": "^15.4.2",
@@ -32,7 +31,6 @@
     "react-router": "^3.0.2",
     "react-router-redux": "^4.0.7",
     "react-select": "^1.0.0-rc.3",
-    "react-toastr": "^2.8.2",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0"
   },

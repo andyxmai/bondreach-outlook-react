@@ -24,13 +24,14 @@ const productionPlugin = new webpack.DefinePlugin({
   }
 })
 
-const dedupePluging = new webpack.optimize.DedupePlugin(),
+const dedupePluging = new webpack.optimize.DedupePlugin()
+
 const uglifyjsPluging = new webpack.optimize.UglifyJsPlugin({
-                        minimize: true,
-                        compress: {
-                          warnings: false
-                        }
-                      })
+  minimize: true,
+  compress: {
+    warnings: false
+  }
+})
 
 const base = {
   entry: [
