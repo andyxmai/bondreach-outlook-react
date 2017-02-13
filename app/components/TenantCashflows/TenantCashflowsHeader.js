@@ -23,12 +23,12 @@ export default function TenantCashflowsHeader (props) {
             searchable={false}
         />
       </div>
-      <div>
+      {/*<div>
         <ButtonGroup>
           <Button bsSize="small" className={btnGrayInverse}>Nominal</Button>
           <Button bsSize="small" className={btnGray}>Per Sqft</Button>
         </ButtonGroup>
-      </div>
+      </div> */}
     </div>
   )
 }

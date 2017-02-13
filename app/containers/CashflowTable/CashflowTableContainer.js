@@ -55,6 +55,24 @@ const toggleRows = [  // get it from props
   {id: 15, item: 'Net Operating Income', bold: true, year1: '511,928', year2: '534,345', year3: '559,450', year4: '595,123', year5: '611,281', },
 ]
 
+const sqftRows = [  // get it from props
+  {id: 1, item: 'Potential Gross Revenue', bold: true},
+  {id: 2, item: 'Base Rental Revenue', year1: '74.56', year2: '79.84', year3: '84.36', year4: '87.59', year5: '89.12', },
+  {id: 3, item: 'Total Rental Revenue', year1: '74.56', year2: '79.84', year3: '84.36', year4: '87.59', year5: '89.12', },
+  {id: 4, item: ''},
+  {id: 5, item: 'Reimbursable Expenses', },
+  {id: 6, item: 'Insurance', year1: '', year2: '0.50', year3: '1.00', year4: '1.20', year5: '1.42', },
+  {id: 7, item: 'Total Reimbursable Expenses', year1: '', year2: '0.50', year3: '1.00', year4: '1.20', year5: '1.42', },
+  {id: 8, item: ''},
+  {id: 9, item: 'Total Gross Revenue', bold: true, year1: '74.56', year2: '80.34', year3: '85.36', year4: '88.79', year5: '90.54', },
+  {id: 10, item: ''},
+  {id: 11, item: 'Operating Expenses', bold: true},
+  {id: 12, item: 'Insurance', year1: '10', year2: '10.20', year3: '10.40', year4: '10.60', year5: '10.82', },
+  {id: 13, item: 'Total Expenses', bold: true, year1: '10', year2: '10.20', year3: '10.40', year4: '10.60', year5: '10.82', },
+  {id: 14, item: ''},
+  {id: 15, item: 'Net Operating Income', bold: true, year1: '64.56', year2: '70.14', year3: '74.96', year4: '78.19', year5: '79.72', },
+]
+
 const CashflowTableContainer = React.createClass({
   getInitialState () {
     return {
@@ -66,14 +84,13 @@ const CashflowTableContainer = React.createClass({
       explanationCashflowColumns: [],
       explanationCashflowRows: [],
       itemData: {},
+      useNominal: true,
     }
   },
 
   onCellSelected ({ rowIdx, idx }) {  // should be a props function
-    console.log('(' + rowIdx + ',' + idx + ')')
     const key = '(' + rowIdx + ',' + idx + ')'
     const explanationColumns = mockExplanationColumns[rowIdx]
-    console.log(explanationColumns)
     if (explanationColumns === undefined) {
       this.setState({showCalculation: false})
       return
@@ -83,12 +100,6 @@ const CashflowTableContainer = React.createClass({
     const explanationCashflowColumns = mockExplanationCashflowColumns
     const explanationCashflowRows = mockExplanationCashflowRows[rowIdx]
     const itemData = mockItemData[key]
-
-    console.log('explanationColumns:',explanationColumns)
-    console.log('explanationRows:',explanationRows)
-    console.log('explanationCashflowColumns:',explanationCashflowColumns)
-    console.log('explanationCashflowRows:',explanationCashflowRows)
-    console.log('itemData:',itemData)
 
     this.setState({
       rowSelected: rowIdx,
@@ -102,8 +113,28 @@ const CashflowTableContainer = React.createClass({
     })
   },
 
-  onCellDeSelected({ rowIdx, idx }) {
+  onCellDeSelected ({ rowIdx, idx }) {
     this.setState({showCalculation: false})
+  },
+
+  handleSqftToggle () {
+    this.setState({useNominal: false})
+  },
+
+  handleNominalToggle () {
+    this.setState({useNominal: true})
+  },
+
+  getRows () {
+    if (this.state.useNominal) {
+      if (this.props.toggle) {
+        return toggleRows
+      } else {
+        return rows
+      }
+    } else {
+      return sqftRows
+    }
   },
 
   render () {
@@ -111,10 +142,13 @@ const CashflowTableContainer = React.createClass({
       <div>
         <CashflowTable
           columns={columns}
-          rows={this.props.toggle ? toggleRows: rows}
+          rows={this.getRows()}
           onCellSelected={this.onCellSelected}
           onCellDeSelected={this.onCellDeSelected}
           hideButton={this.props.hideButton}
+          handleNominalToggle={this.handleNominalToggle}
+          handleSqftToggle={this.handleSqftToggle}
+          useNominal={this.state.useNominal}
         />
         <br/>
         { this.state.showCalculation

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import ReactDataGrid from 'react-data-grid'
-import { Form, FormGroup, FormControl, ControlLabel, Col, Button } from 'react-bootstrap'
-import { container, title, toggleContainer, formLabel, tableHeaderContainer, note } from './styles.css'
+import { Form, FormGroup, FormControl, ControlLabel, Col, Button, ButtonGroup } from 'react-bootstrap'
+import { container, title, toggleContainer, formLabel, tableHeaderContainer, note, toggleGroup } from './styles.css'
 import { btnGreenInverse, btnGray, btnGrayInverse } from 'sharedStyles/buttons.css'
 import { CashflowRowRenderer } from 'components'
 
@@ -17,18 +17,20 @@ export default function CashflowTable (props) {
 
   return (
     <div className={container}>
-      {/*<div className={toggleContainer}>
-        <div>
-          <ButtonGroup>
-            <Button bsSize="small" className={btnGrayInverse}>Nominal</Button>
-            <Button bsSize="small" className={btnGray}>Per Sqft</Button>
-          </ButtonGroup>
-        </div>
-      </div>*/}
       { props.hideButton === true
         ? null
         : <div>
             <div className={tableHeaderContainer}>
+              {props.useNominal
+                ? <ButtonGroup className={toggleGroup}>
+                    <Button className={btnGrayInverse} onClick={props.handleNominalToggle}>Nominal</Button>
+                    <Button className={btnGray} onClick={props.handleSqftToggle}>Per Sqft</Button>
+                  </ButtonGroup>
+                : <ButtonGroup className={toggleGroup}>
+                    <Button className={btnGray} onClick={props.handleNominalToggle}>Nominal</Button>
+                    <Button className={btnGrayInverse} onClick={props.handleSqftToggle}>Per Sqft</Button>
+                  </ButtonGroup>
+              }
               <Button className={btnGreenInverse}>{'Export CSV'}</Button>
             </div>
             <div className={note}>{'*Note:* click on any number in base rental revenue, insurance reimbursements, or insurance costs lines and scroll down to see detailed calculations'}</div>

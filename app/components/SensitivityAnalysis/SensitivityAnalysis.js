@@ -77,7 +77,6 @@ function AssumptionsSection (props) {
 }
 
 export default function SensitivityAnalysis (props) {
-  console.log(props.toggle);
   return (
     <div className={container}>
       <div className={inputs}>

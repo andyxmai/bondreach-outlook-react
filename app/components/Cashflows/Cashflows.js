@@ -9,8 +9,8 @@ export default function Cashflows (props) {
     <div className={container}>
       <div className={pageTitle}>{'Cashflows'}</div>
       <div className={tabsContainer}>
-        <Tabs defaultActiveKey={2} animation={false} id="property">
-          <Tab eventKey={1} title='Cashflows'>
+        <Tabs defaultActiveKey={1} animation={false} id="property">
+          <Tab eventKey={1} title='Operating Cashflows'>
             <CashflowTableContainer />
           </Tab>
           <Tab eventKey={2} title='Tenants'>
