@@ -24,6 +24,14 @@ const productionPlugin = new webpack.DefinePlugin({
   }
 })
 
+const dedupePluging = new webpack.optimize.DedupePlugin(),
+const uglifyjsPluging = new webpack.optimize.UglifyJsPlugin({
+                        minimize: true,
+                        compress: {
+                          warnings: false
+                        }
+                      })
+
 const base = {
   entry: [
     PATHS.app
@@ -58,7 +66,7 @@ const developmentConfig = {
 
 const productionConfig = {
   devtool: 'cheap-module-source-map',
-  plugins: [HTMLWebpackPluginConfig, productionPlugin]
+  plugins: [HTMLWebpackPluginConfig, productionPlugin, dedupePluging, uglifyjsPluging]
 }
 
 export default Object.assign({}, base, isProduction === true ? productionConfig : developmentConfig)
