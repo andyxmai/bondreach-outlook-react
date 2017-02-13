@@ -9,6 +9,9 @@ const app = express();
 app.use(express.static(__dirname + '/dist'));
 
 // Always return the main index.html, so react-router render the route in the client
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'favicon.ico'));
+});
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
