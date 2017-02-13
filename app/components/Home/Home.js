@@ -23,7 +23,7 @@ export default function Home (props) {
           <li>{'My best attempt for a good user experience'}</li>
         </ol>
         <p className={paragraph}>{'This prototype is still a work in progress, but I’d love to have your honest feedback. Does it solve your underwriting frustrations? Do you see yourself using it? How can it be improved? At the end of the day, this tool is built for you, and I take your opinions very seriously.'}</p>
-        <p className={paragraph}>{'Start your test drive by clicking on the red “New Property” button on the top right. You don’t need to type anything for it to work, but feel free to input data to get a better feel of the product. Shoot me an email at andrew.x.mai@gmail.com or text me at (202) 468-0722 anytime to send me any feedback.'}</p>
+        <p className={paragraph}>{'Start your test drive by clicking on the red “New Property” button on the top right. You don’t need to type anything for it to work, but feel free to input data to get a better feel of the product. Nothing will be saved. Shoot me an email at andrew.x.mai@gmail.com or text me at (202) 468-0722 anytime to send me any feedback.'}</p>
         <br />
         <p>{'Thanks,'}</p>
         <p>{'Andy'}</p>
