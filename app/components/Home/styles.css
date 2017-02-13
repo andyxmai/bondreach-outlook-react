@@ -9,3 +9,11 @@
 .slogan {
   composes: subHeader from 'sharedStyles/styles.css';
 }
+
+.numberList {
+  margin: 10px;
+}
+
+.paragraph {
+  padding: 10px 0px;
+}
