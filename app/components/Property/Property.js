@@ -27,7 +27,7 @@ export default function Property (props) {
           <div className={form}>
             <Panel>
               <Form horizontal>
-                <FormGroup controlId="propertyName" bsSize="large">
+                <FormGroup controlId="propertyName">
                   <Col componentClass={ControlLabel} sm={3}>
                     <span className={formLabel}>{'Property name'}</span>
                   </Col>
@@ -36,7 +36,7 @@ export default function Property (props) {
                   </Col>
                 </FormGroup>
 
-                <FormGroup controlId="streetAddress" bsSize="large">
+                <FormGroup controlId="streetAddress">
                   <Col componentClass={ControlLabel} sm={3}>
                     <span className={formLabel}>{'Street address'}</span>
                   </Col>
@@ -45,7 +45,7 @@ export default function Property (props) {
                   </Col>
                 </FormGroup>
 
-                <FormGroup controlId="city" bsSize="large">
+                <FormGroup controlId="city">
                   <Col componentClass={ControlLabel} sm={3}>
                     <span className={formLabel}>{'City'}</span>
                   </Col>
@@ -54,7 +54,7 @@ export default function Property (props) {
                   </Col>
                 </FormGroup>
 
-                <FormGroup controlId="state" bsSize="large">
+                <FormGroup controlId="state">
                   <Col componentClass={ControlLabel} sm={3}>
                     <span className={formLabel}>{'State'}</span>
                   </Col>
@@ -63,7 +63,7 @@ export default function Property (props) {
                   </Col>
                 </FormGroup>
 
-                <FormGroup controlId="propertyType" bsSize="large">
+                <FormGroup controlId="propertyType">
                   <Col componentClass={ControlLabel} sm={3}>
                     <span className={formLabel}>{'Property type'}</span>
                   </Col>
@@ -77,7 +77,7 @@ export default function Property (props) {
                   </Col>
                 </FormGroup>
 
-                <FormGroup controlId="propertySize" bsSize="large">
+                <FormGroup controlId="propertySize">
                   <Col componentClass={ControlLabel} sm={3}>
                     <span className={formLabel}>{'Property size'}</span>
                   </Col>
@@ -92,7 +92,7 @@ export default function Property (props) {
                   </Col>
                 </FormGroup>
 
-                <FormGroup controlId="purchasePrice" bsSize="large">
+                <FormGroup controlId="purchasePrice">
                   <Col componentClass={ControlLabel} sm={3}>
                     <span className={formLabel}>{'Purchase price'}</span>
                   </Col>
@@ -109,7 +109,7 @@ export default function Property (props) {
 
                 <FormGroup>
                   <Col smOffset={6} sm={3}>
-                    <Button type="submit" bsSize="large" className={btnBlue} block>
+                    <Button type="submit" className={btnBlue} block>
                       {'Save changes'}
                     </Button>
                   </Col>
@@ -130,7 +130,7 @@ export default function Property (props) {
               <div className={horizontalForm}>
                 <Panel>
                   <Form horizontal>
-                    <FormGroup controlId="analysisStartDate" bsSize="large">
+                    <FormGroup controlId="analysisStartDate">
                       <Col componentClass={ControlLabel} sm={6}>
                         <span className={formLabel}>{'Analysis start date'}</span>
                       </Col>
@@ -142,7 +142,7 @@ export default function Property (props) {
                       </Col>
                     </FormGroup>
 
-                    <FormGroup controlId="reportStartDate" bsSize="large">
+                    <FormGroup controlId="reportStartDate">
                       <Col componentClass={ControlLabel} sm={6}>
                         <span className={formLabel}>{'Report start date'}</span>
                       </Col>
@@ -154,7 +154,7 @@ export default function Property (props) {
                       </Col>
                     </FormGroup>
 
-                    <FormGroup controlId="endDate" bsSize="large">
+                    <FormGroup controlId="endDate">
                       <Col componentClass={ControlLabel} sm={6}>
                         <span className={formLabel}>{'End date'}</span>
                       </Col>
@@ -168,7 +168,7 @@ export default function Property (props) {
 
                     <FormGroup>
                       <Col smOffset={6} sm={5}>
-                        <Button type="submit" bsSize="large" className={btnBlue} block>
+                        <Button type="submit" className={btnBlue} block>
                           {'Save changes'}
                         </Button>
                       </Col>
@@ -185,7 +185,7 @@ export default function Property (props) {
               <div className={horizontalForm}>
                 <Panel>
                   <Form horizontal>
-                    <FormGroup controlId="inflationGrowth" bsSize="large">
+                    <FormGroup controlId="inflationGrowth">
                       <Col componentClass={ControlLabel} sm={6}>
                         <span className={formLabel}>{'Inflation growth'}</span>
                       </Col>
@@ -200,7 +200,7 @@ export default function Property (props) {
                       </Col>
                     </FormGroup>
 
-                    <FormGroup controlId="rentGrowth" bsSize="large">
+                    <FormGroup controlId="rentGrowth">
                       <Col componentClass={ControlLabel} sm={6}>
                         <span className={formLabel}>{'Rent growth'}</span>
                       </Col>
@@ -215,7 +215,7 @@ export default function Property (props) {
                       </Col>
                     </FormGroup>
 
-                    <FormGroup controlId="vacancyRate" bsSize="large">
+                    <FormGroup controlId="vacancyRate">
                       <Col componentClass={ControlLabel} sm={6}>
                         <span className={formLabel}>{'Vacancy rate'}</span>
                       </Col>
@@ -232,7 +232,7 @@ export default function Property (props) {
 
                     <FormGroup>
                       <Col smOffset={6} sm={5}>
-                        <Button type="submit" bsSize="large" className={btnBlue} block>
+                        <Button type="submit" className={btnBlue} block>
                           {'Save changes'}
                         </Button>
                       </Col>
