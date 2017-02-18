@@ -20,6 +20,7 @@ const store = createStore(
 const history = syncHistoryWithStore(browserHistory, store)
 
 function checkAuth (nextState, replace) {
+  return true
   if (store.getState().users.isFetching === true) {
     return
   }
