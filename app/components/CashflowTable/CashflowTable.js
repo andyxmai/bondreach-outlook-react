@@ -31,7 +31,7 @@ export default function CashflowTable (props) {
                     <Button className={btnGrayInverse} onClick={props.handleSqftToggle}>Per Sqft</Button>
                   </ButtonGroup>
               }
-              <form method="get" action='cashflows.xlsx'>
+              <form method="get" action='https://dl.dropboxusercontent.com/s/u4ny98qwn7i920b/cashflows.xlsx'>
                 <Button type='submit' className={btnGreenInverse}>{'Export Excel'}</Button>
               </form>
             </div>
