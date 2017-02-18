@@ -1,4 +1,41 @@
 {
+  property: {
+    isFetching,
+    name,
+    streetAddress,
+    city,
+    state,
+    type,
+    size,
+    price
+  },
+
+  report: {
+    isFetching,
+    versionName,
+    createdAt,
+    analysisStartDate,
+    reportStartDate,
+    endDate,
+    assumptions: {
+      inflationGrowth,
+      rentGrowth,
+      vacancyRate,
+    },
+    property: {
+      name,
+      streetAddress,
+      city,
+      state,
+      type,
+      size,
+      price
+    }
+  },
+}
+
+
+{
   users: {
     isAuthed,
     isFetching,

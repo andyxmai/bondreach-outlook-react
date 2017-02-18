@@ -31,7 +31,9 @@ export default function CashflowTable (props) {
                     <Button className={btnGrayInverse} onClick={props.handleSqftToggle}>Per Sqft</Button>
                   </ButtonGroup>
               }
-              <Button className={btnGreenInverse}>{'Export CSV'}</Button>
+              <form method="get" action='cashflows.xlsx'>
+                <Button type='submit' className={btnGreenInverse}>{'Export Excel'}</Button>
+              </form>
             </div>
             <div className={note}>{'*Note:* click on any number in base rental revenue, insurance reimbursements, or insurance costs lines and scroll down to see detailed calculations'}</div>
           </div>

@@ -34,7 +34,7 @@ export default function NewProperty (props) {
               <Col componentClass={ControlLabel} sm={3}>
                 <span className={formLabel}>{'City'}</span>
               </Col>
-              <Col sm={6}>
+              <Col sm={4}>
                 <FormControl type="text" placeholder="" />
               </Col>
             </FormGroup>
@@ -43,7 +43,7 @@ export default function NewProperty (props) {
               <Col componentClass={ControlLabel} sm={3}>
                 <span className={formLabel}>{'State'}</span>
               </Col>
-              <Col sm={2}>
+              <Col sm={1}>
                 <FormControl type="text" placeholder="" />
               </Col>
             </FormGroup>
@@ -52,7 +52,7 @@ export default function NewProperty (props) {
               <Col componentClass={ControlLabel} sm={3}>
                 <span className={formLabel}>{'Property type'}</span>
               </Col>
-              <Col sm={4}>
+              <Col sm={3}>
                 <FormControl componentClass="select" placeholder="select">
                   <option value="office">Office</option>
                   <option value="retail">Retail</option>
@@ -66,7 +66,7 @@ export default function NewProperty (props) {
               <Col componentClass={ControlLabel} sm={3}>
                 <span className={formLabel}>{'Property size'}</span>
               </Col>
-              <Col sm={4}>
+              <Col sm={3}>
                 <InputGroup>
                   <Cleave className="form-control"
                     options={ {numeral: true, numeralThousandsGroupStyle: 'thousand'} }
@@ -80,7 +80,7 @@ export default function NewProperty (props) {
               <Col componentClass={ControlLabel} sm={3}>
                 <span className={formLabel}>{'Purchase price'}</span>
               </Col>
-              <Col sm={6}>
+              <Col sm={3}>
                 <InputGroup>
                   <InputGroup.Addon>$</InputGroup.Addon>
                   <Cleave className="form-control"

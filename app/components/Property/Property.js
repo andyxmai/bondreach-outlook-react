@@ -58,7 +58,7 @@ export default function Property (props) {
                   <Col componentClass={ControlLabel} sm={3}>
                     <span className={formLabel}>{'State'}</span>
                   </Col>
-                  <Col sm={2}>
+                  <Col sm={1}>
                     <FormControl type="text" placeholder="" value={props.state}/>
                   </Col>
                 </FormGroup>
@@ -67,7 +67,7 @@ export default function Property (props) {
                   <Col componentClass={ControlLabel} sm={3}>
                     <span className={formLabel}>{'Property type'}</span>
                   </Col>
-                  <Col sm={4}>
+                  <Col sm={3}>
                     <FormControl componentClass="select" placeholder="select" value={props.type}>
                       <option value="office">Office</option>
                       <option value="retail">Retail</option>
@@ -81,7 +81,7 @@ export default function Property (props) {
                   <Col componentClass={ControlLabel} sm={3}>
                     <span className={formLabel}>{'Property size'}</span>
                   </Col>
-                  <Col sm={4}>
+                  <Col sm={3}>
                     <InputGroup>
                       <Cleave className="form-control"
                         options={ {numeral: true, numeralThousandsGroupStyle: 'thousand'} }
@@ -96,7 +96,7 @@ export default function Property (props) {
                   <Col componentClass={ControlLabel} sm={3}>
                     <span className={formLabel}>{'Purchase price'}</span>
                   </Col>
-                  <Col sm={4}>
+                  <Col sm={3}>
                     <InputGroup>
                       <InputGroup.Addon>$</InputGroup.Addon>
                       <Cleave className="form-control"

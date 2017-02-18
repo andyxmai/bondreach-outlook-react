@@ -21,7 +21,7 @@ export default function TenantCashflowTable (props) {
         <div className={title}>
           {props.title}
         </div>
-        <Button className={btnGreenInverse}>{'Export CSV'}</Button>
+        <Button className={btnGreenInverse}>{'Export Excel'}</Button>
       </div>
       <div>
       <ReactDataGrid

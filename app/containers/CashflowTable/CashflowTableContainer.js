@@ -34,7 +34,7 @@ const rows = [  // get it from props
   {id: 12, item: 'Insurance', year1: '1,000', year2: '1,020', year3: '1,040', year4: '1,060', year5: '1,082', },
   {id: 13, item: 'Total Expenses', bold: true, year1: '1,000', year2: '1,020', year3: '1,040', year4: '1,060', year5: '1,082', },
   {id: 14, item: ''},
-  {id: 15, item: 'Net Operating Income', bold: true, year1: '498,800', year2: '513,620', year3: '528,790', year4: '544,424', year5: '560,636', },
+  {id: 15, item: 'Net Operating Income', bold: true, year1: '499,000', year2: '514,000', year3: '529,450', year4: '545,364', year5: '561,754', },
 ]
 
 const toggleRows = [  // get it from props
