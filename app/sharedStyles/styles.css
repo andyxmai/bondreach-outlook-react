@@ -44,12 +44,20 @@ input[type=number]::-webkit-outer-spin-button {
 
 .selectField {
   font-size: 14px;
-  height: 50px;
+  color: #555;
+}
+
+.spacer {
+  width: 20px;
 }
 
 /* Overriding styling from modules */
 :global .Select-menu-outer {
   z-index: 10000 !important;
+}
+
+:global .Select-value-label {
+  color: #555 !important;
 }
 
 :global .react-grid-Container {
@@ -89,11 +97,13 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 :global .btn {
-  padding: 10px 20px;
+  padding: 8px 20px;
   letter-spacing: 1px;
+  border-radius: 3px;
 }
 
 :global .btn-lg {
+  padding: 10px 25px;
   letter-spacing: 1.8px;
   font-size: 16px;
 }

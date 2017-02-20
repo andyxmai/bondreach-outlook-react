@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
 import { CashflowTableContainer } from 'containers'
 import { Panel, Button, Row, Col, Form, FormGroup, FormControl, ControlLabel, InputGroup } from 'react-bootstrap'
-import { container, title, inputs, actionContainer, action, formLabel, section, disclaimer, buttonContainer } from './styles.css'
-import { btnBlue } from 'sharedStyles/buttons.css'
+import { container, title, inputs, actionContainer, action, formLabel, section, disclaimer, buttonContainer, titleContainer, resultsContainer } from './styles.css'
+import { btnBlue, btnRedInverse } from 'sharedStyles/buttons.css'
 import Cleave from 'cleave.js/dist/cleave-react'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
@@ -96,12 +96,14 @@ export default function SensitivityAnalysis (props) {
           <AssumptionsSection />
         </div>
         <div className={buttonContainer}>
-          <Button onClick={props.handleSubmit} className={btnBlue}>{'Analyze'}</Button>
+          <Button onClick={props.handleSubmit} className={btnBlue} style={{width: '200px'}}>{'Analyze'}</Button>
         </div>
       </div>
-      <br />
-      <div>
-        <div>{'Cashflows'}</div>
+      <div className={resultsContainer}>
+        <div className={titleContainer}>
+          <div>{'Operating Cashflows'}</div>
+          <Button onClick={props.handleSubmit} className={btnRedInverse}>{'Save this version'}</Button>
+        </div>
         <CashflowTableContainer
           hideButton={true}
           toggle={props.toggle}

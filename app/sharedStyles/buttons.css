@@ -41,9 +41,9 @@
 }
 
 .btnRedInverse:hover, .btnRedInverse:focus, .btnRedInverse:active {
-  background-color: white;
-  color: #DF4642;
-  border-color: #DF4642;
+  background-color: #FC6D69;
+  color: white;
+  border-color: #FC6D69;
 }
 
 

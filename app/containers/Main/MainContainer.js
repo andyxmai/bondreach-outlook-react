@@ -38,8 +38,8 @@ const MainContainer = React.createClass({
     })
   },
   render () {
-    const leftPaneStyle = { backgroundColor: 'white', borderRight: '1px solid #D7DADA', overflowY: 'scroll' };
-    const rightPaneStyle = { overflowY: 'scroll' };
+    const leftPaneStyle = { backgroundColor: 'white', borderRight: '1px solid #D7DADA', overflowY: 'scroll', paddingTop: '65px' };
+    const rightPaneStyle = { overflowY: 'scroll', paddingTop: '65px' };
 
     return this.props.isFetching === true
     ? null

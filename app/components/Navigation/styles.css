@@ -5,6 +5,8 @@
   border-bottom: 1px solid #D7DADA;
   height: 65px;
   background-color: white;
+  position: fixed;
+  z-index: 1000;
 }
 
 .navContainer {

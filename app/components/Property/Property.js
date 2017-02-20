@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { PageHeaderContainer } from 'containers'
 import { Panel, Form, FormGroup, FormControl, Col, Row, ControlLabel, InputGroup, Button } from 'react-bootstrap'
 import { container, pageTitle, section, sectionTitle, formHeader, formLabel, form, horizontalForms, horizontalForm } from './styles.css'
 import { btnBlue } from 'sharedStyles/buttons.css'
@@ -17,7 +18,9 @@ const propertyTypeOptions = [
 export default function Property (props) {
   return (
     <div className={container}>
-      <div className={pageTitle}>{'Property & Assumptions'}</div>
+      <PageHeaderContainer
+        title={'Property & Assumptions'}
+      />
       <div className={section}>
         <div className={sectionTitle}>
           {'Property Information'}

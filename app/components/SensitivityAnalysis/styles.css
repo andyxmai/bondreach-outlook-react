@@ -35,6 +35,19 @@
 
 .buttonContainer {
   padding-left: 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.resultsContainer {
+  padding-top: 25px;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
 }
 
 .formLabel {

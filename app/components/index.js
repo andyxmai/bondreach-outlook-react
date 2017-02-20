@@ -11,6 +11,7 @@ export DuckDetails from './DuckDetails/DuckDetails'
 export Replies from './Replies/Replies'
 
 export LeftPaneTextSection from './LeftPaneTextSection/LeftPaneTextSection'
+export PageHeader from './PageHeader/PageHeader'
 
 export NewProperty from './NewProperty/NewProperty'
 export Property from './Property/Property'
