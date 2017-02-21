@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { CashflowTableContainer } from 'containers'
-import { Panel, Button, Row, Col, Form, FormGroup, FormControl, ControlLabel, InputGroup } from 'react-bootstrap'
+import { Panel, Button, Row, Col, Form, FormGroup, FormControl, ControlLabel, InputGroup, HelpBlock } from 'react-bootstrap'
 import { container, title, inputs, actionContainer, action, formLabel, section, disclaimer, buttonContainer, titleContainer, resultsContainer } from './styles.css'
 import { btnBlue, btnRedInverse } from 'sharedStyles/buttons.css'
 import Cleave from 'cleave.js/dist/cleave-react'
@@ -34,6 +34,7 @@ function AssumptionsSection (props) {
                         />
                         <InputGroup.Addon>%</InputGroup.Addon>
                       </InputGroup>
+                      <HelpBlock>{'base value: 2%'}</HelpBlock>
                     </Col>
                   </FormGroup>
 
@@ -49,6 +50,7 @@ function AssumptionsSection (props) {
                         />
                         <InputGroup.Addon>%</InputGroup.Addon>
                       </InputGroup>
+                      <HelpBlock>{'base value: 3%'}</HelpBlock>
                     </Col>
                   </FormGroup>
 
@@ -64,6 +66,7 @@ function AssumptionsSection (props) {
                         />
                         <InputGroup.Addon>%</InputGroup.Addon>
                       </InputGroup>
+                      <HelpBlock>{'base value: 3%'}</HelpBlock>
                     </Col>
                   </FormGroup>
                 </Form>
@@ -107,6 +110,12 @@ export default function SensitivityAnalysis (props) {
         <CashflowTableContainer
           hideButton={true}
           toggle={props.toggle}
+        />
+        <br />
+        <div>{'Base Analysis Operating Cashflows'}</div>
+        <CashflowTableContainer
+          hideButton={true}
+          toggle={false}
         />
       </div>
     </div>
