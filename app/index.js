@@ -17,7 +17,7 @@ const store = createStore(
  )
 )
 
-const history = syncHistoryWithStore(hashHistory, store)
+const history = syncHistoryWithStore(browserHistory, store)
 
 function checkAuth (nextState, replace) {
   return true
