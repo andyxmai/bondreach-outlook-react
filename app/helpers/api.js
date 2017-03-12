@@ -4,9 +4,6 @@ import apiClient from 'common/ApiClient'
 import cookie from 'react-cookie'
 import snakeCaseKeys from 'snakecase-keys'
 
-const token = cookie.load('token') ? cookie.load('token') : ''
-apiClient.defaults.headers.authorization = `JWT ${token}`
-
 export function saveContact (contact) {
   const snakeCaseContact = snakeCaseKeys(contact)
   console.debug('saving', snakeCaseContact)

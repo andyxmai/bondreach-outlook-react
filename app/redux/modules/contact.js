@@ -111,7 +111,10 @@ export function saveNotes () {
         dispatch(savingNotesSuccess('Notes saved'))
       })
       .catch((err) => {
-        console.warn(err);
+        console.warn(err)
+        if (err.response.status === 403) {
+          dispatch(unauthUser())
+        }
         dispatch(savingNotesFailure('Could not save notes. Try again!'))
       })
   }

@@ -61,6 +61,9 @@ export function fetchAndAddSelectOptions () {
 
       dispatch(fetchSelectOptionsSuccess(regionPreferenceOptions, investmentTypePreferenceOptions))
     })).catch((err) => {
+      if (err.response.status === 403) {
+        dispatch(unauthUser())
+      }
       console.warn('Failed to get regions and investment types')
       dispatch(fetchSelectOptionsFailure('Failed to get select options. Please reload!'))
     })
@@ -202,6 +205,9 @@ export function handleAddContactSubmit (successCB) {
         successCB(newContact.id)
       })
       .catch((err) => {
+        if (err.response.status === 403) {
+          dispatch(unauthUser())
+        }
         dispatch(addContactFailure('Failed to save contact.'))
         console.warn('Error in saving contact', err)
       })

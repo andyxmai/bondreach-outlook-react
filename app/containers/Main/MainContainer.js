@@ -67,6 +67,7 @@ const MainContainer = React.createClass({
       this.context.router.push(redirectUrl)
     } else if (isLoggingOut) {
       // clean up work
+      this.context.router.push('/auth')
     }
   },
 

@@ -3,7 +3,7 @@ import camelize from 'camelize'
 import snakeCaseKeys from 'snakecase-keys'
 import { fetchContactWithParams, fetchRegionAndInvestmentTypes } from 'helpers/api'
 import { formatToSelectOptions } from 'helpers/utils'
-
+import { unauthUser } from 'redux/modules/user'
 
 const CHANGE_INVESTMENT_TYPE_FILTER = 'CHANGE_INVESTMENT_TYPE_FILTER'
 const CHANGE_INVESTMENT_SIZE_FILTER = 'CHANGE_INVESTMENT_SIZE_FILTER'
@@ -48,6 +48,9 @@ export function fetchAndAddSelectOptions () {
       dispatch(fetchSelectOptionsSuccess(regionPreferenceOptions, investmentTypePreferenceOptions))
     })).catch((err) => {
       console.warn('Failed to get regions and investment types')
+      if (err.response.status === 403) {
+        dispatch(unauthUser())
+      }
       dispatch(fetchSelectOptionsFailure('Failed to get select options. Please reload!'))
     })
   }
@@ -111,7 +114,10 @@ export function fetchFilterContacts () {
         dispatch(fetchingFilteredContactSuccess(filteredContacts))
       })
       .catch((err) => {
-        console.warn('Error filtering', err)
+        console.warn('Error filtering')
+        if (err.response.status === 403) {
+          dispatch(unauthUser())
+        }
         dispatch(fetchingFilteredContactFailure('Error filtering contacts'))
       })
   }

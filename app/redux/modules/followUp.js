@@ -40,6 +40,9 @@ export function addAndHandleFollowUp (successCB) {
       })
       .catch((err) => {
         console.warn(err)
+        if (err.response.status === 403) {
+          dispatch(unauthUser())
+        }
         dispatch(addFollowUpError('Failed to add follow up. Please try again!'))
       })
   }

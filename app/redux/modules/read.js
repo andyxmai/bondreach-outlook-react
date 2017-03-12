@@ -44,6 +44,9 @@ export function checkForContactSaved (successCB, errorCB) {
       })
       .catch((err) => {
         console.warn('Error fetching email', err)
+        if (err.response.status === 403) {
+          dispatch(unauthUser())
+        }
         dispatch(fetchingContactReadFailure('Failed to get email. Please reload!'))
         errorCB()
       })
