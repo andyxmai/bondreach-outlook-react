@@ -21,9 +21,9 @@ const store = createStore(
    window.devToolsExtension ? window.devToolsExtension() : (f) => f
  )
 )
+window.devToolsExtension()
 
 const history = syncHistoryWithStore(browserHistory, store)
-window.devToolsExtension()
 
 function checkAuth (nextState, replace) {
   if (store.getState().user.isFetching === true) {

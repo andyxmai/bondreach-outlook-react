@@ -24,6 +24,12 @@ const productionPlugin = new webpack.DefinePlugin({
   }
 })
 
+const devPlugin = new webpack.DefinePlugin({
+  'process.env': {
+    NODE_ENV: JSON.stringify('development')
+  }
+})
+
 const dedupePluging = new webpack.optimize.DedupePlugin()
 
 const uglifyjsPluging = new webpack.optimize.UglifyJsPlugin({
@@ -62,7 +68,7 @@ const developmentConfig = {
     inline: true,
     progress: true,
   },
-  plugins: [HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
+  plugins: [HTMLWebpackPluginConfig, devPlugin, new webpack.HotModuleReplacementPlugin()]
 }
 
 const productionConfig = {
