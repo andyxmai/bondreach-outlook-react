@@ -3,11 +3,12 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
-  font-family: ProximaNova, sans-serif;
+  font-family: "Segoe UI WestEuropean","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
   color: #464646;
   font-size: 16px;
-  background-color: #FBFBFB;
+  background-color: white;
   letter-spacing: 1px;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -51,7 +52,40 @@ input[type=number]::-webkit-outer-spin-button {
   width: 20px;
 }
 
+.messageBar {
+  margin-bottom: 10px;
+}
+
+.spacedRow {
+  padding: 2px 0px;
+}
+
+.blockBtn {
+  width: 100%;
+  margin: 2px 0px;
+}
+
 /* Overriding styling from modules */
+:global .ms-Label {
+  font-family: "Segoe UI WestEuropean","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  font-weight: 400;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  color: #333333;
+  box-sizing: border-box;
+  display: block;
+  padding: 5px 0;
+}
+
+:global .Select-control {
+  border-radius: 0px !important;
+  border: 1px solid #c8c8c8 !important;
+}
+
 :global .Select-menu-outer {
   z-index: 10000 !important;
 }

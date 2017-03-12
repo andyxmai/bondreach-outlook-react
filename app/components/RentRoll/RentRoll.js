@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { PageHeaderContainer, MLATableContainer, RentRollTableContainer } from 'containers'
+import { PageHeaderContainer, MLATableContainer } from 'containers'
 import { Button } from 'react-bootstrap'
 import { container, title, subtitle, subtitleElem, actionButtonContainer, spacer, tableSpacer, sectionTitle, section, propertyInfo, pageTitle } from './styles.css'
 import { btnBlue, btnGray } from 'sharedStyles/buttons.css'
@@ -20,7 +20,6 @@ export default function RentRoll (props) {
         <div className={sectionTitle}>
           {'Rent Roll'}
         </div>
-        <RentRollTableContainer />
       </div>
     </div>
   )

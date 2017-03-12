@@ -1,39 +1,74 @@
 {
-  property: {
+  user: {
+    isAuthed,
     isFetching,
-    name,
-    streetAddress,
-    city,
-    state,
+    error,
+    authedId,
+    info: {
+      firstName,
+      lastName,
+      uid,
+    },
+  },
+  contact: {
+    isFetching,
+    error,
+    contactId,
+    firstName,
+    lastName,
+    email,
+    phone,
+    company,
+    investmentPreferences: {
+      typeIds: [typeId],
+      minSize,
+      maxSize,
+      regionIds: [regionId],
+    },
+  },
+  addContact: {
+    isLoading,
+    error,
+    contactId,
+    firstName,
+    lastName,
+    email,
+    phone,
+    company,
+    typeIds: [typeId],
+    minSize,
+    maxSize,
+    regionIds: [regionId],
+  },
+  filterContacts: {
     type,
     size,
-    price
-  },
-
-  report: {
-    isFetching,
-    versionName,
-    createdAt,
-    analysisStartDate,
-    reportStartDate,
-    endDate,
-    assumptions: {
-      inflationGrowth,
-      rentGrowth,
-      vacancyRate,
+    region,
+    filteredContacts: {
+      [contactId]: {
+        firstName,
+        contactId,
+        lastName,
+        company,
+        typeIds: [typeId],
+        minSize,
+        maxSize,
+        regionIds: [regionId],
+        }
+      }
     },
-    property: {
-      name,
-      streetAddress,
-      city,
-      state,
-      type,
-      size,
-      price
+  },
+  regions: {
+    [regionId]: {
+      name
     }
   },
+  investmentTypes: {
+    [investmentTypeId]: {
+      name
+    }
+  }
 }
-
 
 {
   users: {

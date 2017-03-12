@@ -1,5 +1,8 @@
 import firebase from 'firebase'
 
+export const maxInvestmentSizePreference = 10000000000
+
+
 const config = {
   apiKey: "AIzaSyDzhpfgvdvSSxZZLl0SwI7URD1zrzuj8I0",
   authDomain: "reduckr.firebaseapp.com",

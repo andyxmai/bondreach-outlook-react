@@ -1,0 +1,32 @@
+.section {
+  padding: 10px 0px;
+}
+
+.borderedSection {
+  border-top: 1px solid #D7DADA;
+  padding: 10px 0px;
+}
+
+.preferenceType {
+  font-size: 12px;
+  padding-right: 10px;
+  color: #676767;
+}
+
+.subline {
+  color: #676767;
+  font-size: 14px;
+}
+
+.inline {
+  padding-right: 10px;
+  font-size: 14px;
+}
+
+.link {
+  font-size: 14px;
+}
+
+.tasks {
+  font-size: 15px;
+}

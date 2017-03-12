@@ -1,0 +1,38 @@
+.section {
+  padding: 10px 0px;
+}
+
+.borderedSection {
+  border-top: 1px solid #D7DADA;
+  padding: 10px 0px;
+}
+
+.contactContainer {
+  height: 160px;
+  overflow: scroll;
+  margin: 5px;
+}
+
+.contact {
+  border-bottom: 1px solid #F0F0F0;
+  padding: 5px 0px;
+}
+
+.inline {
+  padding-right: 7px;
+  font-size: 12px;
+  color: #676767;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.company {
+  font-size: 13px;
+}
+
+.btn {
+  width: 100%;
+}

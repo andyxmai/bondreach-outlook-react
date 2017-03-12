@@ -9,38 +9,51 @@ import { routerReducer, syncHistoryWithStore } from 'react-router-redux'
 import * as reducers from 'redux/modules'
 import { browserHistory, hashHistory } from 'react-router'
 import 'react-select/dist/react-select.css'
+import * as OfficeHelpers from '@microsoft/office-js-helpers'
+import 'html5-history-api'
+
+var location = window.history.location || window.location  // need to polyfill to make broswerHistory work
 
 const store = createStore(
   combineReducers({...reducers, routing: routerReducer}),
   compose(
    applyMiddleware(thunk),
+   window.devToolsExtension ? window.devToolsExtension() : (f) => f
  )
 )
 
 const history = syncHistoryWithStore(browserHistory, store)
+window.devToolsExtension()
 
 function checkAuth (nextState, replace) {
-  return true
-  if (store.getState().users.isFetching === true) {
+  if (store.getState().user.isFetching === true) {
     return
   }
 
   const isAuthed = checkIfAuthed(store)
   const nextPathName = nextState.location.pathname
-  if (nextPathName === '/' || nextPathName === '/auth') {
+  if (nextPathName === '/auth') {
     if (isAuthed === true) {
-      replace('/feed')
+      replace('/read')
     }
   } else {
     if (isAuthed !== true) {
-      replace('/auth')
+      replace(`/auth/?nextPath=${nextPathName}`)
     }
   }
 }
+// ReactDOM.render(
+//   <Provider store={store}>
+//     {getRoutes(checkAuth, history)}
+//   </Provider>,
+//   document.getElementById('app')
+// )
 
-ReactDOM.render(
-  <Provider store={store}>
-    {getRoutes(checkAuth, history)}
-  </Provider>,
-  document.getElementById('app')
-)
+Office.initialize = function(reason) {
+  ReactDOM.render(
+    <Provider store={store}>
+      {getRoutes(checkAuth, history)}
+    </Provider>,
+    document.getElementById('app')
+  )
+}

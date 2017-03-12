@@ -1,0 +1,14 @@
+.section {
+  padding: 10px 0px;
+}
+
+.contact {
+  margin: 5px;
+  padding: 10px 0px;
+  border-bottom: 1px solid #D7DADA;
+}
+
+.preference {
+  font-size: 12px;
+  padding-right: 10px;
+}

@@ -38,3 +38,9 @@ export TenantCashflowTable from './TenantCashflows/TenantCashflowTable'
 export SensitivityAnalysis from './SensitivityAnalysis/SensitivityAnalysis'
 
 export CashflowRowRenderer from './RowRenderer/CashflowRowRenderer'
+
+export AddContact from './AddContact/AddContact'
+export AddReminder from './AddReminder/AddReminder'
+export Compose from './Compose/Compose'
+export FilterContacts from './FilterContacts/FilterContacts'
+export ViewContact from './ViewContact/ViewContact'
