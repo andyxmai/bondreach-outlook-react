@@ -20,7 +20,6 @@ export default function getRoutes (checkAuth, history) {
           <Route path='read' component={ReadContainer} />
           <Route path='view-contact/:contactId' component={ViewContactContainer} />
         </Route>
-
         <IndexRoute component={ HomeContainer } />
       </Router>
     </Router>

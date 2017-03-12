@@ -20,6 +20,14 @@ const AddContactContainer = React.createClass({
     this.props.addCreator()
   },
 
+  componentDidUpdate(prevProps) {
+    if (this.props.addedContactId !== '' && prevProps.addedContactId == '') {
+      console.log('will soon add reminder for', this.props.addedContactId);
+      const addedContactId = this.props.addedContactId
+      this.context.router.push(`/add-reminder/${addedContactId}`)
+    }
+  },
+
   handleFirstNameChanged (value) {
     this.props.handleFirstNameChanged(value)
   },
@@ -60,18 +68,12 @@ const AddContactContainer = React.createClass({
     this.props.handleNotesChanged(value)
   },
 
-  handleRemoveSuccessMsg () {
-    this.props.removeAddContactSuccessMsg()
-  },
-
   handleRemoveErrorMsg () {
     this.props.removeAddContactErrorMsg()
   },
 
   handleAddContactClicked () {
-    this.props.handleAddContactSubmit((contactId) => {
-      this.context.router.push(`/add-reminder/${contactId}`)
-    })
+    this.props.handleAddContactSubmit()
   },
 
   handleShowNotes () {
@@ -109,7 +111,6 @@ const AddContactContainer = React.createClass({
         onTypePreferenceChanged={this.handleTypePreferenceChanged}
         onRegionPreferenceChanged={this.handleRegionPreferenceChanged}
         onAddContactClicked={this.handleAddContactClicked}
-        onRemoveSuccessMsg={this.handleRemoveSuccessMsg}
         onRemoveErrorMsg={this.handleRemoveErrorMsg}
         notes={this.props.notes}
         isNotesPanelOpened={this.props.isNotesPanelOpened}
@@ -125,6 +126,7 @@ function mapStateToProps ({addContact}) {
   return {
     isLoading: addContact.isLoading,
     error: addContact.error,
+    addedContactId: addContact.addedContactId,
     successMsg: addContact.successMsg,
     firstName: addContact.firstName,
     lastName: addContact.lastName,

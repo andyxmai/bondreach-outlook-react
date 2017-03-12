@@ -1,8 +1,5 @@
 export Home from './Home/Home'
 export Authenticate from './Authenticate/Authenticate'
-
-export ExpenseTable from './Expenses/ExpenseTable'
-
 export AddContact from './AddContact/AddContact'
 export AddReminder from './AddReminder/AddReminder'
 export Compose from './Compose/Compose'

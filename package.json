@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production webpack -p --progress && NODE_ENV=production node server.js",
-    "dev": "webpack-dev-server --https --history-api-fallback",
+    "dev": "webpack-dev-server --https --port 3000 --history-api-fallback",
     "production": "webpack -p --progress",
     "lint": "eslint app/.; exit 0",
     "fix": "eslint --fix app/.; exit 0"
@@ -26,7 +26,6 @@
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-cookie": "^1.0.4",
-    "react-data-grid-addons": "^2.0.4",
     "react-dom": "^15.4.2",
     "react-modal": "^1.6.5",
     "react-redux": "^5.0.2",

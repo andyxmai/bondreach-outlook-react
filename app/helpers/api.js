@@ -1,12 +1,10 @@
 import axios from 'axios'
 import apiClient from 'common/ApiClient'
 import cookie from 'react-cookie'
-import snakeCaseKeys from 'snakecase-keys'
 
 export function saveContact (contact) {
-  const snakeCaseContact = snakeCaseKeys(contact)
-  console.debug('saving', snakeCaseContact)
-  return apiClient.post('/v1/contacts/', snakeCaseContact)
+  console.debug('saving', contact)
+  return apiClient.post('/v1/contacts/', contact)
 }
 
 export function updateContact (contact) {

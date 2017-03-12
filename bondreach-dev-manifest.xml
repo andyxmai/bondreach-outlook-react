@@ -12,7 +12,7 @@
   <Id>bc726f54-1d00-4376-b5bb-e2d89d2a61ed</Id>
 
   <!--Version. Updates from the store only get triggered if there is a version change. -->
-  <Version>1.0.0.11</Version>
+  <Version>1.0.0.13</Version>
   <ProviderName>BondReach</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <!-- The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog. -->

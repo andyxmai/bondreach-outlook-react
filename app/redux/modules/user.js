@@ -9,6 +9,7 @@ const FETCHING_USER_FAILURE = 'FETCHING_USER_FAILURE'
 const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS'
 const REMOVE_FETCHING_USER = 'REMOVE_FETCHING_USER'
 const SET_REDIRECT_URL = 'SET_REDIRECT_URL'
+const REMOVE_REDIRECT_URL = 'REMOVE_REDIRECT_URL'
 
 function authUser (id) {
   return {
@@ -56,6 +57,7 @@ export function fetchAndLoginUser (successCB, errorCB) {
     if (token !== '') {
       dispatch(fetchingUser())
       // Check if the token is still valid
+      apiClient.defaults.headers.authorization = `JWT ${token}`
       loginWithToken(token)
         .then((res) => {
           successCB()
@@ -112,6 +114,12 @@ export function setRedirectUrl (redirectUrl) {
   }
 }
 
+export function removeRedirectUrl () {
+  return {
+    type: REMOVE_REDIRECT_URL,
+  }
+}
+
 const initialState = {
   isAuthed: false,
   isFetching: false,
@@ -138,6 +146,11 @@ export default function user (state = initialState, action) {
       return {
         ...state,
         redirectUrl: action.redirectUrl,
+      }
+    case REMOVE_REDIRECT_URL:
+      return {
+        ...state,
+        redirectUrl: ''
       }
     case FETCHING_USER:
       return {
