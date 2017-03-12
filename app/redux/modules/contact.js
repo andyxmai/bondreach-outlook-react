@@ -171,6 +171,8 @@ export default function contact (state = initialState, action) {
       return {
         ...state,
         isNotesPanelOpened: false,
+        notesSavedSuccessMsg: '',
+        notesSavedErrorMsg: '',
       }
     case CHANGE_VIEW_CONTACT_NOTES:
       return {
