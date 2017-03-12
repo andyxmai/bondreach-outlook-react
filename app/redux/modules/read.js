@@ -1,7 +1,6 @@
 import camelize from 'camelize'
 import { fetchContactWithParams } from 'helpers/api'
 
-
 const FETCHING_CONTACT_READ = 'FETCHING_CONTACT_READ'
 const FETCHING_CONTACT_READ_SUCCESS = 'FETCHING_CONTACT_READ_SUCCESS'
 const FETCHING_CONTACT_READ_FAILURE = 'FETCHING_CONTACT_READ_FAILURE'
@@ -62,7 +61,7 @@ export default function read (state = initialState, action) {
     case FETCHING_CONTACT_READ:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       }
     case FETCHING_CONTACT_READ_SUCCESS:
       return {
@@ -70,7 +69,7 @@ export default function read (state = initialState, action) {
         isFetching: false,
         hasContactSaved: action.hasContactSaved,
         contactSaved: action.contactSaved,
-        error: ''
+        error: '',
       }
     case FETCHING_CONTACT_READ_FAILURE:
       return {

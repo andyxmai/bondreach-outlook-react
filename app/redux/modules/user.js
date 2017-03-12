@@ -1,6 +1,5 @@
-import auth from 'helpers/auth'
 import cookie from 'react-cookie'
-import { loginWithToken } from 'helpers/auth'
+import auth, { loginWithToken } from 'helpers/auth'
 
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
@@ -44,7 +43,7 @@ export function fetchingUserSuccess () {
 
 function removeFetchingUser () {
   return {
-    type: REMOVE_FETCHING_USER
+    type: REMOVE_FETCHING_USER,
   }
 }
 

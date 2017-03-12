@@ -4,7 +4,6 @@ import snakeCaseKeys from 'snakecase-keys'
 import { fetchContactWithParams, fetchRegionAndInvestmentTypes } from 'helpers/api'
 import { formatToSelectOptions } from 'helpers/utils'
 
-
 const CHANGE_INVESTMENT_TYPE_FILTER = 'CHANGE_INVESTMENT_TYPE_FILTER'
 const CHANGE_INVESTMENT_SIZE_FILTER = 'CHANGE_INVESTMENT_SIZE_FILTER'
 const CHANGE_INVESTMENT_REGION_FILTER = 'CHANGE_INVESTMENT_REGION_FILTER'
@@ -47,7 +46,7 @@ export function fetchAndAddSelectOptions () {
 
       dispatch(fetchSelectOptionsSuccess(regionPreferenceOptions, investmentTypePreferenceOptions))
     })).catch((err) => {
-      console.warn('Failed to get regions and investment types')
+      console.warn('Failed to get regions and investment types', err)
       dispatch(fetchSelectOptionsFailure('Failed to get select options. Please reload!'))
     })
   }
@@ -96,7 +95,7 @@ function fetchingFilteredContactFailure (error) {
 
 export function fetchFilterContacts () {
   return function (dispatch, getState) {
-    const { investmentSize, regionPreferences, investmentTypePreferences }  = getState().filterContacts
+    const { investmentSize, regionPreferences, investmentTypePreferences } = getState().filterContacts
 
     // TODO (Andy): This is to allow empty params. This sucks. Find a better way
     var params = {}
@@ -120,7 +119,7 @@ export function fetchFilterContacts () {
 export function handleAddToBcc () {
   return function (dispatch, getState) {
     const { filteredContacts } = getState().filterContacts
-    const emails = filteredContacts.map(function(contact) {return contact.email})
+    const emails = filteredContacts.map(function (contact) { return contact.email })
     Office.context.mailbox.item.bcc.setAsync( emails )
   }
 }
@@ -144,7 +143,7 @@ const initialState = {
 }
 
 export default function filterContacts (state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case CHANGE_INVESTMENT_TYPE_FILTER:
       return {
         ...state,
@@ -153,12 +152,12 @@ export default function filterContacts (state = initialState, action) {
     case CHANGE_INVESTMENT_SIZE_FILTER:
       return {
         ...state,
-        investmentSize: action.value
+        investmentSize: action.value,
       }
     case CHANGE_INVESTMENT_REGION_FILTER:
       return {
         ...state,
-        regionPreferences: action.value
+        regionPreferences: action.value,
       }
     case FETCHING_FILTERED_CONTACTS:
       return {
@@ -173,7 +172,7 @@ export default function filterContacts (state = initialState, action) {
         isFetching: false,
         hasQueried: true,
         error: '',
-        filteredContacts: action.filteredContacts
+        filteredContacts: action.filteredContacts,
       }
     case FETCHING_FILTERED_CONTACTS_FAILURE:
       return {
@@ -186,7 +185,7 @@ export default function filterContacts (state = initialState, action) {
     case FETCH_FILTER_CONTACTS_SELECT_OPTIONS:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       }
     case FETCH_FILTER_CONTACTS_SELECT_OPTIONS_SUCCESS:
       return {
@@ -200,7 +199,7 @@ export default function filterContacts (state = initialState, action) {
       return {
         ...state,
         error: action.error,
-        isFetching: false
+        isFetching: false,
       }
     case RESET_FILTER_CONTACTS:
       return initialState

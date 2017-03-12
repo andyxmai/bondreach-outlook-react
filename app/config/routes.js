@@ -1,19 +1,16 @@
 import React from 'react'
 import { Router, Route, IndexRoute } from 'react-router'
 import {
-  MainContainer, HomeContainer, AuthenticateContainer, FeedContainer,
-  LogoutContainer, UserContainer, DuckDetailsContainer, NewPropertyContainer,
-  ExpensesContainer, RentRollContainer, PropertyContainer, CashflowsContainer,
+  MainContainer, HomeContainer, AuthenticateContainer,
   AddContactContainer, AddReminderContainer, ComposeContainer, ViewContactContainer,
   ReadContainer, FilterContactsContainer, EnsureLoggedInContainer
 } from 'containers'
 
-export default function getRoutes (checkAuth, history) {
+export default function getRoutes (history) {
   return (
     <Router history={history}>
       <Router path='/' component={MainContainer}>
         <Route path='auth' component={AuthenticateContainer} />
-        <Route path='logout' component={LogoutContainer} />
 
         <Route component={EnsureLoggedInContainer}>
           <Route path='add-contact' component={AddContactContainer} />

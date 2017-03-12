@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { Map, List } from 'immutable'
 import { formatFromSelectionOptions, formatToMultiSelectOptions, parseDisplayName } from 'helpers/utils'
 import { saveContact, fetchRegionAndInvestmentTypes } from 'helpers/api'
 import { maxInvestmentSizePreference } from 'config/constants'

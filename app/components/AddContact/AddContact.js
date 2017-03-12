@@ -11,6 +11,7 @@ import Select from 'react-select'
 import { notesField, dropdown } from './styles.css'
 import { maxInvestmentSizePreference } from 'config/constants'
 import { blockBtn } from 'sharedStyles/styles.css'
+import 'react-select/dist/react-select.css'
 
 const minInvestmentSizeOptions = [
   { label: 'No minimum', value: 0 },
