@@ -1,7 +1,7 @@
 import snakeCaseKeys from 'snakecase-keys'
 import { saveFollowUp } from 'helpers/api'
 import { formatJSDateToPyDate } from 'helpers/utils'
-
+import { unauthUser } from 'redux/modules/user'
 
 const ADD_FOLLOW_UP_CONTACT_ID = 'ADD_FOLLOW_UP_CONTACT_ID'
 const ADDING_FOLLOW_UP = 'ADDING_FOLLOWUP'

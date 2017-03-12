@@ -3,6 +3,7 @@ import { Map, List } from 'immutable'
 import { formatFromSelectionOptions, formatToMultiSelectOptions, parseDisplayName } from 'helpers/utils'
 import { saveContact, fetchRegionAndInvestmentTypes } from 'helpers/api'
 import { maxInvestmentSizePreference } from 'config/constants'
+import { unauthUser } from 'redux/modules/user'
 
 const LOADING_INFO = 'LOADING_INFO'
 const LOADING_INFO_COMPLETE = 'LOADING_INFO_COMPLETE'

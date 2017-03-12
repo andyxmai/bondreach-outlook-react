@@ -1,6 +1,7 @@
 import camelize from 'camelize'
 import snakeCaseKeys from 'snakecase-keys'
 import { fetchContactWithId, fetchContactWithParams, updateContact } from 'helpers/api'
+import { unauthUser } from 'redux/modules/user'
 
 const FETCHING_CONTACT = 'FETCHING_CONTACT'
 const FETCHING_CONTACT_SUCCESS = 'FETCHING_CONTACT_SUCCESS'

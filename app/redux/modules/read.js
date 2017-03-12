@@ -1,6 +1,6 @@
 import camelize from 'camelize'
 import { fetchContactWithParams } from 'helpers/api'
-
+import { unauthUser } from 'redux/modules/user'
 
 const FETCHING_CONTACT_READ = 'FETCHING_CONTACT_READ'
 const FETCHING_CONTACT_READ_SUCCESS = 'FETCHING_CONTACT_READ_SUCCESS'
