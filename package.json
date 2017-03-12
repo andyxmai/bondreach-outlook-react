@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@microsoft/office-js-helpers": "^0.5.0",
     "axios": "^0.15.3",
     "bootstrap": "^3.3.7",
     "camelize": "^1.0.0",
