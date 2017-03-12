@@ -1,6 +1,7 @@
 import camelize from 'camelize'
 import snakeCaseKeys from 'snakecase-keys'
 import { fetchContactWithId, fetchContactWithParams, updateContact } from 'helpers/api'
+import { unauthUser } from 'redux/modules/user'
 
 const FETCHING_CONTACT = 'FETCHING_CONTACT'
 const FETCHING_CONTACT_SUCCESS = 'FETCHING_CONTACT_SUCCESS'
@@ -111,7 +112,10 @@ export function saveNotes () {
         dispatch(savingNotesSuccess('Notes saved'))
       })
       .catch((err) => {
-        console.warn(err);
+        console.warn(err)
+        if (err.response.status === 403) {
+          dispatch(unauthUser())
+        }
         dispatch(savingNotesFailure('Could not save notes. Try again!'))
       })
   }
@@ -167,6 +171,8 @@ export default function contact (state = initialState, action) {
       return {
         ...state,
         isNotesPanelOpened: false,
+        notesSavedSuccessMsg: '',
+        notesSavedErrorMsg: '',
       }
     case CHANGE_VIEW_CONTACT_NOTES:
       return {

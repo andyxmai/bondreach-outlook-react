@@ -13,4 +13,6 @@ var apiClient = axios.create({
   xsrfHeaderName: "X-CSRFToken",
 })
 
+// Todo (Andy): add response interceptor to handle 403 errors
+
 export default apiClient

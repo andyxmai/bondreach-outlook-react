@@ -1,6 +1,6 @@
 import camelize from 'camelize'
 import { fetchContactWithParams } from 'helpers/api'
-
+import { unauthUser } from 'redux/modules/user'
 
 const FETCHING_CONTACT_READ = 'FETCHING_CONTACT_READ'
 const FETCHING_CONTACT_READ_SUCCESS = 'FETCHING_CONTACT_READ_SUCCESS'
@@ -44,6 +44,9 @@ export function checkForContactSaved (successCB, errorCB) {
       })
       .catch((err) => {
         console.warn('Error fetching email', err)
+        if (err.response.status === 403) {
+          dispatch(unauthUser())
+        }
         dispatch(fetchingContactReadFailure('Failed to get email. Please reload!'))
         errorCB()
       })

@@ -1,8 +1,9 @@
 import axios from 'axios'
-import { Map, List } from 'immutable'
+import snakeCaseKeys from 'snakecase-keys'
 import { formatFromSelectionOptions, formatToMultiSelectOptions, parseDisplayName } from 'helpers/utils'
 import { saveContact, fetchRegionAndInvestmentTypes } from 'helpers/api'
 import { maxInvestmentSizePreference } from 'config/constants'
+import { unauthUser } from 'redux/modules/user'
 
 const LOADING_INFO = 'LOADING_INFO'
 const LOADING_INFO_COMPLETE = 'LOADING_INFO_COMPLETE'
@@ -20,7 +21,6 @@ const CONVERT_ADD_CONTACT_OPTIONS = 'CONVERT_ADD_CONTACT_OPTIONS'
 const ADDING_CONTACT = 'ADDING_CONTACT'
 const ADD_CONTACT = 'ADD_CONTACT'
 const ADD_CONTACT_SUCCESS = 'ADD_CONTACT_SUCCESS'
-const REMOVE_ADD_CONTACT_SUCCESS_MSG = 'REMOVE_ADD_CONTACT_SUCCESS_MSG'
 const REMOVE_ADD_CONTACT_ERROR_MSG = 'REMOVE_ADD_CONTACT_ERROR_MSG'
 const ADD_CONTACT_FAILURE = 'ADD_CONTACT_FAILURE'
 const FETCH_ADD_CONTACT_SELECT_OPTIONS = 'FETCH_ADD_CONTACT_SELECT_OPTIONS'
@@ -61,6 +61,9 @@ export function fetchAndAddSelectOptions () {
 
       dispatch(fetchSelectOptionsSuccess(regionPreferenceOptions, investmentTypePreferenceOptions))
     })).catch((err) => {
+      if (err.response.status === 403) {
+        dispatch(unauthUser())
+      }
       console.warn('Failed to get regions and investment types')
       dispatch(fetchSelectOptionsFailure('Failed to get select options. Please reload!'))
     })
@@ -155,15 +158,10 @@ function addingContact () {
   }
 }
 
-function addContactSuccess () {
+function addContactSuccess (addedContactId) {
   return {
     type: ADD_CONTACT_SUCCESS,
-  }
-}
-
-export function removeAddContactSuccessMsg () {
-  return {
-    type: REMOVE_ADD_CONTACT_SUCCESS_MSG
+    addedContactId,
   }
 }
 
@@ -189,17 +187,19 @@ function convertAddContactOptions (investmentTypePreferences, regionPreferences)
   }
 }
 
-export function handleAddContactSubmit (successCB) {
+export function handleAddContactSubmit () {
   return function (dispatch, getState) {
     const investmentTypePreferences = formatFromSelectionOptions(getState().addContact.investmentTypePreferencesSelected)
     const regionPreferences = formatFromSelectionOptions(getState().addContact.regionPreferencesSelected)
     dispatch(addingContact())
+    console.debug(investmentTypePreferences, regionPreferences)
     dispatch(convertAddContactOptions(investmentTypePreferences, regionPreferences))
-    saveContact(getState().addContact)
+    const contact = snakeCaseKeys(getState().addContact)
+    saveContact(contact)
       .then((res) => {
         const newContact = res.data
-        dispatch(addContactSuccess())
-        successCB(newContact.id)
+        console.log('new contact id', newContact.id);
+        dispatch(addContactSuccess(newContact.id))
       })
       .catch((err) => {
         dispatch(addContactFailure('Failed to save contact.'))
@@ -255,7 +255,7 @@ export function hideNotesPanel () {
 const initialState = {
   isLoading: true,
   error: '',
-  successMsg: '',
+  addedContactId: '',
   firstName: '',
   lastName: '',
   email: '',
@@ -357,18 +357,14 @@ export default function addContact (state = initialState, action) {
         ...initialState,
         error: '',
         isLoading: false,
+        addedContactId: action.addedContactId,
       }
     case ADD_CONTACT_FAILURE:
       return {
         ...state,
         error: action.error,
-        successMsg: '',
         isLoading: false,
-      }
-    case REMOVE_ADD_CONTACT_SUCCESS_MSG:
-      return {
-        ...state,
-        successMsg: '',
+        addedContactId: '',
       }
     case REMOVE_ADD_CONTACT_ERROR_MSG:
       return {

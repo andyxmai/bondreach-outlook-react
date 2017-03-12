@@ -15,6 +15,14 @@ const AddReminderContainer = React.createClass({
     this.props.addFollowUpContactId(contactId)
   },
 
+  componentDidUpdate(prevProps) {
+    if (this.props.followUpAdded === true && prevProps.followUpAdded === false) {
+      const contact = this.props.contact
+      this.props.resetFollowUp()
+      this.context.router.push(`/view-contact/${contact}`)
+    }
+  },
+
   handleSelectBeginDate (beginDataObj) {
     this.props.handleBeginDateChange(beginDataObj)
   },
@@ -24,9 +32,7 @@ const AddReminderContainer = React.createClass({
   },
 
   handleAddToCalendar () {
-    this.props.addAndHandleFollowUp(() => {
-      this.context.router.push(`/view-contact/${this.props.contact}`)
-    })
+    this.props.addAndHandleFollowUp()
   },
 
   goToContact () {
@@ -57,6 +63,7 @@ function mapStateToProps ({followUp}) {
     frequency: followUp.frequency,
     isActive: followUp.isActive,
     contact: followUp.contact,  // this is actually the ID
+    followUpAdded: followUp.followUpAdded,
   }
 }
 

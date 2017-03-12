@@ -1,6 +1,6 @@
-import auth from 'helpers/auth'
+import auth, { loginWithToken } from 'helpers/auth'
 import cookie from 'react-cookie'
-import { loginWithToken } from 'helpers/auth'
+import apiClient from 'common/ApiClient'
 
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
@@ -9,6 +9,7 @@ const FETCHING_USER_FAILURE = 'FETCHING_USER_FAILURE'
 const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS'
 const REMOVE_FETCHING_USER = 'REMOVE_FETCHING_USER'
 const SET_REDIRECT_URL = 'SET_REDIRECT_URL'
+const REMOVE_REDIRECT_URL = 'REMOVE_REDIRECT_URL'
 
 function authUser (id) {
   return {
@@ -17,7 +18,7 @@ function authUser (id) {
   }
 }
 
-function unauthUser () {
+export function unauthUser () {
   return {
     type: UNAUTH_USER,
   }
@@ -52,10 +53,11 @@ export function fetchAndLoginUser (successCB, errorCB) {
   // Check if the token (if there is one) is still valid.
   // Otherwise, user will get directed to the auth page.
   return function (dispatch) {
-    dispatch(fetchingUser())
     const token = cookie.load('token') ? cookie.load('token') : ''
     if (token !== '') {
+      dispatch(fetchingUser())
       // Check if the token is still valid
+      apiClient.defaults.headers.authorization = `JWT ${token}`
       loginWithToken(token)
         .then((res) => {
           successCB()
@@ -63,9 +65,14 @@ export function fetchAndLoginUser (successCB, errorCB) {
           dispatch(authUser(res.data.id))
         })
         .catch((err) => {
+          console.log('here error');
+          // token has expired. Remove it and force user to auth
+          cookie.remove('token', { path: '/' })
+          delete apiClient.defaults.headers.authorization
           console.warn('login error', err)
-          errorCB()
           dispatch(removeFetchingUser())
+          dispatch(unauthUser())
+          errorCB()
         })
     } else {
       errorCB()
@@ -78,11 +85,14 @@ export function fetchAndHandleAuthedUser (token, email) {
     dispatch(fetchingUser())
     auth(token, email)
       .then((res) => {
-        cookie.save('token', res.data.token, { path: '/' })
+        const token = res.data.token
+        cookie.save('token', token, { path: '/' })
+        apiClient.defaults.headers.authorization = `JWT ${token}`
         dispatch(fetchingUserSuccess())
         dispatch(authUser(res.data.id))
       })
       .catch((err) => {
+        console.log(err);
         console.warn('Auth err', err)
         dispatch(fetchingUserFailure('Failed to get user profile'))
       })
@@ -92,6 +102,7 @@ export function fetchAndHandleAuthedUser (token, email) {
 export function logoutAndUnauth () {
   return function (dispatch) {
     cookie.remove('token', { path: '/' })
+    delete apiClient.defaults.headers.authorization
     dispatch(unauthUser())
   }
 }
@@ -100,6 +111,12 @@ export function setRedirectUrl (redirectUrl) {
   return {
     type: SET_REDIRECT_URL,
     redirectUrl,
+  }
+}
+
+export function removeRedirectUrl () {
+  return {
+    type: REMOVE_REDIRECT_URL,
   }
 }
 
@@ -129,6 +146,11 @@ export default function user (state = initialState, action) {
       return {
         ...state,
         redirectUrl: action.redirectUrl,
+      }
+    case REMOVE_REDIRECT_URL:
+      return {
+        ...state,
+        redirectUrl: ''
       }
     case FETCHING_USER:
       return {
