@@ -17,8 +17,8 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 // For Let's Encrypt SSL
-app.get('.well-known/acme-challenge/1o8yMNG8q5MpshN27cjc9S8wh72VV4195Hz34-wGRR4', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'dist', 'encrypt.html'));  
+app.get('/.well-known/acme-challenge/1o8yMNG8q5MpshN27cjc9S8wh72VV4195Hz34-wGRR4', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'encrypt.html'));
 });
 
 app.get('/*', (req, res) => {
