@@ -12,7 +12,7 @@ const AddContactContainer = React.createClass({
   },
 
   componentDidMount () {
-    this.props.fetchAndAddSelectOptions()
+    this.props.fetchAndAddContactSelectOptions()
     const populate = this.props.location.query.populate ? true : false
     if (populate) {  // populate the fields with the current email item
       this.props.loadAndStoreContactInfo()
@@ -22,7 +22,6 @@ const AddContactContainer = React.createClass({
 
   componentDidUpdate(prevProps) {
     if (this.props.addedContactId !== '' && prevProps.addedContactId === '') {
-      console.log('will soon add reminder for', this.props.addedContactId);
       const addedContactId = this.props.addedContactId
       this.context.router.push(`/add-reminder/${addedContactId}`)
     }

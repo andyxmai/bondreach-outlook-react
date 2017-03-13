@@ -33,6 +33,7 @@ const MainContainer = React.createClass({
   },
 
   goToAddContact () {
+    console.log('add contact clicked');
     this.props.resetAddNewContact()
     this.context.router.push('/add-contact')
   },

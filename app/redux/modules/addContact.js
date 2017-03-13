@@ -51,7 +51,7 @@ function fetchSelectOptionsFailure (error) {
   }
 }
 
-export function fetchAndAddSelectOptions () {
+export function fetchAndAddContactSelectOptions () {
   return function (dispatch) {
     dispatch(fetchingSelectOptions())
     fetchRegionAndInvestmentTypes().then(axios.spread((regionRes, typeRes) => {
@@ -63,8 +63,7 @@ export function fetchAndAddSelectOptions () {
       if (err.response.status === 403) {
         dispatch(unauthUser())
       }
-      console.warn('Add contact error', err.response)
-      console.warn('Failed to get regions and investment types')
+      console.warn('Add contact error', err)
       dispatch(fetchSelectOptionsFailure('Failed to get select options. Please reload!'))
     })
   }
@@ -251,7 +250,7 @@ export function hideNotesPanel () {
 }
 
 const initialState = {
-  isLoading: true,
+  isLoading: false,
   error: '',
   addedContactId: '',
   firstName: '',

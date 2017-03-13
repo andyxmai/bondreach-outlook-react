@@ -38,6 +38,7 @@ function fetchSelectOptionsFailure (error) {
 }
 
 export function fetchAndAddSelectOptions () {
+  console.log('fetchAndAddSelectOptions called');
   return function (dispatch) {
     dispatch(fetchingSelectOptions())
     fetchRegionAndInvestmentTypes().then(axios.spread((regionRes, typeRes) => {
