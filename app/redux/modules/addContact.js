@@ -120,28 +120,28 @@ export function handleCompanyChanged (value) {
 export function handleTypePreferenceChanged (value) {
   return {
     type: CHANGE_TYPE_PREFERENCE,
-    value
+    value,
   }
 }
 
 export function handleMinSizePreferenceChanged (value) {
   return {
     type: CHANGE_MIN_SIZE_PREFERENCE,
-    value
+    value,
   }
 }
 
 export function handleMaxSizePreferenceChanged (value) {
   return {
     type: CHANGE_MAX_SIZE_PREFERENCE,
-    value
+    value,
   }
 }
 
 export function handleRegionPreferenceChanged (value) {
   return {
     type: CHANGE_REGION_PREFERENCE,
-    value
+    value,
   }
 }
 
@@ -167,10 +167,9 @@ function addContactSuccess (addedContactId) {
 
 export function removeAddContactErrorMsg () {
   return {
-    type: REMOVE_ADD_CONTACT_ERROR_MSG
+    type: REMOVE_ADD_CONTACT_ERROR_MSG,
   }
 }
-
 
 function addContactFailure (error) {
   return {
@@ -183,7 +182,7 @@ function convertAddContactOptions (investmentTypePreferences, regionPreferences)
   return {
     type: CONVERT_ADD_CONTACT_OPTIONS,
     investmentTypePreferences,
-    regionPreferences
+    regionPreferences,
   }
 }
 
@@ -192,13 +191,12 @@ export function handleAddContactSubmit () {
     const investmentTypePreferences = formatFromSelectionOptions(getState().addContact.investmentTypePreferencesSelected)
     const regionPreferences = formatFromSelectionOptions(getState().addContact.regionPreferencesSelected)
     dispatch(addingContact())
-    console.debug(investmentTypePreferences, regionPreferences)
     dispatch(convertAddContactOptions(investmentTypePreferences, regionPreferences))
     const contact = snakeCaseKeys(getState().addContact)
     saveContact(contact)
       .then((res) => {
         const newContact = res.data
-        console.log('new contact id', newContact.id);
+        console.log('new contact id', newContact.id)
         dispatch(addContactSuccess(newContact.id))
       })
       .catch((err) => {
@@ -213,7 +211,7 @@ export function loadAndStoreContactInfo () {
     dispatch(loadingInfo())
     const email = Office.context.mailbox.item.from.emailAddress
     const displayName = Office.context.mailbox.item.from.displayName
-    const {firstName, lastName } = parseDisplayName(displayName)
+    const { firstName, lastName } = parseDisplayName(displayName)
     dispatch(handleEmailChanged(email))
     dispatch(handleFirstNameChanged(firstName))
     dispatch(handleLastNameChanged(lastName))
@@ -228,7 +226,7 @@ function changeNewContactCreator (creator) {
   }
 }
 
-export function addCreator() {
+export function addCreator () {
   return function (dispatch, getState) {
     dispatch(changeNewContactCreator(getState().user.authedId))
   }
@@ -294,42 +292,42 @@ export default function addContact (state = initialState, action) {
     case CHANGE_LAST_NAME:
       return {
         ...state,
-        lastName: action.value
+        lastName: action.value,
       }
     case CHANGE_EMAIL:
       return {
         ...state,
-        email: action.value
+        email: action.value,
       }
     case CHANGE_PHONE:
       return {
         ...state,
-        phone: action.value
+        phone: action.value,
       }
     case CHANGE_COMPANY:
       return {
         ...state,
-        company: action.value
+        company: action.value,
       }
     case CHANGE_TYPE_PREFERENCE:
       return {
         ...state,
-        investmentTypePreferencesSelected: action.value
+        investmentTypePreferencesSelected: action.value,
       }
     case CHANGE_MIN_SIZE_PREFERENCE:
       return {
         ...state,
-        minimumInvestmentSize: action.value
+        minimumInvestmentSize: action.value,
       }
     case CHANGE_MAX_SIZE_PREFERENCE:
       return {
         ...state,
-        maximumInvestmentSize: action.value
+        maximumInvestmentSize: action.value,
       }
     case CHANGE_REGION_PREFERENCE:
       return {
         ...state,
-        regionPreferencesSelected: action.value
+        regionPreferencesSelected: action.value,
       }
     case CHANGE_NOTES:
       return {
@@ -369,12 +367,12 @@ export default function addContact (state = initialState, action) {
     case REMOVE_ADD_CONTACT_ERROR_MSG:
       return {
         ...state,
-        error: ''
+        error: '',
       }
     case FETCH_ADD_CONTACT_SELECT_OPTIONS:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
       }
     case FETCH_ADD_CONTACT_SELECT_OPTIONS_SUCCESS:
       return {
@@ -388,7 +386,7 @@ export default function addContact (state = initialState, action) {
       return {
         ...state,
         error: action.error,
-        isLoading: false
+        isLoading: false,
       }
     case RESET_ADD_CONTACT:
       return initialState

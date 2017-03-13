@@ -13,7 +13,7 @@ const RESET_FOLLOW_UP = 'RESET_FOLLOW_UP'
 
 function addingFollowUp () {
   return {
-    type: ADDING_FOLLOW_UP
+    type: ADDING_FOLLOW_UP,
   }
 }
 
