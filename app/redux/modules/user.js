@@ -45,7 +45,7 @@ export function fetchingUserSuccess () {
 
 function removeFetchingUser () {
   return {
-    type: REMOVE_FETCHING_USER
+    type: REMOVE_FETCHING_USER,
   }
 }
 
@@ -65,7 +65,6 @@ export function fetchAndLoginUser (successCB, errorCB) {
           dispatch(authUser(res.data.id))
         })
         .catch((err) => {
-          console.log('here error');
           // token has expired. Remove it and force user to auth
           cookie.remove('token', { path: '/' })
           delete apiClient.defaults.headers.authorization
@@ -83,6 +82,9 @@ export function fetchAndLoginUser (successCB, errorCB) {
 export function fetchAndHandleAuthedUser (token, email) {
   return function (dispatch) {
     dispatch(fetchingUser())
+    // remove the old token if there's any
+    cookie.remove('token', { path: '/' })
+    delete apiClient.defaults.headers.authorization
     auth(token, email)
       .then((res) => {
         const token = res.data.token
@@ -92,7 +94,6 @@ export function fetchAndHandleAuthedUser (token, email) {
         dispatch(authUser(res.data.id))
       })
       .catch((err) => {
-        console.log(err);
         console.warn('Auth err', err)
         dispatch(fetchingUserFailure('Failed to get user profile'))
       })
@@ -150,7 +151,7 @@ export default function user (state = initialState, action) {
     case REMOVE_REDIRECT_URL:
       return {
         ...state,
-        redirectUrl: ''
+        redirectUrl: '',
       }
     case FETCHING_USER:
       return {

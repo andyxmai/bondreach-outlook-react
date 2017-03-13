@@ -15,7 +15,7 @@ const SAVE_VIEW_CONTACT_NOTES_FAILURE = 'SAVE_VIEW_CONTACT_NOTES_FAILURE'
 
 function fetchingContact () {
   return {
-    type: FETCHING_CONTACT
+    type: FETCHING_CONTACT,
   }
 }
 
@@ -147,7 +147,7 @@ export default function contact (state = initialState, action) {
     case FETCHING_CONTACT:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       }
     case FETCHING_CONTACT_SUCCESS:
       return {
@@ -180,10 +180,10 @@ export default function contact (state = initialState, action) {
         notes: action.value,
       }
     case SAVE_VIEW_CONTACT_NOTES:
-       return {
-         ...state,
-         isSavingNotes: true,
-       }
+      return {
+        ...state,
+        isSavingNotes: true,
+      }
     case SAVE_VIEW_CONTACT_NOTES_SUCCESS:
       return {
         ...state,

@@ -65,7 +65,7 @@ export default function read (state = initialState, action) {
     case FETCHING_CONTACT_READ:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       }
     case FETCHING_CONTACT_READ_SUCCESS:
       return {
@@ -73,7 +73,7 @@ export default function read (state = initialState, action) {
         isFetching: false,
         hasContactSaved: action.hasContactSaved,
         contactSaved: action.contactSaved,
-        error: ''
+        error: '',
       }
     case FETCHING_CONTACT_READ_FAILURE:
       return {
