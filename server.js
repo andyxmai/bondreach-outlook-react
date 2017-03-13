@@ -15,6 +15,12 @@ app.use(express.static(path.resolve(__dirname, 'dist')));
 app.get('/favicon.ico', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'dist', 'favicon.ico'));
 });
+
+// For Let's Encrypt SSL
+app.get('.well-known/acme-challenge/1o8yMNG8q5MpshN27cjc9S8wh72VV4195Hz34-wGRR4', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'encrypt.html'));  
+});
+
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
