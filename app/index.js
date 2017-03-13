@@ -8,7 +8,6 @@ import { checkIfAuthed } from 'helpers/auth'
 import { routerReducer, syncHistoryWithStore } from 'react-router-redux'
 import * as reducers from 'redux/modules'
 import { browserHistory, hashHistory } from 'react-router'
-import '@microsoft/office-js-helpers'
 import 'react-select/dist/react-select.css'
 import 'html5-history-api'
 

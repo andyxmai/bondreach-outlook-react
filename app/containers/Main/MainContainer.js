@@ -64,7 +64,6 @@ const MainContainer = React.createClass({
     const isLoggingIn = !prevProps.isAuthed && this.props.isAuthed
 
     if (isLoggingIn) {
-      console.log('is logging in');
       this.context.router.push(redirectUrl)
     } else if (isLoggingOut) {
       // clean up work

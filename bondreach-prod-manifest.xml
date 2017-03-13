@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp
+          xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+          xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
+          xsi:type="MailApp">
+
+  <!-- Begin Basic Settings: Add-in metadata, used for all versions of Office unless override provided. -->
+
+  <!-- IMPORTANT! Id must be unique for your add-in, if you reuse this manifest ensure that you change this id to a new GUID. -->
+  <Id>c498ee30-9335-4447-af1d-3900394e80f6</Id>
+
+  <!--Version. Updates from the store only get triggered if there is a version change. -->
+  <Version>1.0.0.0</Version>
+  <ProviderName>Bondreach</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <!-- The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog. -->
+  <DisplayName DefaultValue="Bondreach" />
+  <Description DefaultValue="CRE Contact Management"/>
+
+
+  <!-- Domains that will be allowed when navigating. For example, if you use ShowTaskpane and then have an href link, navigation will only be allowed if the domain is on this list. -->
+  <AppDomains>
+    <AppDomain>AppDomain1</AppDomain>
+    <AppDomain>AppDomain2</AppDomain>
+    <AppDomain>AppDomain3</AppDomain>
+  </AppDomains>
+  <!--End Basic Settings. -->
+
+  <Hosts>
+    <Host Name="Mailbox" />
+  </Hosts>
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.1" />
+    </Sets>
+  </Requirements>
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://outlook.bondreach.com"/>
+        <RequestedHeight>250</RequestedHeight>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
+  <Permissions>ReadWriteMailbox</Permissions>
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read" />
+  </Rule>
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Requirements>
+      <bt:Sets DefaultMinVersion="1.3">
+        <bt:Set Name="Mailbox" />
+      </bt:Sets>
+    </Requirements>
+    <Hosts>
+      <Host xsi:type="MailHost">
+
+        <DesktopFormFactor>
+          <!-- Location of the Functions that UI-less buttons can trigger (ExecuteFunction Actions). -->
+          <FunctionFile resid="functionFile" />
+
+          <!-- Message Read -->
+          <ExtensionPoint xsi:type="MessageReadCommandSurface">
+            <!-- Use the default tab of the ExtensionPoint or create your own with <CustomTab id="myTab"> -->
+            <OfficeTab id="TabDefault">
+              <!-- Up to 6 Groups added per Tab -->
+              <Group id="msgReadGroup">
+                <Label resid="groupLabel" />
+                <!-- Launch the add-in : task pane button -->
+                <Control xsi:type="Button" id="msgReadOpenPaneButton">
+                  <Label resid="paneReadButtonLabel" />
+                  <Supertip>
+                    <Title resid="paneReadSuperTipTitle" />
+                    <Description resid="paneReadSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="icon16" />
+                    <bt:Image size="32" resid="icon32" />
+                    <bt:Image size="80" resid="icon80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="messageReadTaskPaneUrl" />
+                  </Action>
+                </Control>
+                <!-- Go to http://aka.ms/ButtonCommands to learn how to add more Controls: ExecuteFunction and Menu -->
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+
+          <!-- Message Compose -->
+          <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="msgComposeGroup">
+                <Label resid="groupLabel" />
+                <!-- Launch the add-in : task pane button -->
+                <Control xsi:type="Button" id="msgComposeOpenPaneButton">
+                  <Label resid="paneComposeButtonLabel" />
+                  <Supertip>
+                    <Title resid="paneComposeSuperTipTitle" />
+                    <Description resid="paneComposeSuperTipDescription" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="icon16" />
+                    <bt:Image size="32" resid="icon32" />
+                    <bt:Image size="80" resid="icon80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="messageComposeTaskPaneUrl" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+          <!-- Go to http://aka.ms/ExtensionPointsCommands to learn how to add more Extension Points: MessageRead, AppointmentOrganizer, AppointmentAttendee -->
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <Resources>
+      <bt:Images>
+        <bt:Image id="icon16" DefaultValue="https://dl.dropboxusercontent.com/s/96w42fgpmxkyk4x/icon-16.png"/>
+        <bt:Image id="icon32" DefaultValue="https://dl.dropboxusercontent.com/s/w3sxji11kqvksi9/icon-32.png"/>
+        <bt:Image id="icon80" DefaultValue="https://dl.dropboxusercontent.com/s/qg8r2esq05m691x/icon-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="functionFile" DefaultValue="https://outlook.bondreach.com/"/>
+        <bt:Url id="messageReadTaskPaneUrl" DefaultValue="https://outlook.bondreach.com/read"/>
+        <bt:Url id="messageComposeTaskPaneUrl" DefaultValue="https://outlook.bondreach.com/compose"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="groupLabel" DefaultValue="My Add-in Group"/>
+        <bt:String id="customTabLabel"  DefaultValue="My Add-in Tab"/>
+        <bt:String id="paneReadButtonLabel" DefaultValue="View or add contact"/>
+        <bt:String id="paneReadSuperTipTitle" DefaultValue="View or add contact"/>
+        <bt:String id="paneComposeButtonLabel" DefaultValue="Filter contacts"/>
+        <bt:String id="paneComposeSuperTipTitle" DefaultValue="Filter contacts"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="paneReadSuperTipDescription" DefaultValue="Opens a pane to either add or view this contact."/>
+        <bt:String id="paneComposeSuperTipDescription" DefaultValue="Opens a pane to get relevant contacts for the deal."/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

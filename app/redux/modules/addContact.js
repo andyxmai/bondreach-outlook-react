@@ -1,5 +1,5 @@
 import axios from 'axios'
-import snakeCaseKeys from 'snakecase-keys'
+import { decamelizeKeys } from 'humps'
 import { formatFromSelectionOptions, formatToMultiSelectOptions, parseDisplayName } from 'helpers/utils'
 import { saveContact, fetchRegionAndInvestmentTypes } from 'helpers/api'
 import { maxInvestmentSizePreference } from 'config/constants'
@@ -19,7 +19,6 @@ const CHANGE_REGION_PREFERENCE = 'CHANGE_REGION_PREFERENCE'
 const CHANGE_NOTES = 'CHANGE_NOTES'
 const CONVERT_ADD_CONTACT_OPTIONS = 'CONVERT_ADD_CONTACT_OPTIONS'
 const ADDING_CONTACT = 'ADDING_CONTACT'
-const ADD_CONTACT = 'ADD_CONTACT'
 const ADD_CONTACT_SUCCESS = 'ADD_CONTACT_SUCCESS'
 const REMOVE_ADD_CONTACT_ERROR_MSG = 'REMOVE_ADD_CONTACT_ERROR_MSG'
 const ADD_CONTACT_FAILURE = 'ADD_CONTACT_FAILURE'
@@ -192,7 +191,7 @@ export function handleAddContactSubmit () {
     const regionPreferences = formatFromSelectionOptions(getState().addContact.regionPreferencesSelected)
     dispatch(addingContact())
     dispatch(convertAddContactOptions(investmentTypePreferences, regionPreferences))
-    const contact = snakeCaseKeys(getState().addContact)
+    const contact = decamelizeKeys(getState().addContact)
     saveContact(contact)
       .then((res) => {
         const newContact = res.data

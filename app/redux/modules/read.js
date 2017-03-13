@@ -1,4 +1,4 @@
-import camelize from 'camelize'
+import { camelizeKeys } from 'humps'
 import { fetchContactWithParams } from 'helpers/api'
 import { unauthUser } from 'redux/modules/user'
 
@@ -34,7 +34,7 @@ export function checkForContactSaved (successCB, errorCB) {
     fetchContactWithParams({email})
       .then((res) => {
         if (res.data.length) {
-          const contactSaved = camelize(res.data[0])
+          const contactSaved = camelizeKeys(res.data[0])
           dispatch(fetchingContactReadSuccess(true, contactSaved))
           successCB(true, contactSaved.id)
         } else {
