@@ -1,4 +1,4 @@
-import snakeCaseKeys from 'snakecase-keys'
+import { decamelizeKeys } from 'humps'
 import { saveFollowUp } from 'helpers/api'
 import { formatJSDateToPyDate } from 'helpers/utils'
 import { unauthUser } from 'redux/modules/user'
@@ -13,7 +13,7 @@ const RESET_FOLLOW_UP = 'RESET_FOLLOW_UP'
 
 function addingFollowUp () {
   return {
-    type: ADDING_FOLLOW_UP
+    type: ADDING_FOLLOW_UP,
   }
 }
 
@@ -32,7 +32,7 @@ function addFollowUpError (error) {
 
 export function addAndHandleFollowUp () {
   return function (dispatch, getState) {
-    const params = snakeCaseKeys(getState().followUp)
+    const params = decamelizeKeys(getState().followUp)
     dispatch(addingFollowUp())
     saveFollowUp(params)
       .then((res) => {

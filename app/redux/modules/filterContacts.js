@@ -1,6 +1,5 @@
 import axios from 'axios'
-import camelize from 'camelize'
-import snakeCaseKeys from 'snakecase-keys'
+import { camelizeKeys, decamelizeKeys } from 'humps'
 import { fetchContactWithParams, fetchRegionAndInvestmentTypes } from 'helpers/api'
 import { formatToSelectOptions } from 'helpers/utils'
 import { unauthUser } from 'redux/modules/user'
@@ -108,9 +107,9 @@ export function fetchFilterContacts () {
     if (investmentTypePreferences) params.investmentTypePreferences = investmentTypePreferences
 
     dispatch(fetchingFilteredContacts)
-    fetchContactWithParams(snakeCaseKeys(params))
+    fetchContactWithParams(decamelizeKeys(params))
       .then((res) => {
-        const filteredContacts = camelize(res.data)
+        const filteredContacts = camelizeKeys(res.data)
         dispatch(fetchingFilteredContactSuccess(filteredContacts))
       })
       .catch((err) => {

@@ -21,7 +21,7 @@ const AddContactContainer = React.createClass({
   },
 
   componentDidUpdate(prevProps) {
-    if (this.props.addedContactId !== '' && prevProps.addedContactId == '') {
+    if (this.props.addedContactId !== '' && prevProps.addedContactId === '') {
       console.log('will soon add reminder for', this.props.addedContactId);
       const addedContactId = this.props.addedContactId
       this.context.router.push(`/add-reminder/${addedContactId}`)

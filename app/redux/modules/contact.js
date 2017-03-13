@@ -1,5 +1,4 @@
-import camelize from 'camelize'
-import snakeCaseKeys from 'snakecase-keys'
+import { camelizeKeys, decamelizeKeys } from 'humps'
 import { fetchContactWithId, fetchContactWithParams, updateContact } from 'helpers/api'
 import { unauthUser } from 'redux/modules/user'
 
@@ -37,7 +36,7 @@ export function fetchAndHandleContactWithId (contactId) {
   return function (dispatch) {
     fetchContactWithId(contactId)
       .then((res) => {
-        const contact = camelize(res.data)
+        const contact = camelizeKeys(res.data)
         dispatch(fetchingContactSuccess(contact))
       })
       .catch((err) => {
@@ -49,12 +48,12 @@ export function fetchAndHandleContactWithId (contactId) {
 
 // Note (Andy): This function is for searching contacts
 export function fetchAndStoreContact (params) {
-  const snakeCaseParams = snakeCaseKeys(params)
+  const snakeCaseParams = decamelizeKeys(params)
   return function (dispatch, getState) {
     dispatch(fetchingContact())
     fetchContactWithParams(snakeCaseParams)
       .then((response) => {
-        const contact = camelize(response.data[0])
+        const contact = camelizeKeys(response.data[0])
         dispatch(fetchingContactSuccess(contact))
       })
       .catch((err) => {
@@ -106,7 +105,7 @@ function savingNotesFailure (notesSavedErrorMsg) {
 export function saveNotes () {
   return function (dispatch, getState) {
     dispatch(savingNotes())
-    const contact = snakeCaseKeys(getState().contact)
+    const contact = decamelizeKeys(getState().contact)
     updateContact(contact)
       .then((res) => {
         dispatch(savingNotesSuccess('Notes saved'))

@@ -1,1 +1,1 @@
-export const maxInvestmentSizePreference = 10000000000
+export const maxInvestmentSizePreference = 2000000000

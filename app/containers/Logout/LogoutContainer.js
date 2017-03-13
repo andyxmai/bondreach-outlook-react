@@ -8,7 +8,7 @@ const LogoutContainer = React.createClass({
   },
   componentDidMount () {
   },
-  
+
   render () {
     return (
       <Logout />
