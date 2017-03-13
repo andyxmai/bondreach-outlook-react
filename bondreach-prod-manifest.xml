@@ -12,13 +12,14 @@
   <Id>c498ee30-9335-4447-af1d-3900394e80f6</Id>
 
   <!--Version. Updates from the store only get triggered if there is a version change. -->
-  <Version>1.0.0.0</Version>
+  <Version>1.0.0.2</Version>
   <ProviderName>Bondreach</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <!-- The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog. -->
   <DisplayName DefaultValue="Bondreach" />
   <Description DefaultValue="CRE Contact Management"/>
-
+  <!-- Icon url -->
+  <IconUrl DefaultValue="https://dl.dropboxusercontent.com/s/qg8r2esq05m691x/icon-80.png" />
 
   <!-- Domains that will be allowed when navigating. For example, if you use ShowTaskpane and then have an href link, navigation will only be allowed if the domain is on this list. -->
   <AppDomains>
@@ -128,17 +129,17 @@
         <bt:Image id="icon80" DefaultValue="https://dl.dropboxusercontent.com/s/qg8r2esq05m691x/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="functionFile" DefaultValue="https://outlook.bondreach.com/"/>
+        <bt:Url id="functionFile" DefaultValue="https://outlook.bondreach.com"/>
         <bt:Url id="messageReadTaskPaneUrl" DefaultValue="https://outlook.bondreach.com/read"/>
         <bt:Url id="messageComposeTaskPaneUrl" DefaultValue="https://outlook.bondreach.com/compose"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="groupLabel" DefaultValue="My Add-in Group"/>
         <bt:String id="customTabLabel"  DefaultValue="My Add-in Tab"/>
-        <bt:String id="paneReadButtonLabel" DefaultValue="View or add contact"/>
-        <bt:String id="paneReadSuperTipTitle" DefaultValue="View or add contact"/>
-        <bt:String id="paneComposeButtonLabel" DefaultValue="Filter contacts"/>
-        <bt:String id="paneComposeSuperTipTitle" DefaultValue="Filter contacts"/>
+        <bt:String id="paneReadButtonLabel" DefaultValue="BondReach"/>
+        <bt:String id="paneReadSuperTipTitle" DefaultValue="BondReach"/>
+        <bt:String id="paneComposeButtonLabel" DefaultValue="BondReach"/>
+        <bt:String id="paneComposeSuperTipTitle" DefaultValue="BondReach"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="paneReadSuperTipDescription" DefaultValue="Opens a pane to either add or view this contact."/>

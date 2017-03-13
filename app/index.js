@@ -13,14 +13,24 @@ import 'html5-history-api'
 
 var location = window.history.location || window.location  // need to polyfill to make broswerHistory work
 
-const store = createStore(
-  combineReducers({...reducers, routing: routerReducer}),
-  compose(
-   applyMiddleware(thunk),
-   window.devToolsExtension ? window.devToolsExtension() : (f) => f
- )
-)
-window.devToolsExtension()
+var store = null
+if (process.env.NODE_ENV === 'development')  {
+  store = createStore(
+    combineReducers({...reducers, routing: routerReducer}),
+    compose(
+     applyMiddleware(thunk),
+     window.devToolsExtension ? window.devToolsExtension() : (f) => f
+   )
+  )
+  window.devToolsExtension()
+} else {
+  store = createStore(
+    combineReducers({...reducers, routing: routerReducer}),
+    compose(
+     applyMiddleware(thunk),
+   )
+  )
+}
 
 const history = syncHistoryWithStore(browserHistory, store)
 

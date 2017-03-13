@@ -10,7 +10,6 @@ const EnsureLoggedInContainer = React.createClass({
 
   componentDidMount () {
     const { dispatch, currentURL, isAuthed } = this.props
-    console.log('ensure logged in', currentURL, isAuthed);
 
     if (!isAuthed) {
       this.props.fetchAndLoginUser(() => {

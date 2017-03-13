@@ -12,18 +12,18 @@
   <Id>bc726f54-1d00-4376-b5bb-e2d89d2a61ed</Id>
 
   <!--Version. Updates from the store only get triggered if there is a version change. -->
-  <Version>1.0.0.13</Version>
+  <Version>1.0.0.16</Version>
   <ProviderName>BondReach</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <!-- The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog. -->
   <DisplayName DefaultValue="BondReach Dev" />
   <Description DefaultValue="[Outlook Add-in description]"/>
   <!-- Icon url -->
-  <IconUrl DefaultValue="https://dl.dropboxusercontent.com/s/qg8r2esq05m691x/icon-80.png" />
+  <IconUrl DefaultValue="https://dl.dropboxusercontent.com/s/pilxynzu5t8ac3k/icon-80-dev.png" />
 
   <!-- Domains that will be allowed when navigating. For example, if you use ShowTaskpane and then have an href link, navigation will only be allowed if the domain is on this list. -->
   <AppDomains>
-    <AppDomain>https://localhost:8000/</AppDomain>
+    <AppDomain>https://localhost:8000</AppDomain>
     <AppDomain>AppDomain2</AppDomain>
     <AppDomain>AppDomain3</AppDomain>
   </AppDomains>
@@ -40,7 +40,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://localhost:3000/"/>
+        <SourceLocation DefaultValue="https://localhost:3000"/>
         <RequestedHeight>250</RequestedHeight>
       </DesktopSettings>
     </Form>
@@ -124,22 +124,22 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="icon16" DefaultValue="https://dl.dropboxusercontent.com/s/96w42fgpmxkyk4x/icon-16.png"/>
-        <bt:Image id="icon32" DefaultValue="https://dl.dropboxusercontent.com/s/w3sxji11kqvksi9/icon-32.png"/>
-        <bt:Image id="icon80" DefaultValue="https://dl.dropboxusercontent.com/s/qg8r2esq05m691x/icon-80.png"/>
+        <bt:Image id="icon16" DefaultValue="https://dl.dropboxusercontent.com/s/k7cgei9vaewm0vc/icon-16-dev.png"/>
+        <bt:Image id="icon32" DefaultValue="https://dl.dropboxusercontent.com/s/el8ypvkgokhcpss/icon-32-dev.png"/>
+        <bt:Image id="icon80" DefaultValue="https://dl.dropboxusercontent.com/s/pilxynzu5t8ac3k/icon-80-dev.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="functionFile" DefaultValue="https://localhost:3000/"/>
+        <bt:Url id="functionFile" DefaultValue="https://localhost:3000"/>
         <bt:Url id="messageReadTaskPaneUrl" DefaultValue="https://localhost:3000/read"/>
         <bt:Url id="messageComposeTaskPaneUrl" DefaultValue="https://localhost:3000/compose"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="groupLabel" DefaultValue="My Add-in Group"/>
         <bt:String id="customTabLabel"  DefaultValue="My Add-in Tab"/>
-        <bt:String id="paneReadButtonLabel" DefaultValue="View or add contact"/>
-        <bt:String id="paneReadSuperTipTitle" DefaultValue="View or add contact"/>
-        <bt:String id="paneComposeButtonLabel" DefaultValue="Filter contacts"/>
-        <bt:String id="paneComposeSuperTipTitle" DefaultValue="Filter contacts"/>
+        <bt:String id="paneReadButtonLabel" DefaultValue="BondReach Dev"/>
+        <bt:String id="paneReadSuperTipTitle" DefaultValue="BondReach Dev"/>
+        <bt:String id="paneComposeButtonLabel" DefaultValue="BondReach Dev"/>
+        <bt:String id="paneComposeSuperTipTitle" DefaultValue="BondReach Dev"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="paneReadSuperTipDescription" DefaultValue="Opens a pane to either add or view this contact."/>
