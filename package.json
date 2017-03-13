@@ -18,6 +18,7 @@
     "axios": "^0.15.3",
     "bootstrap": "^3.3.7",
     "cleave.js": "^0.7.15",
+    "express": "^4.15.2",
     "html5-history-api": "^4.2.8",
     "humps": "^2.0.0",
     "numeral": "^2.0.4",
