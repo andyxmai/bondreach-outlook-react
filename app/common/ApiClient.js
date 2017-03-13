@@ -1,14 +1,7 @@
 import axios from 'axios'
 
-var baseURL = ''
-if (process.env.NODE_ENV === 'production') {
-  baseURL = 'https://api.bondreach.com'
-} else {
-  baseURL = 'https://localhost:8000'
-}
-
 var apiClient = axios.create({
-  baseURL: baseURL,
+  baseURL: process.env.API_HOST,
   xsrfHeaderName: "X-CSRFToken",
 })
 

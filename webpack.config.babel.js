@@ -7,6 +7,9 @@ const LAUNCH_COMMAND = process.env.npm_lifecycle_event
 const isProduction = LAUNCH_COMMAND === 'production'
 process.env.BABEL_ENV = LAUNCH_COMMAND
 
+const devApiHost = 'https://localhost:8000'
+const productionApiHost = 'https://api.bondreach.com'
+
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'dist'),
@@ -20,13 +23,15 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 
 const productionPlugin = new webpack.DefinePlugin({
   'process.env': {
-    NODE_ENV: JSON.stringify('production')
+    'NODE_ENV': JSON.stringify('production'),
+    'API_HOST': JSON.stringify(productionApiHost),
   }
 })
 
 const devPlugin = new webpack.DefinePlugin({
   'process.env': {
-    NODE_ENV: JSON.stringify('development')
+    'NODE_ENV': JSON.stringify('development'),
+    'API_HOST': JSON.stringify(devApiHost),
   }
 })
 
