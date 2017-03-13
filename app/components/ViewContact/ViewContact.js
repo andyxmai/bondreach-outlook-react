@@ -9,14 +9,14 @@ import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { Link } from 'office-ui-fabric-react/lib/Link'
 import { section, borderedSection, preferenceType, inline, subline, link, tasks } from './styles.css'
 import { maxInvestmentSizePreference } from 'config/constants'
-import { blockBtn, messageBar, spacedRow } from 'sharedStyles/styles.css'
+import { blockBtn, centerPage, messageBar, spacedRow } from 'sharedStyles/styles.css'
 
 export default function ViewContact (props) {
   return (
     <div>
     { props.isFetching
       ?
-      <div><Spinner type={ SpinnerType.large } label='Loading...' /></div>
+      <div className={centerPage}><Spinner type={ SpinnerType.large } label='Loading...' /></div>
       :
       <div className="ms-Grid">
         { props.error !== ''
@@ -32,7 +32,7 @@ export default function ViewContact (props) {
           headerText='Notes'
         >
           { props.isSavingNotes
-            ? <div><Spinner type={ SpinnerType.large } label='Save notes...' /></div>
+            ? <div className={centerPage}><Spinner type={ SpinnerType.large } label='Save notes...' /></div>
             :
             <div>
               { props.notesSavedErrorMsg !== ''

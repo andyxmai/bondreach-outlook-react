@@ -10,7 +10,7 @@ import { Label } from 'office-ui-fabric-react/lib/Label'
 import Select from 'react-select'
 import { notesField, dropdown } from './styles.css'
 import { maxInvestmentSizePreference } from 'config/constants'
-import { blockBtn } from 'sharedStyles/styles.css'
+import { blockBtn, centerPage } from 'sharedStyles/styles.css'
 
 const minInvestmentSizeOptions = [
   { label: 'No minimum', value: 0 },
@@ -45,7 +45,7 @@ export default function AddContact (props) {
     <div>
     {props.isLoading
       ?
-      <div><Spinner type={ SpinnerType.large } label='Loading...' /></div>
+      <div className={centerPage}><Spinner type={ SpinnerType.large } label='Loading...' /></div>
       :
       <div className="ms-Grid">
         { props.error !== ''

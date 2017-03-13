@@ -19,10 +19,8 @@ if (process.env.NODE_ENV === 'development')  {
     combineReducers({...reducers, routing: routerReducer}),
     compose(
      applyMiddleware(thunk),
-     window.devToolsExtension ? window.devToolsExtension() : (f) => f
    )
   )
-  window.devToolsExtension()
 } else {
   store = createStore(
     combineReducers({...reducers, routing: routerReducer}),

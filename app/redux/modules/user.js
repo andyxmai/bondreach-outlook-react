@@ -68,7 +68,7 @@ export function fetchAndLoginUser (successCB, errorCB) {
           // token has expired. Remove it and force user to auth
           cookie.remove('token', { path: '/' })
           delete apiClient.defaults.headers.authorization
-          console.warn('login error', err)
+          console.warn('login error', err.response)
           dispatch(removeFetchingUser())
           dispatch(unauthUser())
           errorCB()
@@ -94,7 +94,7 @@ export function fetchAndHandleAuthedUser (token, email) {
         dispatch(authUser(res.data.id))
       })
       .catch((err) => {
-        console.warn('Auth err', err)
+        console.warn('Auth err', err.response)
         dispatch(fetchingUserFailure('Failed to get user profile'))
       })
   }

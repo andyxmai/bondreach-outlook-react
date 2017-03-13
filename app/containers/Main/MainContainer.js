@@ -9,6 +9,7 @@ import * as addContactActionCreators from 'redux/modules/addContact'
 import * as filterContactActionCreators from 'redux/modules/filterContacts'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import { Spinner, SpinnerType } from 'office-ui-fabric-react/lib/Spinner'
+import { centerPage } from 'sharedStyles/styles.css'
 
 const MainContainer = React.createClass({
   propTypes: {
@@ -16,6 +17,19 @@ const MainContainer = React.createClass({
 
   contextTypes: {
     router: PropTypes.object.isRequired,
+  },
+
+  componentDidUpdate(prevProps) {
+    const { redirectUrl } = this.props
+    const isLoggingOut = prevProps.isAuthed && !this.props.isAuthed
+    const isLoggingIn = !prevProps.isAuthed && this.props.isAuthed
+
+    if (isLoggingIn) {
+      this.context.router.push(redirectUrl)
+    } else if (isLoggingOut) {
+      // clean up work
+      this.context.router.push('/auth')
+    }
   },
 
   goToAddContact () {
@@ -58,22 +72,9 @@ const MainContainer = React.createClass({
     ]
   },
 
-  componentDidUpdate(prevProps) {
-    const { redirectUrl } = this.props
-    const isLoggingOut = prevProps.isAuthed && !this.props.isAuthed
-    const isLoggingIn = !prevProps.isAuthed && this.props.isAuthed
-
-    if (isLoggingIn) {
-      this.context.router.push(redirectUrl)
-    } else if (isLoggingOut) {
-      // clean up work
-      this.context.router.push('/auth')
-    }
-  },
-
   render () {
     return this.props.isFetching === true
-    ? <Spinner type={ SpinnerType.large } label='Logging in...' />
+    ? <div className={centerPage}><Spinner type={ SpinnerType.large } label='Logging in...' /></div>
     : <div className={container}>
         <CommandBar
           isSearchBoxVisible={ false }

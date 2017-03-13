@@ -63,6 +63,7 @@ export function fetchAndAddSelectOptions () {
       if (err.response.status === 403) {
         dispatch(unauthUser())
       }
+      console.warn('Add contact error', err.response)
       console.warn('Failed to get regions and investment types')
       dispatch(fetchSelectOptionsFailure('Failed to get select options. Please reload!'))
     })

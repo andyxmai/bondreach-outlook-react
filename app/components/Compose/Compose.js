@@ -5,13 +5,14 @@ import { PrimaryButton } from 'office-ui-fabric-react/lib/Button'
 import { Spinner, SpinnerType } from 'office-ui-fabric-react/lib/Spinner'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
 import { contact, section, preference } from './styles.css'
+import { centerPage } from 'sharedStyles/styles.css'
 
 export default function Compose (props) {
   return (
     <div>
     {props.isFetching
       ?
-      <div><Spinner type={ SpinnerType.large } label='Loading...' /></div>
+      <div className={centerPage}><Spinner type={ SpinnerType.large } label='Loading...' /></div>
       :
       <div className="ms-Grid">
         { props.error !== ''

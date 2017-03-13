@@ -3,13 +3,13 @@ import {  PrimaryButton } from 'office-ui-fabric-react/lib/Button'
 import {  Label } from 'office-ui-fabric-react/lib/Label'
 import { Spinner, SpinnerType } from 'office-ui-fabric-react/lib/Spinner'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
-import { blockBtn } from 'sharedStyles/styles.css'
+import { blockBtn, centerPage } from 'sharedStyles/styles.css'
 
 export default function Authenticate (props) {
   return (
     <div>
       { props.isFetching
-        ? <div><Spinner type={ SpinnerType.large } label='Logging in...' /></div>
+        ? <div className={centerPage}><Spinner type={ SpinnerType.large } label='Logging in...' /></div>
         : <div className="ms-Grid">
             { props.error !== ''
               ? <MessageBar

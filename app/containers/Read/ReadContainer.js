@@ -5,7 +5,7 @@ import { AddReminder } from 'components'
 import * as readActionCreators from 'redux/modules/read'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
 import { Spinner, SpinnerType } from 'office-ui-fabric-react/lib/Spinner'
-
+import { centerPage } from 'sharedStyles/styles.css'
 
 const ReadContainer = React.createClass({
   contextTypes: {
@@ -28,7 +28,7 @@ const ReadContainer = React.createClass({
     return (
       <div>
         {this.props.isFetching
-          ? <div><Spinner type={ SpinnerType.large } label='Loading...' /></div>
+          ? <div className={centerPage}><Spinner type={ SpinnerType.large } label='Loading...' /></div>
           : <div>
               {this.props.error
                 ?  <MessageBar

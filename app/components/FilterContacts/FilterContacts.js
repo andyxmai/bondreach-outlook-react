@@ -10,6 +10,7 @@ import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBa
 import { Label } from 'office-ui-fabric-react/lib/Label'
 import { contact, contactContainer, section, inline, borderedSection, name, company, btn } from './styles.css'
 import { btnRed } from 'sharedStyles/buttons.css'
+import { centerPage } from 'sharedStyles/styles.css'
 import { maxInvestmentSizePreference } from 'config/constants'
 
 export default function Compose (props) {
@@ -17,7 +18,7 @@ export default function Compose (props) {
     <div>
     {props.isFetching
       ?
-      <div><Spinner type={ SpinnerType.large } label='Loading...(filter contacts)' /></div>
+      <div className={ centerPage }><Spinner type={ SpinnerType.large } label='Loading...' /></div>
       :
       <div className="ms-Grid">
         { props.error !== ''
