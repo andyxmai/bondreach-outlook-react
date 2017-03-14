@@ -49,36 +49,36 @@ function removeFetchingUser () {
   }
 }
 
-export function fetchAndLoginUser (successCB, errorCB) {
+// This gets called each time add-in is loaded to check for logged in state
+export function fetchAndLoginUser (redirectUrl) {
   // Check if the token (if there is one) is still valid.
   // Otherwise, user will get directed to the auth page.
   return function (dispatch) {
-    const token = cookie.load('token') ? cookie.load('token') : ''
-    if (token !== '') {
-      dispatch(fetchingUser())
-      // Check if the token is still valid
-      apiClient.defaults.headers.authorization = `JWT ${token}`
-      loginWithToken(token)
-        .then((res) => {
-          successCB()
-          dispatch(fetchingUserSuccess())
-          dispatch(authUser(res.data.id))
-        })
-        .catch((err) => {
-          // token has expired. Remove it and force user to auth
-          cookie.remove('token', { path: '/' })
-          delete apiClient.defaults.headers.authorization
-          console.warn('login error', err.response)
-          dispatch(removeFetchingUser())
-          dispatch(unauthUser())
-          errorCB()
-        })
-    } else {
-      errorCB()
-    }
+    console.log('fetching user');
+    dispatch(fetchingUser())
+    // Check if the token is still valid
+    const token = cookie.load('token')
+    apiClient.defaults.headers.authorization = `JWT ${token}`
+    loginWithToken(token)
+      .then((res) => {
+        dispatch(fetchingUserSuccess())
+        dispatch(setRedirectUrl(redirectUrl))
+        dispatch(authUser(res.data.id))
+      })
+      .catch((err) => {
+        // token has expired. Remove it and force user to auth
+        cookie.remove('token', { path: '/' })
+        delete apiClient.defaults.headers.authorization
+        console.warn('login error', err)
+        dispatch(removeFetchingUser())
+        dispatch(setRedirectUrl(redirectUrl))
+        dispatch(unauthUser())
+      })
+
   }
 }
 
+// This gets called when user clicks "Authenticate with Outlook" button
 export function fetchAndHandleAuthedUser (token, email) {
   return function (dispatch) {
     dispatch(fetchingUser())

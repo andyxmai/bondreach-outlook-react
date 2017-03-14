@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as userActionCreators from 'redux/modules/user'
+import cookie from 'react-cookie'
 
 const EnsureLoggedInContainer = React.createClass({
   contextTypes: {
@@ -12,12 +13,12 @@ const EnsureLoggedInContainer = React.createClass({
     const { dispatch, currentURL, isAuthed } = this.props
 
     if (!isAuthed) {
-      this.props.fetchAndLoginUser(() => {
-        this.props.setRedirectUrl(currentURL)
-      }, () => {
+      if (!cookie.load('token')) {
         this.props.setRedirectUrl(currentURL)
         this.context.router.push('/auth')
-      })
+      } else {
+        this.props.fetchAndLoginUser(currentURL)
+      }
     }
   },
 

@@ -25,15 +25,18 @@ const MainContainer = React.createClass({
     const isLoggingIn = !prevProps.isAuthed && this.props.isAuthed
 
     if (isLoggingIn) {
+      console.log('main component did update: neither logging in');
       this.context.router.push(redirectUrl)
     } else if (isLoggingOut) {
       // clean up work
+      console.log('main component did update: neither logging out');
       this.context.router.push('/auth')
+    } else {
+      console.log('main component did update: neither logging in or out');
     }
   },
 
   goToAddContact () {
-    console.log('add contact clicked');
     this.props.resetAddNewContact()
     this.context.router.push('/add-contact')
   },
@@ -60,13 +63,13 @@ const MainContainer = React.createClass({
     return [
       {
         key: 'addContact',
-        name: '',
+        name: 'Add Contact',
         icon: 'Add',
         onClick: obj.goToAddContact,
       },
       {
         key: 'filterContacts',
-        name: '',
+        name: 'Filter Contacts',
         icon: 'Filter',
         onClick: obj.goToFilterContacts,
       }
