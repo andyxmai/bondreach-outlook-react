@@ -46,6 +46,7 @@ const uglifyjsPluging = new webpack.optimize.UglifyJsPlugin({
 
 const base = {
   entry: [
+    "babel-polyfill",
     PATHS.app
   ],
   output: {
