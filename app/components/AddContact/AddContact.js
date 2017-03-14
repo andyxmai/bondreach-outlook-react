@@ -10,7 +10,7 @@ import { Label } from 'office-ui-fabric-react/lib/Label'
 import Select from 'react-select'
 import { notesField, dropdown } from './styles.css'
 import { maxInvestmentSizePreference } from 'config/constants'
-import { blockBtn, centerPage } from 'sharedStyles/styles.css'
+import { blockBtn, centerPage, spacedRow } from 'sharedStyles/styles.css'
 
 const minInvestmentSizeOptions = [
   { label: 'No minimum', value: 0 },
@@ -100,6 +100,8 @@ export default function AddContact (props) {
             <TextField label='Company' required={ true } value={props.company} onChanged={props.onCompanyChanged} />
           </div>
         </div>
+
+        <div className={spacedRow}></div>
 
         <div className="ms-Grid-row">
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
