@@ -25,14 +25,10 @@ const MainContainer = React.createClass({
     const isLoggingIn = !prevProps.isAuthed && this.props.isAuthed
 
     if (isLoggingIn) {
-      console.log('main component did update: neither logging in');
       this.context.router.push(redirectUrl)
     } else if (isLoggingOut) {
       // clean up work
-      console.log('main component did update: neither logging out');
       this.context.router.push('/auth')
-    } else {
-      console.log('main component did update: neither logging in or out');
     }
   },
 

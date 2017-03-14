@@ -209,7 +209,14 @@ export default function filterContacts (state = initialState, action) {
         isFetching: false,
       }
     case RESET_FILTER_CONTACTS:
-      return initialState
+      const regionPreferenceOptions = state.regionPreferenceOptions
+      const investmentTypePreferenceOptions = state.investmentTypePreferenceOptions
+      return {
+        ...state,
+        ...initialState,
+        regionPreferenceOptions,
+        investmentTypePreferenceOptions,
+      }
     default:
       return state
   }

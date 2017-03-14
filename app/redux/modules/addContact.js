@@ -195,7 +195,6 @@ export function handleAddContactSubmit () {
     saveContact(contact)
       .then((res) => {
         const newContact = res.data
-        console.log('new contact id', newContact.id)
         dispatch(addContactSuccess(newContact.id))
       })
       .catch((err) => {
@@ -388,7 +387,16 @@ export default function addContact (state = initialState, action) {
         isLoading: false,
       }
     case RESET_ADD_CONTACT:
-      return initialState
+      const creator = state.creator
+      const regionPreferenceOptions = state.regionPreferenceOptions
+      const investmentTypePreferenceOptions = state.investmentTypePreferenceOptions
+      return {
+        ...state,
+        ...initialState,
+        creator,
+        regionPreferenceOptions,
+        investmentTypePreferenceOptions,
+      }
     case SHOW_NOTES:
       return {
         ...state,
