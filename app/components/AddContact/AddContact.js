@@ -57,7 +57,7 @@ export default function AddContact (props) {
         }
         <Panel
           isOpen={ props.isNotesPanelOpened }
-          type={ PanelType.smallFixedFar }
+          type={ PanelType.smallFluid }
           onDismiss={ props.onHideNotes }
           headerText='Notes'
         >
@@ -74,6 +74,7 @@ export default function AddContact (props) {
               className={blockBtn}
               >{'Save'}</PrimaryButton>
         </Panel>
+        <div className={spacedRow}></div>
         <div className="ms-Grid-row">
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
             <div className="ms-fontWeight-semibold ms-fontSize-l">{'New Contact'}</div>

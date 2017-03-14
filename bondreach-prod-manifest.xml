@@ -12,11 +12,11 @@
   <Id>c498ee30-9335-4447-af1d-3900394e80f6</Id>
 
   <!--Version. Updates from the store only get triggered if there is a version change. -->
-  <Version>1.0.0.3</Version>
+  <Version>1.0.0.4</Version>
   <ProviderName>BondReach</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <!-- The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog. -->
-  <DisplayName DefaultValue="Bondreach" />
+  <DisplayName DefaultValue="BondReach" />
   <Description DefaultValue="CRE Contact Management"/>
   <!-- Icon url -->
   <IconUrl DefaultValue="https://dl.dropboxusercontent.com/s/qg8r2esq05m691x/icon-80.png" />

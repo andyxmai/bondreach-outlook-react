@@ -27,9 +27,9 @@ export default function ViewContact (props) {
         }
         <Panel
           isOpen={ props.isNotesPanelOpened }
-          type={ PanelType.smallFixedFar }
+          type={ PanelType.smallFluid }
           onDismiss={ props.onHideNotes }
-          headerText='Notes'
+          headerText={`Notes - ${props.firstName} ${props.lastName}`}
         >
           { props.isSavingNotes
             ? <div className={centerPage}><Spinner type={ SpinnerType.large } label='Save notes...' /></div>
