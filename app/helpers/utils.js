@@ -1,3 +1,6 @@
+import numeral from 'numeral'
+import { maxInvestmentSizePreference } from 'config/constants'
+
 export function parseDisplayName (displayName) {
   var firstName = ''
   var lastName = ''
@@ -59,4 +62,26 @@ export function formatFromSelectionOptions (options) {
 
 export function formatJSDateToPyDate (date) {
   return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+}
+
+export function formatInvestmentSizePreference (size, isMax) {
+  if (isMax) {
+    if (size === maxInvestmentSizePreference) {
+      return 'no max'
+    }
+  } else if (!isMax) {
+    if (size === 0) {
+      return 'no min'
+    }
+  }
+
+  const sizeInMillions = size / 1000000
+
+  return `$${sizeInMillions}mm`
+}
+
+export function formatInvestmentSizePreferences(min, max) {
+  const minStr = formatInvestmentSizePreference(min, false)
+  const maxStr = formatInvestmentSizePreference(max, true)
+  return `${minStr} - ${maxStr}`
 }

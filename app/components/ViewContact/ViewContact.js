@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Link as RouterLink } from 'react-router'
 import numeral from 'numeral'
 import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown'
@@ -8,8 +9,49 @@ import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBa
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { Link } from 'office-ui-fabric-react/lib/Link'
 import { section, borderedSection, preferenceType, inline, subline, link, tasks } from './styles.css'
-import { maxInvestmentSizePreference } from 'config/constants'
+import { formatInvestmentSizePreference } from 'helpers/utils'
 import { blockBtn, centerPage, messageBar, spacedRow } from 'sharedStyles/styles.css'
+
+function NotesPanel (props) {
+  return (
+    <Panel
+      isOpen={ props.isNotesPanelOpened }
+      type={ PanelType.smallFluid }
+      onDismiss={ props.onHideNotes }
+      headerText={`Notes - ${props.firstName} ${props.lastName}`}
+    >
+      { props.isSavingNotes
+        ? <div className={centerPage}><Spinner type={ SpinnerType.large } label='Save notes...' /></div>
+        :
+        <div>
+          { props.notesSavedErrorMsg !== ''
+            ? <div className={messageBar}><MessageBar
+              messageBarType={ MessageBarType.error }>
+              {props.notesSavedErrorMsg}</MessageBar></div>
+            : null
+          }
+          { props.notesSavedSuccessMsg !== ''
+            ? <div className={messageBar}><MessageBar
+              messageBarType={ MessageBarType.success }>
+              {props.notesSavedSuccessMsg}</MessageBar></div>
+            : null
+          }
+          <TextField
+            multiline
+            resizable={ false }
+            value={props.notes}
+            onChanged={props.onNotesChanged}
+            rows={ 20 } />
+            <PrimaryButton
+                data-automation-id='save-notes'
+                onClick={props.onSaveNotes}
+                className={blockBtn}
+                >{'Save'}</PrimaryButton>
+        </div>
+      }
+    </Panel>
+  )
+}
 
 export default function ViewContact (props) {
   return (
@@ -25,46 +67,25 @@ export default function ViewContact (props) {
             {props.error}</MessageBar></div>
           : null
         }
-        <Panel
-          isOpen={ props.isNotesPanelOpened }
-          type={ PanelType.smallFluid }
-          onDismiss={ props.onHideNotes }
-          headerText={`Notes - ${props.firstName} ${props.lastName}`}
-        >
-          { props.isSavingNotes
-            ? <div className={centerPage}><Spinner type={ SpinnerType.large } label='Save notes...' /></div>
-            :
-            <div>
-              { props.notesSavedErrorMsg !== ''
-                ? <div className={messageBar}><MessageBar
-                  messageBarType={ MessageBarType.error }>
-                  {props.notesSavedErrorMsg}</MessageBar></div>
-                : null
-              }
-              { props.notesSavedSuccessMsg !== ''
-                ? <div className={messageBar}><MessageBar
-                  messageBarType={ MessageBarType.success }>
-                  {props.notesSavedSuccessMsg}</MessageBar></div>
-                : null
-              }
-              <TextField
-                multiline
-                resizable={ false }
-                value={props.notes}
-                onChanged={props.onNotesChanged}
-                rows={ 20 } />
-                <PrimaryButton
-                    data-automation-id='save-notes'
-                    onClick={props.onSaveNotes}
-                    className={blockBtn}
-                    >{'Save'}</PrimaryButton>
-            </div>
-          }
-        </Panel>
+        <NotesPanel
+          isNotesPanelOpened={props.isNotesPanelOpened}
+          onHideNotes={props.onHideNotes}
+          firstName={props.firstName}
+          lastName={props.lastName}
+          isSavingNotes={props.isSavingNotes}
+          notesSavedErrorMsg={props.notesSavedErrorMsg}
+          notesSavedSuccessMsg={props.notesSavedSuccessMsg}
+          notes={props.notes}
+          onNotesChanged={props.onNotesChanged}
+          onSaveNotes={props.onSaveNotes}
+        />
         <div className={section}>
           <div className={`ms-Grid-row ${spacedRow}`}>
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+            <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
               <div className="ms-fontWeight-semibold ms-fontSize-l">{`${props.firstName} ${props.lastName}`}</div>
+            </div>
+            <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
+              <RouterLink to="/edit-contact"><div className="ms-fontSize-s">{'edit'}</div></RouterLink>
             </div>
           </div>
           <div className={`ms-Grid-row ${spacedRow}`}>
@@ -103,13 +124,15 @@ export default function ViewContact (props) {
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <span className={preferenceType}>{'SIZE'}</span>
               <span className={inline}>
-                {props.minimumInvestmentSize === 0
-                  ? 'no min'
-                  : numeral(props.minimumInvestmentSize).format('0,0')
-                }-
-                {props.maximumInvestmentSize === maxInvestmentSizePreference
-                  ? 'no max'
-                  : numeral(props.maximumInvestmentSize).format('0,0')}
+                {formatInvestmentSizePreference(props.minimumInvestmentSize, false)} - {formatInvestmentSizePreference(props.maximumInvestmentSize, true)}
+              </span>
+            </div>
+          </div>
+          <div className={`ms-Grid-row ${spacedRow}`}>
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <span className={preferenceType}>{'IRR'}</span>
+              <span className={inline}>
+                {props.minimumIrrReturn}% - {props.maximumIrrReturn}%
               </span>
             </div>
           </div>
@@ -126,7 +149,7 @@ export default function ViewContact (props) {
               <Link
                   data-automation-id='add-notes'
                   onClick={props.onShowNotes}
-                >{'See notes'}
+                ><div style={{fontSize:'14px'}}>{'See notes'}</div>
               </Link>
             </div>
           </div>

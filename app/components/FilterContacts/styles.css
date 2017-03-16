@@ -8,14 +8,16 @@
 }
 
 .contactContainer {
-  height: 160px;
-  overflow: scroll;
   margin: 5px;
 }
 
 .contact {
   border-bottom: 1px solid #F0F0F0;
-  padding: 5px 0px;
+  padding: 8px 5px;
+}
+
+.contact:hover {
+  background-color: #e8f6ff;
 }
 
 .inline {
@@ -33,6 +35,16 @@
   font-size: 13px;
 }
 
-.btn {
-  width: 100%;
+.actionBtn {
+  width: 288px;
+}
+
+.fixedBtn {
+  position: fixed !important;
+  bottom: 0px;
+  background-color: white;
+}
+
+.chevron:hover {
+  cursor: pointer;
 }

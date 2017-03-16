@@ -10,8 +10,8 @@ import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBa
 import { Label } from 'office-ui-fabric-react/lib/Label'
 import { contact, contactContainer, section, inline, borderedSection, name, company, btn } from './styles.css'
 import { btnRed } from 'sharedStyles/buttons.css'
-import { centerPage } from 'sharedStyles/styles.css'
-import { maxInvestmentSizePreference } from 'config/constants'
+import { blockBtn, centerPage } from 'sharedStyles/styles.css'
+import { formatInvestmentSizePreferences } from 'helpers/utils'
 
 export default function Compose (props) {
   return (
@@ -68,77 +68,11 @@ export default function Compose (props) {
               <PrimaryButton
                   data-automation-id='add-contact'
                   onClick={props.onFilterContacts}
-                  className={`${btn}`}
+                  className={`${blockBtn}`}
                 >{'Filter contacts'}</PrimaryButton>
             </div>
           </div>
         </div>
-        {props.filteredContacts.length
-          ?
-          <div className={borderedSection}>
-            <div className="ms-Grid-row">
-              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                <div className="ms-fontWeight-semibold ms-fontSize-l">{`Relevant Contacts (${props.filteredContacts.length})`}</div>
-              </div>
-            </div>
-            <div className={contactContainer}>
-              {props.filteredContacts.map((filteredContact) => (
-                <div className={contact} key={filteredContact.id}>
-                  <Link to={`/view-contact/${filteredContact.id}`}>
-                    <div className="ms-Grid-row">
-                      <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                        <div className={name}>{`${filteredContact.firstName} ${filteredContact.lastName}`}</div>
-                      </div>
-                    </div>
-                    <div className="ms-Grid-row">
-                      <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                        <div className={company}>{filteredContact.company}</div>
-                      </div>
-                    </div>
-                    <div className="ms-Grid-row">
-                      <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                        {filteredContact.investmentTypePreferences.map((type) => (
-                          <span key={type.id} className={inline}>{type.name}</span>
-                        ))}
-                        <span className={inline}>
-                          {filteredContact.minimumInvestmentSize === 0
-                            ? 'no min'
-                            : numeral(filteredContact.minimumInvestmentSize).format('0,0')
-                          }-
-                          {filteredContact.maximumInvestmentSize === maxInvestmentSizePreference
-                            ? 'no max'
-                            : numeral(filteredContact.maximumInvestmentSize).format('0,0')}
-                        </span>
-                        {filteredContact.regionPreferences.map((region) => (
-                          <span key={region.id} className={inline}>{region.name}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-            </div>
-            <div className="ms-Grid-row">
-              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                { props.isComposeView
-                  ? <PrimaryButton
-                      data-automation-id='add-contact'
-                      onClick={props.addToBcc}
-                      className={btn}
-                    >{'Add to bcc'}</PrimaryButton>
-                  : null
-                }
-              </div>
-            </div>
-          </div>
-          :
-          <div>
-            {props.hasQueried
-              ? <div>{'No interested contacts found'}</div>
-              : null
-            }
-          </div>
-        }
       </div>
     }
     </div>

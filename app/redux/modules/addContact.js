@@ -2,7 +2,7 @@ import axios from 'axios'
 import { decamelizeKeys } from 'humps'
 import { formatFromSelectionOptions, formatToMultiSelectOptions, parseDisplayName } from 'helpers/utils'
 import { saveContact, fetchRegionAndInvestmentTypes } from 'helpers/api'
-import { maxInvestmentSizePreference } from 'config/constants'
+import { maxInvestmentSizePreference, maxIrrReturn } from 'config/constants'
 import { unauthUser } from 'redux/modules/user'
 
 const LOADING_INFO = 'LOADING_INFO'
@@ -15,6 +15,8 @@ const CHANGE_COMPANY = 'CHANGE_COMPANY'
 const CHANGE_TYPE_PREFERENCE = 'CHANGE_TYPE_PREFERENCE'
 const CHANGE_MIN_SIZE_PREFERENCE = 'CHANGE_MIN_SIZE_PREFERENCE'
 const CHANGE_MAX_SIZE_PREFERENCE = 'CHANGE_MAX_SIZE_PREFERENCE'
+const CHANGE_MIN_IRR_PREFERENCE = 'CHANGE_MIN_IRR_PREFERENCE'
+const CHANGE_MAX_IRR_PREFERENCE = 'CHANGE_MAX_IRR_PREFERENCE'
 const CHANGE_REGION_PREFERENCE = 'CHANGE_REGION_PREFERENCE'
 const CHANGE_NOTES = 'CHANGE_NOTES'
 const CONVERT_ADD_CONTACT_OPTIONS = 'CONVERT_ADD_CONTACT_OPTIONS'
@@ -133,6 +135,20 @@ export function handleMinSizePreferenceChanged (value) {
 export function handleMaxSizePreferenceChanged (value) {
   return {
     type: CHANGE_MAX_SIZE_PREFERENCE,
+    value,
+  }
+}
+
+export function handleMinimumIrrReturnChanged (value) {
+  return {
+    type: CHANGE_MIN_IRR_PREFERENCE,
+    value,
+  }
+}
+
+export function handleMaximumIrrReturnChanged (value) {
+  return {
+    type: CHANGE_MAX_IRR_PREFERENCE,
     value,
   }
 }
@@ -257,17 +273,19 @@ const initialState = {
   email: '',
   phone: '',
   company: '',
-  investmentTypePreferences: [],
-  investmentTypePreferencesSelected: [],
   minimumInvestmentSize: 0,
   maximumInvestmentSize: maxInvestmentSizePreference,
+  minimumIrrReturn: 0,
+  maximumIrrReturn: maxIrrReturn,
+  investmentTypePreferences: [],
+  investmentTypePreferencesSelected: [],
+  investmentTypePreferenceOptions: [],
   regionPreferences: [],
   regionPreferencesSelected: [],
   regionPreferenceOptions: [],
-  investmentTypePreferenceOptions: [],
   isNotesPanelOpened: false,
   notes: '',
-  creator: '',  // the customer's ID
+  creator: '',  // the customer's ID,
 }
 
 export default function addContact (state = initialState, action) {
@@ -321,6 +339,16 @@ export default function addContact (state = initialState, action) {
       return {
         ...state,
         maximumInvestmentSize: action.value,
+      }
+    case CHANGE_MIN_IRR_PREFERENCE:
+      return {
+        ...state,
+        minimumIrrReturn: action.value,
+      }
+    case CHANGE_MAX_IRR_PREFERENCE:
+      return {
+        ...state,
+        maximumIrrReturn: action.value,
       }
     case CHANGE_REGION_PREFERENCE:
       return {

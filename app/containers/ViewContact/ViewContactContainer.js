@@ -48,6 +48,8 @@ const ViewContactContainer = React.createClass({
         regionPreferences={this.props.regionPreferences}
         minimumInvestmentSize={this.props.minimumInvestmentSize}
         maximumInvestmentSize={this.props.maximumInvestmentSize}
+        minimumIrrReturn={this.props.minimumIrrReturn}
+        maximumIrrReturn={this.props.maximumIrrReturn}
         upcomingFollowUp={this.props.upcomingFollowUp}
         notes={this.props.notes}
         isNotesPanelOpened={this.props.isNotesPanelOpened}
@@ -76,6 +78,8 @@ function mapStateToProps ({contact}) {
     regionPreferences: contact.regionPreferences,
     minimumInvestmentSize: contact.minimumInvestmentSize,
     maximumInvestmentSize: contact.maximumInvestmentSize,
+    minimumIrrReturn: contact.minimumIrrReturn,
+    maximumIrrReturn: contact.maximumIrrReturn,
     upcomingFollowUp: contact.upcomingFollowUp,
     notes: contact.notes,
     isNotesPanelOpened: contact.isNotesPanelOpened,

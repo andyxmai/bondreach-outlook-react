@@ -55,6 +55,14 @@ const AddContactContainer = React.createClass({
     this.props.handleMaxSizePreferenceChanged(item.value)
   },
 
+  handleMinimumIrrReturnChanged (e) {
+    this.props.handleMinimumIrrReturnChanged(e.target.rawValue)
+  },
+
+  handleMaximumIrrReturnChanged (e) {
+    this.props.handleMaximumIrrReturnChanged(e.target.rawValue)
+  },
+
   handleTypePreferenceChanged (value) {
     this.props.handleTypePreferenceChanged(value)
   },
@@ -99,6 +107,8 @@ const AddContactContainer = React.createClass({
         investmentTypePreferencesSelected={this.props.investmentTypePreferencesSelected}
         minimumInvestmentSize={this.props.minimumInvestmentSize}
         maximumInvestmentSize={this.props.maximumInvestmentSize}
+        minimumIrrReturn={this.props.minimumIrrReturn}
+        maximumIrrReturn={this.props.maximumIrrReturn}
         regionPreferencesSelected={this.props.regionPreferencesSelected}
         onFirstNameChanged={this.handleFirstNameChanged}
         onLastNameChanged={this.handleLastNameChanged}
@@ -107,6 +117,8 @@ const AddContactContainer = React.createClass({
         onCompanyChanged={this.handleCompanyChanged}
         onInvestmentPreferenceMinSizeChanged={this.handleInvestmentPreferenceMinSizeChanged}
         onInvestmentPreferenceMaxSizeChanged={this.handleInvestmentPreferenceMaxSizeChanged}
+        onMinimumIrrReturnChanged={this.handleMinimumIrrReturnChanged}
+        onMaximumIrrReturnChanged={this.handleMaximumIrrReturnChanged}
         onTypePreferenceChanged={this.handleTypePreferenceChanged}
         onRegionPreferenceChanged={this.handleRegionPreferenceChanged}
         onAddContactClicked={this.handleAddContactClicked}
@@ -136,6 +148,8 @@ function mapStateToProps ({addContact}) {
     investmentTypePreferencesSelected: addContact.investmentTypePreferencesSelected,
     minimumInvestmentSize: addContact.minimumInvestmentSize,
     maximumInvestmentSize: addContact.maximumInvestmentSize,
+    minimumIrrReturn: addContact.minimumIrrReturn,
+    maximumIrrReturn: addContact.maximumIrrReturn,
     regionPreferences: addContact.regionPreferences,
     regionPreferencesSelected: addContact.regionPreferencesSelected,
     regionPreferenceOptions: addContact.regionPreferenceOptions,

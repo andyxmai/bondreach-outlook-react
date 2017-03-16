@@ -15,6 +15,7 @@ const FETCH_FILTER_CONTACTS_SELECT_OPTIONS = 'FETCH_FILTER_CONTACTS_SELECT_OPTIO
 const FETCH_FILTER_CONTACTS_SELECT_OPTIONS_SUCCESS = 'FETCH_FILTER_CONTACTS_SELECT_OPTIONS_SUCCESS'
 const FETCH_FILTER_CONTACTS_SELECT_OPTIONS_FAILURE = 'FETCH_FILTER_CONTACTS_SELECT_OPTIONS_FAILURE'
 const RESET_FILTER_CONTACTS = 'RESET_FILTER_CONTACTS'
+const CHANGE_SHOW_INPUTS = 'CHANGE_SHOW_INPUTS'
 
 function fetchingSelectOptions () {
   return {
@@ -114,20 +115,12 @@ export function fetchFilterContacts () {
         dispatch(fetchingFilteredContactSuccess(filteredContacts))
       })
       .catch((err) => {
-        console.warn('Error filtering')
+        console.warn('Error filtering', err)
         if (err.response.status === 403) {
           dispatch(unauthUser())
         }
         dispatch(fetchingFilteredContactFailure('Error filtering contacts'))
       })
-  }
-}
-
-export function handleAddToBcc () {
-  return function (dispatch, getState) {
-    const { filteredContacts } = getState().filterContacts
-    const emails = filteredContacts.map(function (contact) { return contact.email })
-    Office.context.mailbox.item.bcc.setAsync(emails)
   }
 }
 
@@ -137,8 +130,14 @@ export function resetFilterContacts () {
   }
 }
 
+export function exchangeShowInputs () {
+  return {
+    type: CHANGE_SHOW_INPUTS,
+  }
+}
+
 const initialState = {
-  hasQueried: false,
+  showInputs: true,
   isFetching: false,
   error: '',
   investmentSize: '',
@@ -169,15 +168,15 @@ export default function filterContacts (state = initialState, action) {
     case FETCHING_FILTERED_CONTACTS:
       return {
         ...state,
-        hasQueried: true,
         isFetching: true,
+        showInputs: true,
         filteredContacts: [],
       }
     case FETCHING_FILTERED_CONTACTS_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        hasQueried: true,
+        showInputs: true,
         error: '',
         filteredContacts: action.filteredContacts,
       }
@@ -186,7 +185,7 @@ export default function filterContacts (state = initialState, action) {
         ...state,
         error: action.error,
         isFetching: false,
-        hasQueried: true,
+        showInputs: true,
         filteredContacts: [],
       }
     case FETCH_FILTER_CONTACTS_SELECT_OPTIONS:
@@ -216,6 +215,11 @@ export default function filterContacts (state = initialState, action) {
         ...initialState,
         regionPreferenceOptions,
         investmentTypePreferenceOptions,
+      }
+    case CHANGE_SHOW_INPUTS:
+      return {
+        ...state,
+        showInputs: !state.showInputs,
       }
     default:
       return state
