@@ -13,7 +13,6 @@ const ReadContainer = React.createClass({
   },
 
   componentDidMount () {
-    console.log('read container mounted');
     this.props.checkForContactSaved((hasContactSaved, contactId) => {
       if (hasContactSaved) {
         this.context.router.push('/view-contact/' + contactId)

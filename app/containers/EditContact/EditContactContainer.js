@@ -16,7 +16,6 @@ const EditContactContainer = React.createClass({
   componentDidUpdate (prevProps) {
     if (prevProps.updated === false && this.props.updated === true) {
       const contactId = prevProps.id
-      console.log('Viewing contact with ID', contactId);
       this.context.router.push(`/view-contact/${contactId}`)
     }
   },
