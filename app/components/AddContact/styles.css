@@ -5,3 +5,11 @@
 .dropdown {
   margin-bottom: 7px;
 }
+
+.autofill {
+  color: #666666;
+}
+
+.autofill:hover {
+  cursor: pointer;
+}

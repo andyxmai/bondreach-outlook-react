@@ -91,6 +91,10 @@ const AddContactContainer = React.createClass({
     this.props.hideNotesPanel()
   },
 
+  handleAutoFillClicked () {
+    this.props.loadAndStoreContactInfo()
+  },
+
   render () {
     return (
       <AddContact
@@ -122,6 +126,7 @@ const AddContactContainer = React.createClass({
         onTypePreferenceChanged={this.handleTypePreferenceChanged}
         onRegionPreferenceChanged={this.handleRegionPreferenceChanged}
         onAddContactClicked={this.handleAddContactClicked}
+        onAutoFillClicked={this.handleAutoFillClicked}
         onRemoveErrorMsg={this.handleRemoveErrorMsg}
         notes={this.props.notes}
         isNotesPanelOpened={this.props.isNotesPanelOpened}

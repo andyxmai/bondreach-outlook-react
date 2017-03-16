@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { contactStyle, inline, name, company } from './styles.css'
-import { formatInvestmentSizePreferences } from 'helpers/utils'
+import { formatInvestmentSizePreferences, formatInvestmentReturnPreferences } from 'helpers/utils'
 
 export default function ContactResult ({contact}) {
   return (
@@ -24,6 +24,9 @@ export default function ContactResult ({contact}) {
             ))}
             <span key="size-preference" className={inline}>
               {formatInvestmentSizePreferences(contact.minimumInvestmentSize, contact.maximumInvestmentSize)}
+            </span>
+            <span key="return-preference" className={inline}>
+              {formatInvestmentReturnPreferences(contact.minimumIrrReturn, contact.maximumIrrReturn)}
             </span>
             {contact.regionPreferences.map((region) => (
               <span key={region.id} className={inline}>{region.name}</span>

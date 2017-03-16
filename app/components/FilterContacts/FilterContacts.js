@@ -56,6 +56,18 @@ export default function Compose (props) {
           </div>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <div className="ms-TextField">
+                <Label>{'Target return (%)'}</Label>
+                <Cleave className="ms-TextField-field"
+                  options={ {numeral: true} }
+                  onChange={props.onInvestmentTargetReturnChanged} value={props.targetReturn}
+                  maxLength={3}
+                  />
+              </div>
+            </div>
+          </div>
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
               <Dropdown
                   label='Region'
                   options={props.regionPreferenceOptions}

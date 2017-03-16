@@ -6,6 +6,7 @@ import { unauthUser } from 'redux/modules/user'
 
 const CHANGE_INVESTMENT_TYPE_FILTER = 'CHANGE_INVESTMENT_TYPE_FILTER'
 const CHANGE_INVESTMENT_SIZE_FILTER = 'CHANGE_INVESTMENT_SIZE_FILTER'
+const CHANGE_INVESTMENT_RETURN_FILTER = 'CHANGE_INVESTMENT_RETURN_FILTER'
 const CHANGE_INVESTMENT_REGION_FILTER = 'CHANGE_INVESTMENT_REGION_FILTER'
 const FETCHING_FILTERED_CONTACTS = 'FETCHING_FILTERED_CONTACTS'
 const FETCHING_FILTERED_CONTACTS_SUCCESS = 'FETCHING_FILTERED_CONTACTS_SUCCESS'
@@ -71,6 +72,13 @@ export function handleInvestmentSizeFilterChanged (value) {
   }
 }
 
+export function handleInvestmentReturnFilterChanged (value) {
+  return {
+    type: CHANGE_INVESTMENT_RETURN_FILTER,
+    value,
+  }
+}
+
 export function handleInvestmentRegionFilterChanged (value) {
   return {
     type: CHANGE_INVESTMENT_REGION_FILTER,
@@ -100,11 +108,12 @@ function fetchingFilteredContactFailure (error) {
 
 export function fetchFilterContacts () {
   return function (dispatch, getState) {
-    const { investmentSize, regionPreferences, investmentTypePreferences } = getState().filterContacts
+    const { investmentSize, targetReturn, regionPreferences, investmentTypePreferences } = getState().filterContacts
 
     // TODO (Andy): This is to allow empty params. This sucks. Find a better way
     var params = {}
     if (investmentSize) params.investmentSize = investmentSize
+    if (targetReturn) params.targetReturn = targetReturn
     if (regionPreferences) params.regionPreferences = regionPreferences
     if (investmentTypePreferences) params.investmentTypePreferences = investmentTypePreferences
 
@@ -141,6 +150,7 @@ const initialState = {
   isFetching: false,
   error: '',
   investmentSize: '',
+  targetReturn: '',
   regionPreferences: '',
   investmentTypePreferences: '',
   filteredContacts: [],
@@ -159,6 +169,11 @@ export default function filterContacts (state = initialState, action) {
       return {
         ...state,
         investmentSize: action.value,
+      }
+    case CHANGE_INVESTMENT_RETURN_FILTER:
+      return {
+        ...state,
+        targetReturn: action.value,
       }
     case CHANGE_INVESTMENT_REGION_FILTER:
       return {

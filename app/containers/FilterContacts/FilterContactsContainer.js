@@ -52,6 +52,10 @@ const FilterContactsContainer = React.createClass({
     this.props.handleInvestmentSizeFilterChanged(e.target.rawValue)
   },
 
+  handleInvestmentReturnChanged (e) {
+    this.props.handleInvestmentReturnFilterChanged(e.target.rawValue)
+  },
+
   handleInvestmentRegionChanged (item) {
     this.props.handleInvestmentRegionFilterChanged(item.id)
   },
@@ -72,11 +76,13 @@ const FilterContactsContainer = React.createClass({
             isFetching={this.props.isFetching}
             error={this.props.error}
             investmentSize={this.props.investmentSize}
+            targetReturn={this.props.targetReturn}
             filteredContacts={this.props.filteredContacts}
             regionPreferenceOptions={this.props.regionPreferenceOptions}
             investmentTypePreferenceOptions={this.props.investmentTypePreferenceOptions}
             onInvestmentTypeChanged={this.handleInvestmentTypeChanged}
             onInvestmentSizeChanged={this.handleInvestmentSizeChanged}
+            onInvestmentTargetReturnChanged={this.handleInvestmentReturnChanged}
             onInvestmentRegionChanged={this.handleInvestmentRegionChanged}
             onFilterContacts={this.handleFilterContacts}
           />
@@ -104,6 +110,7 @@ function mapStateToProps ({filterContacts}, props) {
     investmentTypePreferences: filterContacts.investmentTypePreferences,
     regionPreferences: filterContacts.regionPreferences,
     investmentSize: filterContacts.investmentSize,
+    targetReturn: filterContacts.targetReturn,
     filteredContacts: filterContacts.filteredContacts,
     regionPreferenceOptions: filterContacts.regionPreferenceOptions,
     investmentTypePreferenceOptions: filterContacts.investmentTypePreferenceOptions,

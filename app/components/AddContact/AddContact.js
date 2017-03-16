@@ -4,7 +4,8 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
 import { Spinner, SpinnerType } from 'office-ui-fabric-react/lib/Spinner'
-import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
+import { autofill } from './styles.css'
 import { blockBtn, centerPage, spacedRow } from 'sharedStyles/styles.css'
 
 export default function AddContact (props) {
@@ -43,8 +44,11 @@ export default function AddContact (props) {
         </Panel>
         <div className={spacedRow}></div>
         <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+          <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
             <div className="ms-fontWeight-semibold ms-fontSize-l">{'New Contact'}</div>
+          </div>
+          <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
+            <div className={`ms-fontSize-s ${autofill}`} onClick={props.onAutoFillClicked}>{'autofill'}</div>
           </div>
         </div>
         <MainContactInfo

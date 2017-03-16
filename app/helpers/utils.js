@@ -80,8 +80,12 @@ export function formatInvestmentSizePreference (size, isMax) {
   return `$${sizeInMillions}mm`
 }
 
-export function formatInvestmentSizePreferences(min, max) {
+export function formatInvestmentSizePreferences (min, max) {
   const minStr = formatInvestmentSizePreference(min, false)
   const maxStr = formatInvestmentSizePreference(max, true)
   return `${minStr} - ${maxStr}`
+}
+
+export function formatInvestmentReturnPreferences (min, max) {
+  return `${min}% - ${max}%`
 }
