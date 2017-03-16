@@ -42,15 +42,19 @@ const MainContainer = React.createClass({
     this.context.router.push('/filter-contacts')
   },
 
+  gotToSearchContacts() {
+    this.context.router.push('/search')
+  },
+
   getItems () {
     const obj = this
     return [
       {
-        key: 'addContact',
+        key: 'searchContacts',
         name: '',
-        icon: 'Add',
-        onClick: obj.goToAddContact,
-      }
+        icon: 'Search',
+        onClick: obj.gotToSearchContacts,
+      },
     ]
   },
 
@@ -59,13 +63,13 @@ const MainContainer = React.createClass({
     return [
       {
         key: 'addContact',
-        name: 'Add Contact',
+        name: '',
         icon: 'Add',
         onClick: obj.goToAddContact,
       },
       {
         key: 'filterContacts',
-        name: 'Filter Contacts',
+        name: '',
         icon: 'Filter',
         onClick: obj.goToFilterContacts,
       }
@@ -78,6 +82,7 @@ const MainContainer = React.createClass({
     : <div className={container}>
         <CommandBar
           isSearchBoxVisible={ false }
+          items={this.getItems()}
           farItems={ this.getFilteredFarItems() }
         />
         <div className={innerContainer}>

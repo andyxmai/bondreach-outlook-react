@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
+import { ContactResult } from 'components'
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button'
 import { ContextualMenu, DirectionalHint } from 'office-ui-fabric-react/lib/ContextualMenu'
 import { contact, contactContainer, section, inline, name, company, chevron, fixedBtn, actionBtn } from './styles.css'
 import { blockBtn } from 'sharedStyles/styles.css'
-import { formatInvestmentSizePreferences } from 'helpers/utils'
 
 export default function FilterResults (props) {
   return (
@@ -25,33 +24,9 @@ export default function FilterResults (props) {
           </div>
           <div className={contactContainer}>
             {props.filteredContacts.map((filteredContact) => (
-              <div className={contact} key={filteredContact.id}>
-                <Link to={`/view-contact/${filteredContact.id}`}>
-                  <div className="ms-Grid-row">
-                    <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                      <div className={name}>{`${filteredContact.firstName} ${filteredContact.lastName}`}</div>
-                    </div>
-                  </div>
-                  <div className="ms-Grid-row">
-                    <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                      <div className={company}>{filteredContact.company}</div>
-                    </div>
-                  </div>
-                  <div className="ms-Grid-row">
-                    <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                      {filteredContact.investmentTypePreferences.map((type) => (
-                        <span key={type.id} className={inline}>{type.name}</span>
-                      ))}
-                      <span key="size-preference" className={inline}>
-                        {formatInvestmentSizePreferences(filteredContact.minimumInvestmentSize, filteredContact.maximumInvestmentSize)}
-                      </span>
-                      {filteredContact.regionPreferences.map((region) => (
-                        <span key={region.id} className={inline}>{region.name}</span>
-                      ))}
-                    </div>
-                  </div>
-                </Link>
-              </div>
+              <ContactResult
+                key={filteredContact.id}
+                contact={filteredContact}/>
             ))}
           </div>
           { props.isComposeView

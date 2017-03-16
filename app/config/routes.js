@@ -3,7 +3,8 @@ import { Router, Route, IndexRoute } from 'react-router'
 import {
   MainContainer, HomeContainer, AuthenticateContainer,
   AddContactContainer, AddReminderContainer, ComposeContainer, ViewContactContainer,
-  EditContactContainer, ReadContainer, FilterContactsContainer, EnsureLoggedInContainer
+  EditContactContainer, ReadContainer, FilterContactsContainer, EnsureLoggedInContainer,
+  SearchContainer,
 } from 'containers'
 
 export default function getRoutes (checkAuth, history) {
@@ -19,6 +20,7 @@ export default function getRoutes (checkAuth, history) {
           <Route path='edit-contact' component={EditContactContainer} />
           <Route path='filter-contacts' component={FilterContactsContainer} />
           <Route path='read' component={ReadContainer} />
+          <Route path='search' component={SearchContainer} />
           <Route path='view-contact/:contactId' component={ViewContactContainer} />
         </Route>
         <IndexRoute component={ HomeContainer } />
