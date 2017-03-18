@@ -83,7 +83,7 @@ export default function AddReminder (props) {
       </div>
       <div className={`ms-Grid-row ${spacedRow}`}>
         <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-          <div className="ms-fontSize-l">{'Add reminder'}</div>
+          <div className="ms-fontSize-l">{`Add reminder for ${props.contactObj.firstName}`}</div>
         </div>
       </div>
       <div className="ms-Grid-row">
@@ -92,7 +92,7 @@ export default function AddReminder (props) {
             firstDayOfWeek={ DayOfWeek.Sunday }
             strings={ DayPickerStrings }
             placeholder='Select a date...'
-            value={props.beginDataObj}
+            value={props.beginDateObj}
             onSelectDate={props.onSelectBeginDate}
           />
         </div>
@@ -122,7 +122,7 @@ export default function AddReminder (props) {
             data-automation-id='add-reminders'
             onClick={props.onAddToCalendar}
             className={blockBtn}
-          >{'Add reminder'}</PrimaryButton>
+          >{'Add to my calendar'}</PrimaryButton>
         </div>
       </div>
       <div className="ms-Grid-row">

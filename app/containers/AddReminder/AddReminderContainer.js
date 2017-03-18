@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { AddReminder } from 'components'
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button'
 import * as followUpActionCreators from 'redux/modules/followUp'
+import { createAppointment } from 'common/EWS'
 
 const AddReminderContainer = React.createClass({
   contextTypes: {
@@ -12,19 +13,25 @@ const AddReminderContainer = React.createClass({
 
   componentDidMount () {
     const contactId = this.props.routeParams.contactId
-    this.props.addFollowUpContactId(contactId)
+    this.props.fetchAndHandleContact(contactId)
   },
 
   componentDidUpdate(prevProps) {
     if (this.props.followUpAdded === true && prevProps.followUpAdded === false) {
       const contact = this.props.contact
+      //add to Outlook Calendar
+      var end = this.props.beginDateObj
+      end.setHours(this.props.beginDateObj.getHours() + 1)
+      const subject = `Follow up - ${this.props.contactObj.firstName} ${this.props.contactObj.lastName}`
+      createAppointment(subject, this.props.beginDateObj.toISOString(), end.toISOString(), (asyncResult)=>{})
+      // Redirect to view contact
       this.props.resetFollowUp()
       this.context.router.push(`/view-contact/${contact}`)
     }
   },
 
-  handleSelectBeginDate (beginDataObj) {
-    this.props.handleBeginDateChange(beginDataObj)
+  handleSelectBeginDate (beginDateObj) {
+    this.props.handleBeginDateChange(beginDateObj)
   },
 
   handleFrequencyChange (item) {
@@ -32,7 +39,7 @@ const AddReminderContainer = React.createClass({
   },
 
   handleAddToCalendar () {
-    this.props.addAndHandleFollowUp()
+   this.props.addAndHandleFollowUp()
   },
 
   goToContact () {
@@ -44,8 +51,9 @@ const AddReminderContainer = React.createClass({
       <AddReminder
         isFetching={this.props.isFetching}
         error={this.props.error}
-        beginDataObj={this.props.beginDataObj}
+        beginDateObj={this.props.beginDateObj}
         frequency={this.props.frequency}
+        contactObj={this.props.contactObj}
         onSelectBeginDate={this.handleSelectBeginDate}
         onFrequencyChange={this.handleFrequencyChange}
         onAddToCalendar={this.handleAddToCalendar}
@@ -59,11 +67,12 @@ function mapStateToProps ({followUp}) {
   return {
     isFetching: followUp.isFetching,
     error: followUp.error,
-    beginDataObj: followUp.beginDataObj,
+    beginDateObj: followUp.beginDateObj,
     frequency: followUp.frequency,
     isActive: followUp.isActive,
     contact: followUp.contact,  // this is actually the ID
     followUpAdded: followUp.followUpAdded,
+    contactObj: followUp.contactObj,
   }
 }
 

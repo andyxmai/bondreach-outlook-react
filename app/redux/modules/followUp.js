@@ -1,9 +1,10 @@
-import { decamelizeKeys } from 'humps'
-import { saveFollowUp } from 'helpers/api'
+import { camelizeKeys, decamelizeKeys } from 'humps'
+import { fetchContactWithId, saveFollowUp } from 'helpers/api'
 import { formatJSDateToPyDate } from 'helpers/utils'
 import { unauthUser } from 'redux/modules/user'
 
 const ADD_FOLLOW_UP_CONTACT_ID = 'ADD_FOLLOW_UP_CONTACT_ID'
+const ADD_FOLLOW_UP_CONTACT = 'ADD_FOLLOW_UP_CONTACT'
 const ADDING_FOLLOW_UP = 'ADDING_FOLLOWUP'
 const ADD_FOLLOW_UP_SUCCESS = 'ADD_FOLLOWUP_SUCCESS'
 const ADD_FOLLOW_UP_FAILURE = 'ADD_FOLLOWUP_FAILURE'
@@ -23,7 +24,7 @@ function addFollowUpSuccess () {
   }
 }
 
-function addFollowUpError (error) {
+export function addFollowUpError (error) {
   return {
     type: ADD_FOLLOW_UP_FAILURE,
     error,
@@ -55,11 +56,31 @@ export function addFollowUpContactId (id) {
   }
 }
 
-function changeFollowUpBeginDate (beginDate, beginDataObj) {
+export function addFollowUpContact (value) {
+  return {
+    type: ADD_FOLLOW_UP_CONTACT,
+    value,
+  }
+}
+
+export function fetchAndHandleContact (id) {
+  return function (dispatch) {
+    fetchContactWithId(id)
+      .then((res) => {
+        dispatch(addFollowUpContactId(id))
+        dispatch(addFollowUpContact(camelizeKeys(res.data)))
+      })
+      .catch((err) => {
+        dispatch(addFollowUpError('Failed to get contact info. Please try again!'))
+      })
+  }
+}
+
+function changeFollowUpBeginDate (beginDate, beginDateObj) {
   return {
     type: CHANGE_FOLLOW_UP_BEGIN_DATE,
     beginDate,
-    beginDataObj,
+    beginDateObj,
   }
 }
 
@@ -87,11 +108,12 @@ const initialState = {
   isFetching: false,
   error: '',
   beginDate: '',
-  beginDataObj: '',
+  beginDateObj: '',
   frequency: '',
   isActive: true,
   contact: '',  // this is actually the ID
   followUpAdded: false,
+  contactObj: {},
 }
 
 export default function followUp (state = initialState, action) {
@@ -100,6 +122,11 @@ export default function followUp (state = initialState, action) {
       return {
         ...state,
         contact: action.id,
+      }
+    case ADD_FOLLOW_UP_CONTACT:
+      return {
+        ...state,
+        contactObj: action.value,
       }
     case ADDING_FOLLOW_UP:
       return {
@@ -129,7 +156,7 @@ export default function followUp (state = initialState, action) {
       return {
         ...state,
         beginDate: action.beginDate,
-        beginDataObj: action.beginDataObj,
+        beginDateObj: action.beginDateObj,
       }
     case RESET_FOLLOW_UP:
       return initialState

@@ -138,7 +138,7 @@ export default function ViewContact (props) {
           </div>
           <div className={`ms-Grid-row ${spacedRow}`}>
             <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-              <span className={preferenceType}>{'GEORGRAPHY'}</span>
+              <span className={preferenceType}>{'REGION'}</span>
               {props.regionPreferences.map((region) => (
                 <span key={region.id} className={inline}>{region.name}</span>
               ))}
