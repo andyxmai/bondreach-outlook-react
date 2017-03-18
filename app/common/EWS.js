@@ -20,8 +20,8 @@ function getSoapEnvelope (request) {
   return result;
 }
 
-function createAppointmentRequest (subject, start, end) {
-  var result =
+function createAppointmentRequest (subject, body, start, end) {
+  const result =
   '    <CreateItem xmlns="http://schemas.microsoft.com/exchange/services/2006/messages"' +
   '                xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types"' +
   '                SendMeetingInvitations="SendToAllAndSaveCopy" >' +
@@ -31,7 +31,7 @@ function createAppointmentRequest (subject, start, end) {
   '      <Items>' +
   '        <t:CalendarItem xmlns="http://schemas.microsoft.com/exchange/services/2006/types">' +
   '          <Subject>' + subject + '</Subject>' +
-  '          <Body BodyType="Text">Added through BondReach</Body>' +
+  '          <Body BodyType="Text">' + body + '</Body>' +
   '          <ReminderIsSet>true</ReminderIsSet>' +
   '          <ReminderMinutesBeforeStart>15</ReminderMinutesBeforeStart>' +
   '          <Start>' + start + '</Start>' +
@@ -53,9 +53,50 @@ function createAppointmentRequest (subject, start, end) {
   return result
 }
 
-export function createAppointment (subject, start, end, callback) {
-  const request = createAppointmentRequest(subject, start, end);
-  const envelope = getSoapEnvelope(request);
+export function createAppointment (subject, body, start, end, callback) {
+  const request = createAppointmentRequest(subject, body, start, end)
+  const envelope = getSoapEnvelope(request)
 
-  Office.context.mailbox.makeEwsRequestAsync(envelope, callback);
+  Office.context.mailbox.makeEwsRequestAsync(envelope, callback)
+}
+
+function createContactRequest (firstName, lastName, email, company, phone) {
+  const result =
+  '    <CreateItem xmlns="http://schemas.microsoft.com/exchange/services/2006/messages" >' +
+  '      <SavedItemFolderId>' +
+  '        <t:DistinguishedFolderId Id="contacts"/>' +
+  '      </SavedItemFolderId>' +
+  '      <Items>' +
+  '        <t:Contact>' +
+  '          <t:FileAs>BondReach Contact</t:FileAs>' +
+  '          <t:GivenName>' + firstName + '</t:GivenName>' +
+  '          <t:CompanyName>' + company + '</t:CompanyName>' +
+  '          <t:EmailAddresses>' +
+  '            <t:Entry Key="EmailAddress2">' + email + '</t:Entry>' +
+  '          </t:EmailAddresses>' +
+  '          <t:PhysicalAddresses>' +
+  '            <t:Entry Key="Business">' +
+  '              <t:Street></t:Street>' +
+  '              <t:City></t:City>' +
+  '              <t:State></t:State>' +
+  '              <t:CountryOrRegion></t:CountryOrRegion>' +
+  '            </t:Entry>' +
+  '          </t:PhysicalAddresses>' +
+  '          <t:PhoneNumbers>' +
+  '            <t:Entry Key="BusinessPhone">' + phone + '</t:Entry>' +
+  '          </t:PhoneNumbers>' +
+  '          <t:JobTitle></t:JobTitle>' +
+  '          <t:Surname>' + lastName + '</t:Surname>' +
+  '        </t:Contact>' +
+  '      </Items>' +
+  '    </CreateItem>'
+
+  return result
+}
+
+export function createContact (firstName, lastName, email, company, phone, callback) {
+  const request = createContactRequest(firstName, lastName, email, company, phone)
+  const envelope = getSoapEnvelope(request)
+
+  Office.context.mailbox.makeEwsRequestAsync(envelope, callback)
 }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { AddContact } from 'components'
 import * as addContactActionCreators from 'redux/modules/addContact'
 import { formatToMultiSelectOptions } from 'helpers/utils'
-
+import { createContact } from 'common/EWS'
 
 const AddContactContainer = React.createClass({
   contextTypes: {
@@ -23,6 +23,8 @@ const AddContactContainer = React.createClass({
   componentDidUpdate(prevProps) {
     if (this.props.addedContactId !== '' && prevProps.addedContactId === '') {
       const addedContactId = this.props.addedContactId
+      const { firstName, lastName, email, company, phone } = this.props.addedContact
+      createContact(firstName, lastName, email, company, phone, (asyncResult) => {})
       this.context.router.push(`/add-reminder/${addedContactId}`)
     }
   },
@@ -143,6 +145,7 @@ function mapStateToProps ({addContact}) {
     isLoading: addContact.isLoading,
     error: addContact.error,
     addedContactId: addContact.addedContactId,
+    addedContact: addContact.addedContact,
     successMsg: addContact.successMsg,
     firstName: addContact.firstName,
     lastName: addContact.lastName,

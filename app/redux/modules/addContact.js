@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { decamelizeKeys } from 'humps'
+import { camelizeKeys, decamelizeKeys } from 'humps'
 import { formatFromSelectionOptions, formatToMultiSelectOptions, parseDisplayName } from 'helpers/utils'
 import { saveContact, fetchRegionAndInvestmentTypes } from 'helpers/api'
 import { maxInvestmentSizePreference, maxIrrReturn } from 'config/constants'
@@ -173,10 +173,11 @@ function addingContact () {
   }
 }
 
-function addContactSuccess (addedContactId) {
+function addContactSuccess (addedContact) {
   return {
     type: ADD_CONTACT_SUCCESS,
-    addedContactId,
+    addedContactId: addedContact.id,
+    addedContact,
   }
 }
 
@@ -210,8 +211,8 @@ export function handleAddContactSubmit () {
     const contact = decamelizeKeys(getState().addContact)
     saveContact(contact)
       .then((res) => {
-        const newContact = res.data
-        dispatch(addContactSuccess(newContact.id))
+        const newContact = camelizeKeys(res.data)
+        dispatch(addContactSuccess(newContact))
       })
       .catch((err) => {
         dispatch(addContactFailure('Failed to save contact.'))
@@ -268,6 +269,7 @@ const initialState = {
   isLoading: false,
   error: '',
   addedContactId: '',
+  addedContact: {},
   firstName: '',
   lastName: '',
   email: '',
@@ -382,6 +384,7 @@ export default function addContact (state = initialState, action) {
         error: '',
         isLoading: false,
         addedContactId: action.addedContactId,
+        addedContact: action.addedContact,
       }
     case ADD_CONTACT_FAILURE:
       return {
@@ -389,6 +392,7 @@ export default function addContact (state = initialState, action) {
         error: action.error,
         isLoading: false,
         addedContactId: '',
+        addedContact: {},
       }
     case REMOVE_ADD_CONTACT_ERROR_MSG:
       return {

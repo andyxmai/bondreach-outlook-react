@@ -5,6 +5,7 @@ import { AddReminder } from 'components'
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button'
 import * as followUpActionCreators from 'redux/modules/followUp'
 import { createAppointment } from 'common/EWS'
+import { formatAppointmentFields } from 'helpers/utils'
 
 const AddReminderContainer = React.createClass({
   contextTypes: {
@@ -20,10 +21,8 @@ const AddReminderContainer = React.createClass({
     if (this.props.followUpAdded === true && prevProps.followUpAdded === false) {
       const contact = this.props.contact
       //add to Outlook Calendar
-      var end = this.props.beginDateObj
-      end.setHours(this.props.beginDateObj.getHours() + 1)
-      const subject = `Follow up - ${this.props.contactObj.firstName} ${this.props.contactObj.lastName}`
-      createAppointment(subject, this.props.beginDateObj.toISOString(), end.toISOString(), (asyncResult)=>{})
+      const { subject, body, start, end } = formatAppointmentFields(this.props.beginDateObj, this.props.contactObj)
+      createAppointment(subject, body, start, end, (asyncResult)=>{})
       // Redirect to view contact
       this.props.resetFollowUp()
       this.context.router.push(`/view-contact/${contact}`)

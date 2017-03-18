@@ -89,3 +89,26 @@ export function formatInvestmentSizePreferences (min, max) {
 export function formatInvestmentReturnPreferences (min, max) {
   return `${min}% - ${max}%`
 }
+
+export function formatAppointmentFields (beginDateObj, contactObj) {
+  var end = beginDateObj
+  end.setHours(beginDateObj.getHours() + 1)
+  const subject = `Follow up - ${contactObj.firstName} ${contactObj.lastName}`
+  var body = 'Added through BondReach'
+  if (contactObj.phone !== '') {
+    body = `Phone: ${contactObj.phone}\n` + body
+  }
+  if (contactObj.email !== '') {
+    body = `Email: ${contactObj.email}\n` + body
+  }
+  if (contactObj.company !== '') {
+    body = `Company: ${contactObj.company}\n` + body
+  }
+
+  return {
+    subject,
+    body,
+    start: beginDateObj.toISOString(),
+    end: end.toISOString(),
+  }
+}
