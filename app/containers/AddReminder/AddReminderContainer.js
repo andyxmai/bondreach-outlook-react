@@ -6,6 +6,7 @@ import { PrimaryButton } from 'office-ui-fabric-react/lib/Button'
 import * as followUpActionCreators from 'redux/modules/followUp'
 import { createAppointment } from 'common/EWS'
 import { formatAppointmentFields } from 'helpers/utils'
+import * as analytics from 'helpers/analytics'
 
 const AddReminderContainer = React.createClass({
   contextTypes: {
@@ -42,6 +43,7 @@ const AddReminderContainer = React.createClass({
   },
 
   goToContact () {
+    amplitude.getInstance().logEvent(analytics.BR_OL_SKIP_REMINDER_CLICKED)
     this.context.router.push(`/view-contact/${this.props.contact}`)
   },
 

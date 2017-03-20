@@ -11,11 +11,13 @@ import * as reducers from 'redux/modules'
 import { browserHistory, hashHistory } from 'react-router'
 import 'react-select/dist/react-select.css'
 import 'html5-history-api'
+import * as analytics from 'helpers/analytics'
 
 var location = window.history.location || window.location  // need to polyfill to make broswerHistory work
 
 var store = null
 if (process.env.NODE_ENV === 'production')  {
+  amplitude.getInstance().init("91f11eeff27600bba31199da4107f74a")
   store = createStore(
     combineReducers({...reducers, routing: routerReducer}),
     compose(
@@ -23,6 +25,7 @@ if (process.env.NODE_ENV === 'production')  {
    )
   )
 } else {
+  amplitude.getInstance().init("a2fcc11da4b7eac3832b414aa0078296")
   store = createStore(
     combineReducers({...reducers, routing: routerReducer}),
     compose(
@@ -60,6 +63,8 @@ function checkAuth (nextState, replace) {
 // )
 
 Office.initialize = function(reason) {
+  amplitude.getInstance().logEvent(analytics.BR_OL_APP_OPENED)
+
   ReactDOM.render(
     <Provider store={store}>
       {getRoutes(checkAuth, history)}

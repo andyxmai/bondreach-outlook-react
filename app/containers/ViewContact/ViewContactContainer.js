@@ -3,11 +3,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { ViewContact } from 'components'
 import * as contactActionCreators from 'redux/modules/contact'
+import * as analytics from 'helpers/analytics'
 
 const ViewContactContainer = React.createClass({
   componentDidMount () {
     const contactId = this.props.routeParams.contactId
     this.props.fetchAndHandleContactWithId(contactId)
+    amplitude.getInstance().logEvent(analytics.BR_OL_VIEW_CONTACT)
   },
 
   contextTypes: {
@@ -19,6 +21,7 @@ const ViewContactContainer = React.createClass({
   },
 
   handleShowNotes () {
+    amplitude.getInstance().logEvent(analytics.BR_OL_VIEW_CONTACT_OPEN_NOTES)
     this.props.showNotes()
   },
 

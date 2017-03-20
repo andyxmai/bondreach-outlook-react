@@ -1,5 +1,6 @@
 import { camelizeKeys } from 'humps'
 import { fetchContactWithParams } from 'helpers/api'
+import * as analytics from 'helpers/analytics'
 
 const FETCHING_SEARCH_RESULTS = 'FETCHING_SEARCH_RESULTS'
 const FETCHING_SEARCH_RESULTS_SUCCESS = 'FETCHING_SEARCH_RESULTS_SUCCESS'
@@ -44,6 +45,7 @@ export function handleSearchQueryChanged (value) {
 export function fetchAndHandleSearchResults () {
   return function (dispatch, getState) {
     const search = getState().search.query
+    const eventProperties = { search }
     if (search === '') {
       dispatch(updateSearchResults([]))  // empty out search results
       return
@@ -53,10 +55,12 @@ export function fetchAndHandleSearchResults () {
     fetchContactWithParams({search})
       .then((res) => {
         dispatch(fetchingSearchResultsSuccess(camelizeKeys(res.data)))
+        amplitude.getInstance().logEvent(analytics.BR_OL_SEARCH_CONTACTS_CLICKED, eventProperties)
       })
       .catch((err) => {
         console.warn(err)
         dispatch(fetchingSearchResultsError('Error getting search results'))
+        amplitude.getInstance().logEvent(analytics.BR_OL_SEARCH_CONTACTS_CLICKED, eventProperties)
       })
   }
 }

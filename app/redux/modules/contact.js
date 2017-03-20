@@ -4,6 +4,7 @@ import { fetchRegionAndInvestmentTypes, fetchContactWithId, fetchContactWithPara
 import { formatFromSelectionOptions, formatToMultiSelectOptions } from 'helpers/utils'
 import { maxInvestmentSizePreference, maxIrrReturn } from 'config/constants'
 import { unauthUser } from 'redux/modules/user'
+import * as analytics from 'helpers/analytics'
 
 const FETCHING_CONTACT = 'FETCHING_CONTACT'
 const FETCHING_CONTACT_SUCCESS = 'FETCHING_CONTACT_SUCCESS'
@@ -311,6 +312,7 @@ export function saveNotes () {
     updateContact(contact)
       .then((res) => {
         dispatch(savingNotesSuccess('Notes saved'))
+        amplitude.getInstance().logEvent(analytics.BR_OL_VIEW_CONTACT_SAVE_NOTES_SUCCESS)
       })
       .catch((err) => {
         console.warn(err)
@@ -318,6 +320,7 @@ export function saveNotes () {
           dispatch(unauthUser())
         }
         dispatch(savingNotesFailure('Could not save notes. Try again!'))
+        amplitude.getInstance().logEvent(analytics.BR_OL_VIEW_CONTACT_SAVE_NOTES_FAILURE)
       })
   }
 }

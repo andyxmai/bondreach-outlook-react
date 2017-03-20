@@ -3,6 +3,7 @@ import { camelizeKeys, decamelizeKeys } from 'humps'
 import { fetchContactWithParams, fetchRegionAndInvestmentTypes } from 'helpers/api'
 import { formatToSelectOptions } from 'helpers/utils'
 import { unauthUser } from 'redux/modules/user'
+import * as analytics from 'helpers/analytics'
 
 const CHANGE_INVESTMENT_TYPE_FILTER = 'CHANGE_INVESTMENT_TYPE_FILTER'
 const CHANGE_INVESTMENT_SIZE_FILTER = 'CHANGE_INVESTMENT_SIZE_FILTER'
@@ -40,7 +41,6 @@ function fetchSelectOptionsFailure (error) {
 }
 
 export function fetchAndAddSelectOptions () {
-  console.log('fetchAndAddSelectOptions called');
   return function (dispatch) {
     dispatch(fetchingSelectOptions())
     fetchRegionAndInvestmentTypes().then(axios.spread((regionRes, typeRes) => {
@@ -118,10 +118,13 @@ export function fetchFilterContacts () {
     if (investmentTypePreferences) params.investmentTypePreferences = investmentTypePreferences
 
     dispatch(fetchingFilteredContacts)
+    const eventProperties = { 'filterParams' : params }
+    amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_CLICKED, eventProperties)
     fetchContactWithParams(decamelizeKeys(params))
       .then((res) => {
         const filteredContacts = camelizeKeys(res.data)
         dispatch(fetchingFilteredContactSuccess(filteredContacts))
+        amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_SUCCESS, eventProperties)
       })
       .catch((err) => {
         console.warn('Error filtering', err)
@@ -129,6 +132,7 @@ export function fetchFilterContacts () {
           dispatch(unauthUser())
         }
         dispatch(fetchingFilteredContactFailure('Error filtering contacts'))
+        amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_FAILURE, eventProperties)
       })
   }
 }

@@ -10,6 +10,7 @@ import * as filterContactActionCreators from 'redux/modules/filterContacts'
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar'
 import { Spinner, SpinnerType } from 'office-ui-fabric-react/lib/Spinner'
 import { centerPage } from 'sharedStyles/styles.css'
+import * as analytics from 'helpers/analytics'
 
 const MainContainer = React.createClass({
   propTypes: {
@@ -17,6 +18,9 @@ const MainContainer = React.createClass({
 
   contextTypes: {
     router: PropTypes.object.isRequired,
+  },
+
+  componentDidMount () {
   },
 
   componentDidUpdate(prevProps) {
@@ -33,16 +37,19 @@ const MainContainer = React.createClass({
   },
 
   goToAddContact () {
+    amplitude.getInstance().logEvent(analytics.BR_OL_ADD_CONTACT_COMMAND_BAR_CLICKED)
     this.props.resetAddNewContact()
     this.context.router.push('/add-contact')
   },
 
   goToFilterContacts () {
+    amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_COMMAND_BAR_CLICKED)
     this.props.resetFilterContacts()
     this.context.router.push('/filter-contacts')
   },
 
   gotToSearchContacts() {
+    amplitude.getInstance().logEvent(analytics.BR_OL_SEARCH_CONTACTS_COMMAND_BAR_CLICKED)
     this.context.router.push('/search')
   },
 

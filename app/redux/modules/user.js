@@ -1,6 +1,7 @@
 import auth, { loginWithToken } from 'helpers/auth'
 import cookie from 'react-cookie'
 import apiClient from 'common/ApiClient'
+import * as analytics from 'helpers/analytics'
 
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
@@ -54,16 +55,18 @@ export function fetchAndLoginUser (redirectUrl) {
   // Check if the token (if there is one) is still valid.
   // Otherwise, user will get directed to the auth page.
   return function (dispatch) {
-    console.log('fetching user');
     dispatch(fetchingUser())
     // Check if the token is still valid
     const token = cookie.load('token')
     apiClient.defaults.headers.authorization = `JWT ${token}`
+    amplitude.getInstance().logEvent(analytics.BR_OL_LOGIN)
     loginWithToken(token)
       .then((res) => {
         dispatch(fetchingUserSuccess())
         dispatch(setRedirectUrl(redirectUrl))
         dispatch(authUser(res.data.id))
+        amplitude.getInstance().logEvent(analytics.BR_OL_LOGIN_SUCCESS)
+
       })
       .catch((err) => {
         // token has expired. Remove it and force user to auth
@@ -73,8 +76,9 @@ export function fetchAndLoginUser (redirectUrl) {
         dispatch(removeFetchingUser())
         dispatch(setRedirectUrl(redirectUrl))
         dispatch(unauthUser())
+        const eventProperties = { 'error': err.response }
+        amplitude.getInstance().logEvent(analytics.BR_OL_LOGIN_FAILURE, eventProperties)
       })
-
   }
 }
 
@@ -85,6 +89,7 @@ export function fetchAndHandleAuthedUser (token, email) {
     // remove the old token if there's any
     cookie.remove('token', { path: '/' })
     delete apiClient.defaults.headers.authorization
+    amplitude.getInstance().logEvent(analytics.BR_OL_AUTHENTICATE_CLICKED)
     auth(token, email)
       .then((res) => {
         const token = res.data.token
@@ -92,10 +97,13 @@ export function fetchAndHandleAuthedUser (token, email) {
         apiClient.defaults.headers.authorization = `JWT ${token}`
         dispatch(fetchingUserSuccess())
         dispatch(authUser(res.data.id))
+        amplitude.getInstance().logEvent(analytics.BR_OL_AUTHENTICATE_SUCCESS)
       })
       .catch((err) => {
         console.warn('Auth err', err.response)
         dispatch(fetchingUserFailure('Failed to get user profile'))
+        const eventProperties = { 'error': err.response }
+        amplitude.getInstance().logEvent(analytics.BR_OL_AUTHENTICATE_FAILURE, eventProperties)
       })
   }
 }

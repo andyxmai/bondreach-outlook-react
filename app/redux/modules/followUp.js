@@ -2,6 +2,7 @@ import { camelizeKeys, decamelizeKeys } from 'humps'
 import { fetchContactWithId, saveFollowUp } from 'helpers/api'
 import { formatJSDateToPyDate } from 'helpers/utils'
 import { unauthUser } from 'redux/modules/user'
+import * as analytics from 'helpers/analytics'
 
 const ADD_FOLLOW_UP_CONTACT_ID = 'ADD_FOLLOW_UP_CONTACT_ID'
 const ADD_FOLLOW_UP_CONTACT = 'ADD_FOLLOW_UP_CONTACT'
@@ -33,11 +34,15 @@ export function addFollowUpError (error) {
 
 export function addAndHandleFollowUp () {
   return function (dispatch, getState) {
+    const { beginDate, frequency } = getState().followUp
+    const eventProperties = { beginDate, frequency }
     const params = decamelizeKeys(getState().followUp)
     dispatch(addingFollowUp())
+    amplitude.getInstance().logEvent(analytics.BR_OL_ADD_REMINDER_CLICKED, eventProperties)
     saveFollowUp(params)
       .then((res) => {
         dispatch(addFollowUpSuccess())
+        amplitude.getInstance().logEvent(analytics.BR_OL_ADD_REMINDER_SUCCESS, eventProperties)
       })
       .catch((err) => {
         console.warn(err)
@@ -45,6 +50,7 @@ export function addAndHandleFollowUp () {
           dispatch(unauthUser())
         }
         dispatch(addFollowUpError('Failed to add follow up. Please try again!'))
+        amplitude.getInstance().logEvent(analytics.BR_OL_ADD_REMINDER_FAILURE, eventProperties)
       })
   }
 }

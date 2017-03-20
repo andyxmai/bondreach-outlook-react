@@ -5,6 +5,7 @@ import { AddContact } from 'components'
 import * as addContactActionCreators from 'redux/modules/addContact'
 import { formatToMultiSelectOptions } from 'helpers/utils'
 import { createContact } from 'common/EWS'
+import * as analytics from 'helpers/analytics'
 
 const AddContactContainer = React.createClass({
   contextTypes: {
@@ -94,6 +95,7 @@ const AddContactContainer = React.createClass({
   },
 
   handleAutoFillClicked () {
+    amplitude.getInstance().logEvent(analytics.BR_OL_ADD_CONTACT_AUTOFILL_CLICKED)
     this.props.loadAndStoreContactInfo()
   },
 

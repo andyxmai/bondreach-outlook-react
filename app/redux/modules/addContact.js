@@ -4,6 +4,7 @@ import { formatFromSelectionOptions, formatToMultiSelectOptions, parseDisplayNam
 import { saveContact, fetchRegionAndInvestmentTypes } from 'helpers/api'
 import { maxInvestmentSizePreference, maxIrrReturn } from 'config/constants'
 import { unauthUser } from 'redux/modules/user'
+import * as analytics from 'helpers/analytics'
 
 const LOADING_INFO = 'LOADING_INFO'
 const LOADING_INFO_COMPLETE = 'LOADING_INFO_COMPLETE'
@@ -209,14 +210,17 @@ export function handleAddContactSubmit () {
     dispatch(addingContact())
     dispatch(convertAddContactOptions(investmentTypePreferences, regionPreferences))
     const contact = decamelizeKeys(getState().addContact)
+    amplitude.getInstance().logEvent(analytics.BR_OL_ADD_CONTACT_CLICKED)
     saveContact(contact)
       .then((res) => {
         const newContact = camelizeKeys(res.data)
         dispatch(addContactSuccess(newContact))
+        amplitude.getInstance().logEvent(analytics.BR_OL_ADD_CONTACT_SUCCESS)
       })
       .catch((err) => {
         dispatch(addContactFailure('Failed to save contact.'))
         console.warn('Error in saving contact', err)
+        amplitude.getInstance().logEvent(analytics.BR_OL_ADD_CONTACT_FAILURE)
       })
   }
 }
