@@ -68,6 +68,12 @@ const EditContactContainer = React.createClass({
     this.props.handleUpdateContactSubmit()
   },
 
+  handleCancelClicked () {
+    console.log('cancel clicked');
+    const contactId = this.props.id
+    this.context.router.push(`/view-contact/${contactId}`)
+  },
+
   render () {
     return (
       <EditContact
@@ -97,6 +103,7 @@ const EditContactContainer = React.createClass({
         regionPreferenceOptions={this.props.regionPreferenceOptions}
         onRegionPreferenceChanged={this.handleRegionPreferenceChanged}
         onUpdateContactClicked={this.handleUpdateContactClicked}
+        onCancelClicked={this.handleCancelClicked}
       />
     )
   }

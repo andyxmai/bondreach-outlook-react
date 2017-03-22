@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { MainContactInfo } from 'components'
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
+import { cancel } from './styles.css'
 import { blockBtn } from 'sharedStyles/styles.css'
 
 export default function EditContact (props) {
@@ -15,8 +16,11 @@ export default function EditContact (props) {
         : null
       }
       <div className="ms-Grid-row">
-        <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+        <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
           <div className="ms-fontWeight-semibold ms-fontSize-l">{'Edit Contact'}</div>
+        </div>
+        <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
+          <div className={`ms-fontSize-l ${cancel}`} onClick={props.onCancelClicked}><i className="ms-Icon ms-Icon--Cancel" aria-hidden="true"></i></div>
         </div>
       </div>
       <MainContactInfo
