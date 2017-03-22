@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { AddContact } from 'components'
 import * as addContactActionCreators from 'redux/modules/addContact'
-import { formatToMultiSelectOptions } from 'helpers/utils'
+import { formatToMultiSelectOptions, formatOutlookContactNotes } from 'helpers/utils'
 import { createContact } from 'common/EWS'
 import * as analytics from 'helpers/analytics'
 
@@ -25,7 +25,8 @@ const AddContactContainer = React.createClass({
     if (this.props.addedContactId !== '' && prevProps.addedContactId === '') {
       const addedContactId = this.props.addedContactId
       const { firstName, lastName, email, company, phone } = this.props.addedContact
-      createContact(firstName, lastName, email, company, phone, (asyncResult) => {})
+      const notes = formatOutlookContactNotes(this.props.addedContact)
+      createContact(firstName, lastName, email, company, phone, notes, (asyncResult) => {})
       this.context.router.push(`/add-reminder/${addedContactId}`)
     }
   },

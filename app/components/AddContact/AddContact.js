@@ -27,8 +27,7 @@ export default function AddContact (props) {
           isOpen={ props.isNotesPanelOpened }
           type={ PanelType.smallFluid }
           onDismiss={ props.onHideNotes }
-          headerText='Notes'
-        >
+          headerText='Notes'>
           <TextField
             placeholder='add you notes here...'
             multiline

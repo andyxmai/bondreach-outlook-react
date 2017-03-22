@@ -112,3 +112,32 @@ export function formatAppointmentFields (beginDateObj, contactObj) {
     end: end.toISOString(),
   }
 }
+
+export function formatOutlookContactNotes (contact) {
+  var notes = 'Investment Preferences \n'
+  const minSize = formatInvestmentSizePreference(contact.minimumInvestmentSize, false)
+  const maxSize = formatInvestmentSizePreference(contact.maximumInvestmentSize, true)
+
+  if (contact.investmentTypePreferences.length) {
+    notes += 'Product types: '
+    contact.investmentTypePreferences.forEach((investmentTypePreference) => {
+      notes += `${investmentTypePreference.name} `
+    })
+  }
+  notes += '\n'
+  notes += `Size: ${minSize} - ${maxSize}\n`
+  notes += `Return: ${contact.minimumIrrReturn}% - ${contact.maximumIrrReturn}%\n`
+  if (contact.regionPreferences.length) {
+    notes += 'Regions: '
+    contact.regionPreferences.forEach((regionPreference) => {
+      notes += `${regionPreference.name} `
+    })
+  }
+  notes += '\n'
+
+  if (contact.notes != '') {
+    notes += `\nNotes:\n${contact.notes}\n`
+  }
+
+  return notes
+}

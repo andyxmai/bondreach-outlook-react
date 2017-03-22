@@ -60,7 +60,7 @@ export function createAppointment (subject, body, start, end, callback) {
   Office.context.mailbox.makeEwsRequestAsync(envelope, callback)
 }
 
-function createContactRequest (firstName, lastName, email, company, phone) {
+function createContactRequest (firstName, lastName, email, company, phone, notes) {
   const result =
   '    <CreateItem xmlns="http://schemas.microsoft.com/exchange/services/2006/messages" >' +
   '      <SavedItemFolderId>' +
@@ -87,6 +87,7 @@ function createContactRequest (firstName, lastName, email, company, phone) {
   '          </t:PhoneNumbers>' +
   '          <t:JobTitle></t:JobTitle>' +
   '          <t:Surname>' + lastName + '</t:Surname>' +
+  '          <t:Notes>' + notes + '</t:Notes>' +
   '        </t:Contact>' +
   '      </Items>' +
   '    </CreateItem>'
@@ -94,8 +95,8 @@ function createContactRequest (firstName, lastName, email, company, phone) {
   return result
 }
 
-export function createContact (firstName, lastName, email, company, phone, callback) {
-  const request = createContactRequest(firstName, lastName, email, company, phone)
+export function createContact (firstName, lastName, email, company, phone, notes, callback) {
+  const request = createContactRequest(firstName, lastName, email, company, phone, notes)
   const envelope = getSoapEnvelope(request)
 
   Office.context.mailbox.makeEwsRequestAsync(envelope, callback)
