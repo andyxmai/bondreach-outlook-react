@@ -224,7 +224,6 @@ export default function filterContacts (state = initialState, action) {
       return {
         ...state,
         isFiltering: true,
-        showInputs: true,
         filteredContactsCount: 0,
         filteredContactsNextUrl: '',
         filteredContactsPrevUrl: '',
@@ -234,7 +233,6 @@ export default function filterContacts (state = initialState, action) {
       return {
         ...state,
         isFiltering: false,
-        showInputs: true,
         error: '',
         filteredContactsCount: action.count,
         filteredContactsNextUrl: action.next ? action.next : '',

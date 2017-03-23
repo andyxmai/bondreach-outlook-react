@@ -44,7 +44,7 @@ export default function Compose (props) {
             </div>
           </div>
           <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
               <div className="ms-TextField">
                 <Label>{'Size (in dollars)'}</Label>
                 <Cleave className="ms-TextField-field"
@@ -53,9 +53,7 @@ export default function Compose (props) {
                   />
               </div>
             </div>
-          </div>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
               <div className="ms-TextField">
                 <Label>{'Target return (%)'}</Label>
                 <Cleave className="ms-TextField-field"

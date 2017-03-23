@@ -30,8 +30,10 @@ if (process.env.NODE_ENV === 'production')  {
     combineReducers({...reducers, routing: routerReducer}),
     compose(
      applyMiddleware(thunk),
+     window.devToolsExtension ? window.devToolsExtension() : (f) => f
    )
   )
+  window.devToolsExtension()
 }
 
 const history = syncHistoryWithStore(browserHistory, store)
