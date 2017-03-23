@@ -72,7 +72,7 @@ function createContactRequest (firstName, lastName, email, company, phone, notes
   '          <t:GivenName>' + firstName + '</t:GivenName>' +
   '          <t:CompanyName>' + company + '</t:CompanyName>' +
   '          <t:EmailAddresses>' +
-  '            <t:Entry Key="EmailAddress2">' + email + '</t:Entry>' +
+  '            <t:Entry Key="EmailAddress1">' + email + '</t:Entry>' +
   '          </t:EmailAddresses>' +
   '          <t:PhysicalAddresses>' +
   '            <t:Entry Key="Business">' +
@@ -103,5 +103,34 @@ export function createContact (firstName, lastName, email, company, phone, notes
 }
 
 
-function editContactNotesRequest (contactId, notes) {
+function findContactRequest () {
+  const result =
+  '    <FindItem xmlns="http://schemas.microsoft.com/exchange/services/2006/messages"' +
+  '               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types"' +
+  '              Traversal="Shallow">' +
+  '      <ItemShape>' +
+  '        <t:BaseShape>IdOnly</t:BaseShape>' +
+  '      </ItemShape>' +
+  '      <ParentFolderIds>' +
+  '        <t:DistinguishedFolderId Id="contacts"/>' +
+  '      </ParentFolderIds>' +
+  '      <Restriction>' +
+  '        <IsEqualTo>' +
+  '          <FieldURI FieldURI="contacts:GivenName" />' +
+  '          <FieldURIOrConstant>' +
+  '            <Constant Value="Kyrie" />' +
+  '          </FieldURIOrConstant>' +
+  '        </IsEqualTo>' +
+  '      </Restriction>' +
+  '    </FindItem>'
+
+  return result
+}
+
+export function updateContact () {
+  const request = findContactRequest()
+  const envelope = getSoapEnvelope(request)
+  Office.context.mailbox.makeEwsRequestAsync(envelope, (asyncResult) => {
+    console.log(asyncResult);
+  })
 }
