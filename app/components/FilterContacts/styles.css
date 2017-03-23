@@ -16,7 +16,7 @@
   padding: 8px 5px;
 }
 
-.contact:hover {
+.contactStyle:hover {
   background-color: #e8f6ff;
 }
 
@@ -47,4 +47,13 @@
 
 .chevron:hover {
   cursor: pointer;
+}
+
+.seeProfile {
+  font-size: 11px;
+  color: #0078d7;
+}
+
+.preference {
+
 }

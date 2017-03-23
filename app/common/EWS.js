@@ -101,3 +101,7 @@ export function createContact (firstName, lastName, email, company, phone, notes
 
   Office.context.mailbox.makeEwsRequestAsync(envelope, callback)
 }
+
+
+function editContactNotesRequest (contactId, notes) {
+}

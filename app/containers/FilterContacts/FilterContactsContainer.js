@@ -89,6 +89,7 @@ const FilterContactsContainer = React.createClass({
         : null
         }
         <FilterResults
+          isFiltering={this.props.isFiltering}
           filteredContacts={this.props.filteredContacts}
           showInputs={this.props.showInputs}
           isComposeView={this.props.isComposeView}
@@ -105,6 +106,7 @@ const FilterContactsContainer = React.createClass({
 function mapStateToProps ({filterContacts}, props) {
   return {
     isFetching: filterContacts.isFetching,
+    isFiltering: filterContacts.isFiltering,
     showInputs: filterContacts.showInputs,
     error: filterContacts.error,
     investmentTypePreferences: filterContacts.investmentTypePreferences,

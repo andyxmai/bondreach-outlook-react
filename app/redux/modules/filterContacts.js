@@ -116,8 +116,7 @@ export function fetchFilterContacts () {
     if (targetReturn) params.targetReturn = targetReturn
     if (regionPreferences) params.regionPreferences = regionPreferences
     if (investmentTypePreferences) params.investmentTypePreferences = investmentTypePreferences
-
-    dispatch(fetchingFilteredContacts)
+    dispatch(fetchingFilteredContacts())
     const eventProperties = { 'filterParams' : params }
     amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_CLICKED, eventProperties)
     fetchContactWithParams(decamelizeKeys(params))
@@ -152,6 +151,7 @@ export function exchangeShowInputs () {
 const initialState = {
   showInputs: true,
   isFetching: false,
+  isFiltering: false,
   error: '',
   investmentSize: '',
   targetReturn: '',
@@ -187,14 +187,14 @@ export default function filterContacts (state = initialState, action) {
     case FETCHING_FILTERED_CONTACTS:
       return {
         ...state,
-        isFetching: true,
+        isFiltering: true,
         showInputs: true,
         filteredContacts: [],
       }
     case FETCHING_FILTERED_CONTACTS_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isFiltering: false,
         showInputs: true,
         error: '',
         filteredContacts: action.filteredContacts,
@@ -203,7 +203,7 @@ export default function filterContacts (state = initialState, action) {
       return {
         ...state,
         error: action.error,
-        isFetching: false,
+        isFiltering: false,
         showInputs: true,
         filteredContacts: [],
       }
