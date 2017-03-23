@@ -58,8 +58,8 @@ export function fetchAndAddContactSelectOptions () {
   return function (dispatch) {
     dispatch(fetchingSelectOptions())
     fetchRegionAndInvestmentTypes().then(axios.spread((regionRes, typeRes) => {
-      const regionPreferenceOptions = formatToMultiSelectOptions(regionRes.data)
-      const investmentTypePreferenceOptions = formatToMultiSelectOptions(typeRes.data)
+      const regionPreferenceOptions = formatToMultiSelectOptions(regionRes.data.results)
+      const investmentTypePreferenceOptions = formatToMultiSelectOptions(typeRes.data.results)
 
       dispatch(fetchSelectOptionsSuccess(regionPreferenceOptions, investmentTypePreferenceOptions))
     })).catch((err) => {

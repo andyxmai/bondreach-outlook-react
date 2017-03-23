@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { camelizeKeys, decamelizeKeys } from 'humps'
-import { fetchContactWithParams, fetchRegionAndInvestmentTypes } from 'helpers/api'
+import { fetchContactWithParams, fetchRegionAndInvestmentTypes, fetchContactsWithUrl } from 'helpers/api'
 import { formatToSelectOptions } from 'helpers/utils'
 import { unauthUser } from 'redux/modules/user'
 import * as analytics from 'helpers/analytics'
@@ -44,12 +44,12 @@ export function fetchAndAddSelectOptions () {
   return function (dispatch) {
     dispatch(fetchingSelectOptions())
     fetchRegionAndInvestmentTypes().then(axios.spread((regionRes, typeRes) => {
-      const regionPreferenceOptions = formatToSelectOptions(regionRes.data)
-      const investmentTypePreferenceOptions = formatToSelectOptions(typeRes.data)
+      const regionPreferenceOptions = formatToSelectOptions(regionRes.data.results)
+      const investmentTypePreferenceOptions = formatToSelectOptions(typeRes.data.results)
 
       dispatch(fetchSelectOptionsSuccess(regionPreferenceOptions, investmentTypePreferenceOptions))
     })).catch((err) => {
-      console.warn('Failed to get regions and investment types')
+      console.warn('Failed to get regions and investment types', err)
       if (err.response.status === 403) {
         dispatch(unauthUser())
       }
@@ -92,10 +92,13 @@ function fetchingFilteredContacts () {
   }
 }
 
-function fetchingFilteredContactSuccess (filteredContacts) {
+function fetchingFilteredContactSuccess (count, next, previous, results) {
   return {
     type: FETCHING_FILTERED_CONTACTS_SUCCESS,
-    filteredContacts,
+    count,
+    next,
+    previous,
+    results,
   }
 }
 
@@ -104,6 +107,34 @@ function fetchingFilteredContactFailure (error) {
     type: FETCHING_FILTERED_CONTACTS_FAILURE,
     error,
   }
+}
+
+export function resetFilterContacts () {
+  return {
+    type: RESET_FILTER_CONTACTS,
+  }
+}
+
+export function exchangeShowInputs () {
+  return {
+    type: CHANGE_SHOW_INPUTS,
+  }
+}
+
+
+function handleFilterContactsSuccessResponse (dispatch, res) {
+  const camelizeResponse = camelizeKeys(res.data)
+  const { count, next, previous, results } = camelizeResponse
+  const filteredContacts = results
+  dispatch(fetchingFilteredContactSuccess(count, next, previous, results))
+}
+
+function handleFilterContactsFailureResponse (dispatch, err) {
+  console.warn('Error filtering', err)
+  if (err.response.status === 403) {
+    dispatch(unauthUser())
+  }
+  dispatch(fetchingFilteredContactFailure('Error filtering contacts'))
 }
 
 export function fetchFilterContacts () {
@@ -121,8 +152,10 @@ export function fetchFilterContacts () {
     amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_CLICKED, eventProperties)
     fetchContactWithParams(decamelizeKeys(params))
       .then((res) => {
-        const filteredContacts = camelizeKeys(res.data)
-        dispatch(fetchingFilteredContactSuccess(filteredContacts))
+        const camelizeResponse = camelizeKeys(res.data)
+        const { count, next, previous, results } = camelizeResponse
+        const filteredContacts = results
+        dispatch(fetchingFilteredContactSuccess(count, next, previous, results))
         amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_SUCCESS, eventProperties)
       })
       .catch((err) => {
@@ -136,15 +169,15 @@ export function fetchFilterContacts () {
   }
 }
 
-export function resetFilterContacts () {
-  return {
-    type: RESET_FILTER_CONTACTS,
-  }
-}
-
-export function exchangeShowInputs () {
-  return {
-    type: CHANGE_SHOW_INPUTS,
+export function handlePageClicked (pageUrl) {
+  return function (dispatch) {
+    dispatch(fetchingFilteredContacts())
+    fetchContactsWithUrl(pageUrl)
+      .then((res) => {
+        handleFilterContactsSuccessResponse(dispatch, res)
+      }).catch((err) => {
+        handleFilterContactsFailureResponse(dispatch, err)
+      })
   }
 }
 
@@ -157,7 +190,10 @@ const initialState = {
   targetReturn: '',
   regionPreferences: '',
   investmentTypePreferences: '',
+  filteredContactsCount: 0,
   filteredContacts: [],
+  filteredContactsNextUrl: '',
+  filteredContactsPrevUrl: '',
   regionPreferenceOptions: [],
   investmentTypePreferenceOptions: [],
 }
@@ -189,6 +225,9 @@ export default function filterContacts (state = initialState, action) {
         ...state,
         isFiltering: true,
         showInputs: true,
+        filteredContactsCount: 0,
+        filteredContactsNextUrl: '',
+        filteredContactsPrevUrl: '',
         filteredContacts: [],
       }
     case FETCHING_FILTERED_CONTACTS_SUCCESS:
@@ -197,7 +236,10 @@ export default function filterContacts (state = initialState, action) {
         isFiltering: false,
         showInputs: true,
         error: '',
-        filteredContacts: action.filteredContacts,
+        filteredContactsCount: action.count,
+        filteredContactsNextUrl: action.next ? action.next : '',
+        filteredContactsPrevUrl: action.previous ? action.previous : '',
+        filteredContacts: action.results,
       }
     case FETCHING_FILTERED_CONTACTS_FAILURE:
       return {
@@ -205,6 +247,9 @@ export default function filterContacts (state = initialState, action) {
         error: action.error,
         isFiltering: false,
         showInputs: true,
+        filteredContactsCount: 0,
+        filteredContactsNextUrl: '',
+        filteredContactsPrevUrl: '',
         filteredContacts: [],
       }
     case FETCH_FILTER_CONTACTS_SELECT_OPTIONS:

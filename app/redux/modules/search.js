@@ -54,7 +54,7 @@ export function fetchAndHandleSearchResults () {
     dispatch(fetchingSearchResults())
     fetchContactWithParams({search})
       .then((res) => {
-        dispatch(fetchingSearchResultsSuccess(camelizeKeys(res.data)))
+        dispatch(fetchingSearchResultsSuccess(camelizeKeys(res.data.results)))
         amplitude.getInstance().logEvent(analytics.BR_OL_SEARCH_CONTACTS_CLICKED, eventProperties)
       })
       .catch((err) => {

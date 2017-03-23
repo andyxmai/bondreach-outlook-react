@@ -57,3 +57,20 @@
 .preference {
 
 }
+
+.pageLink {
+  font-size: 12px;
+  align-self: center;
+}
+
+.pageLink:hover {
+  cursor: pointer;
+}
+
+.pageLinks {
+  padding: 10px 10px 0px 10px;
+}
+
+.nextPage {
+  text-align: right;
+}

@@ -24,6 +24,10 @@ export function fetchContactWithParams (params) {
   })
 }
 
+export function fetchContactsWithUrl (url) {
+  return apiClient.get(url)
+}
+
 export function fetchRegions () {
   console.debug('fetching regions')
   return apiClient.get('/v1/regions/')

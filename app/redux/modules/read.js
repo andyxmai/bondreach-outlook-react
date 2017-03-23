@@ -33,8 +33,8 @@ export function checkForContactSaved (successCB, errorCB) {
     const email = Office.context.mailbox.item.from.emailAddress
     fetchContactWithParams({email})
       .then((res) => {
-        if (res.data.length) {
-          const contactSaved = camelizeKeys(res.data[0])
+        if (res.data.results.length) {
+          const contactSaved = camelizeKeys(res.data.results[0])
           dispatch(fetchingContactReadSuccess(true, contactSaved))
           successCB(true, contactSaved.id)
         } else {

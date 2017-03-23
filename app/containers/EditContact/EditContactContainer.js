@@ -69,7 +69,6 @@ const EditContactContainer = React.createClass({
   },
 
   handleCancelClicked () {
-    console.log('cancel clicked');
     const contactId = this.props.id
     this.context.router.push(`/view-contact/${contactId}`)
   },

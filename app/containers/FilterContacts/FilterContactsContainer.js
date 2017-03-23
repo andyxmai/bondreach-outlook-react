@@ -13,7 +13,6 @@ const FilterContactsContainer = React.createClass({
     error: PropTypes.string.isRequired,
     investmentTypePreferences: PropTypes.string.isRequired,
     regionPreferences: PropTypes.string.isRequired,
-    filteredContacts: PropTypes.array.isRequired,
     regionPreferenceOptions: PropTypes.array.isRequired,
     investmentTypePreferenceOptions: PropTypes.array.isRequired,
   },
@@ -68,6 +67,14 @@ const FilterContactsContainer = React.createClass({
     this.props.fetchFilterContacts()
   },
 
+  handleNextPageClicked () {
+    this.props.handlePageClicked(this.props.filteredContactsNextUrl)
+  },
+
+  handlePrevPageClicked () {
+    this.props.handlePageClicked(this.props.filteredContactsPrevUrl)
+  },
+
   render () {
     return (
       <div>
@@ -90,10 +97,15 @@ const FilterContactsContainer = React.createClass({
         }
         <FilterResults
           isFiltering={this.props.isFiltering}
+          filteredContactsCount={this.props.filteredContactsCount}
           filteredContacts={this.props.filteredContacts}
+          filteredContactsNextUrl={this.props.filteredContactsNextUrl}
+          filteredContactsPrevUrl={this.props.filteredContactsPrevUrl}
           showInputs={this.props.showInputs}
           isComposeView={this.props.isComposeView}
           onSearchResultsCollapseClicked={this.handleSearchResultsCollapseClicked}
+          onNextPageClicked={this.handleNextPageClicked}
+          onPrevPageClicked={this.handlePrevPageClicked}
           addToMail={this.addToMail}
           addToCc={this.addToCc}
           addToBcc={this.addToBcc}
@@ -113,7 +125,10 @@ function mapStateToProps ({filterContacts}, props) {
     regionPreferences: filterContacts.regionPreferences,
     investmentSize: filterContacts.investmentSize,
     targetReturn: filterContacts.targetReturn,
+    filteredContactsCount: filterContacts.filteredContactsCount,
     filteredContacts: filterContacts.filteredContacts,
+    filteredContactsNextUrl: filterContacts.filteredContactsNextUrl,
+    filteredContactsPrevUrl: filterContacts.filteredContactsPrevUrl,
     regionPreferenceOptions: filterContacts.regionPreferenceOptions,
     investmentTypePreferenceOptions: filterContacts.investmentTypePreferenceOptions,
     isComposeView: props.isComposeView ? true : false
