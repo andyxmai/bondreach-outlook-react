@@ -37,6 +37,16 @@ const ViewContactContainer = React.createClass({
     this.props.handleNotesChanged(value)
   },
 
+  handleTrackEmailMessage () {
+    const messageId = Office.context.mailbox.item.itemId
+    this.props.trackeEmailMessage(messageId)
+  },
+
+  handleViewItem (e) {
+    const itemId = e.target.id
+    Office.context.mailbox.displayMessageForm(itemId)
+  },
+
   render () {
     return (
       <ViewContact
@@ -54,6 +64,7 @@ const ViewContactContainer = React.createClass({
         minimumIrrReturn={this.props.minimumIrrReturn}
         maximumIrrReturn={this.props.maximumIrrReturn}
         upcomingFollowUp={this.props.upcomingFollowUp}
+        correspondences={this.props.correspondences}
         notes={this.props.notes}
         isNotesPanelOpened={this.props.isNotesPanelOpened}
         onShowNotes={this.handleShowNotes}
@@ -63,6 +74,8 @@ const ViewContactContainer = React.createClass({
         isSavingNotes={this.props.isSavingNotes}
         notesSavedSuccessMsg={this.props.notesSavedSuccessMsg}
         notesSavedErrorMsg={this.props.notesSavedErrorMsg}
+        onTrackEmailMessage={this.handleTrackEmailMessage}
+        onViewItem={this.handleViewItem}
       />
     )
   }
@@ -89,6 +102,7 @@ function mapStateToProps ({contact}) {
     isSavingNotes: contact.isSavingNotes,
     notesSavedSuccessMsg: contact.notesSavedSuccessMsg,
     notesSavedErrorMsg: contact.notesSavedErrorMsg,
+    correspondences: contact.correspondences,
   }
 }
 

@@ -30,3 +30,20 @@
 .tasks {
   font-size: 15px;
 }
+
+.buttonSection {
+  position: fixed;
+  bottom: 0;
+  width: 95%;
+  border-top: 1px solid #D7DADA;
+  padding-top: 5px;
+  background-color: white;
+}
+
+.view {
+  text-align: center;
+}
+
+.view:hover {
+  cursor: pointer;
+}

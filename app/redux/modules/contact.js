@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { camelizeKeys, decamelizeKeys } from 'humps'
-import { fetchRegionAndInvestmentTypes, fetchContactWithId, fetchContactWithParams, updateContact } from 'helpers/api'
+import { fetchRegionAndInvestmentTypes, fetchContactWithId, fetchContactWithParams, updateContact, saveCorrespondence } from 'helpers/api'
 import { formatFromSelectionOptions, formatToMultiSelectOptions } from 'helpers/utils'
 import { maxInvestmentSizePreference, maxIrrReturn } from 'config/constants'
 import { unauthUser } from 'redux/modules/user'
@@ -34,6 +34,7 @@ const EDIT_CONTACT_UPDATE_CONTACT_FAILURE = 'EDIT_CONTACT_UPDATE_CONTACT_FAILURE
 const FETCH_EDIT_CONTACT_SELECT_OPTIONS = 'FETCH_EDIT_CONTACT_SELECT_OPTIONS'
 const FETCH_EDIT_CONTACT_SELECT_OPTIONS_SUCCESS = 'FETCH_EDIT_CONTACT_SELECT_OPTIONS_SUCCESS'
 const FETCH_EDIT_CONTACT_SELECT_OPTIONS_FAILURE = 'FETCH_EDIT_CONTACT_SELECT_OPTIONS_FAILURE'
+const ADD_CORRESPONDENCE = 'ADD_CORRESPONDENCE'
 
 
 function fetchingContact () {
@@ -325,6 +326,32 @@ export function saveNotes () {
   }
 }
 
+function addCorrespondence (correspondence) {
+  return {
+    type: ADD_CORRESPONDENCE,
+    correspondence,
+  }
+}
+
+export function trackeEmailMessage (messageId) {
+  return function (dispatch, getState) {
+    const params = {
+      correspondenceType: 'email',
+      itemId: messageId,
+      contact: getState().contact.id,
+    }
+    saveCorrespondence(decamelizeKeys(params))
+      .then((res) => {
+        console.log(res);
+        const newCorrespondence = camelizeKeys(res.data)
+        dispatch(addCorrespondence(newCorrespondence))
+      })
+      .catch((err) => {
+        console.warn(err)
+      })
+  }
+}
+
 const initialState = {
   isFetching: true,
   error: '',
@@ -351,6 +378,7 @@ const initialState = {
   notesSavedSuccessMsg: '',
   notesSavedErrorMsg: '',
   creator: '',
+  correspondences: [],
   updated: false,  // to keep track of whether the contact has been updated in edit mode
 }
 
@@ -516,6 +544,14 @@ export default function contact (state = initialState, action) {
         notesSavedErrorMsg: action.notesSavedErrorMsg,
         notesSavedSuccessMsg: '',
         isSavingNotes: false,
+      }
+    case ADD_CORRESPONDENCE:
+      return {
+        ...state,
+        correspondences: [
+          action.correspondence,
+          ...state.correspondences,
+        ]
       }
     default:
       return state
