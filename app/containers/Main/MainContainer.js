@@ -71,7 +71,7 @@ const MainContainer = React.createClass({
       {
         key: 'addContact',
         name: '',
-        icon: 'Add',
+        icon: 'AddFriend',
         onClick: obj.goToAddContact,
       },
       {
