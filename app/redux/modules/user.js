@@ -64,8 +64,10 @@ export function fetchAndLoginUser (redirectUrl) {
       .then((res) => {
         dispatch(fetchingUserSuccess())
         dispatch(setRedirectUrl(redirectUrl))
-        dispatch(authUser(res.data.id))
-        amplitude.getInstance().logEvent(analytics.BR_OL_LOGIN_SUCCESS)
+        const customerID = res.data.id
+        dispatch(authUser(customerID))
+        const eventProperties = { customerID }
+        amplitude.getInstance().logEvent(analytics.BR_OL_LOGIN_SUCCESS, eventProperties)
 
       })
       .catch((err) => {
@@ -96,8 +98,10 @@ export function fetchAndHandleAuthedUser (token, email) {
         cookie.save('token', token, { path: '/' })
         apiClient.defaults.headers.authorization = `JWT ${token}`
         dispatch(fetchingUserSuccess())
-        dispatch(authUser(res.data.id))
-        amplitude.getInstance().logEvent(analytics.BR_OL_AUTHENTICATE_SUCCESS)
+        const customerID = res.data.id
+        dispatch(authUser(customerID))
+        const eventProperties = { customerID }
+        amplitude.getInstance().logEvent(analytics.BR_OL_AUTHENTICATE_SUCCESS, eventProperties)
       })
       .catch((err) => {
         console.warn('Auth err', err.response)

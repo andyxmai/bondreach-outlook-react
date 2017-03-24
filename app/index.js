@@ -55,12 +55,6 @@ function checkAuth (nextState, replace) {
     }
   }
 }
-// ReactDOM.render(
-//   <Provider store={store}>
-//     {getRoutes(checkAuth, history)}
-//   </Provider>,
-//   document.getElementById('app')
-// )
 
 Office.initialize = function(reason) {
   amplitude.getInstance().logEvent(analytics.BR_OL_APP_OPENED)
