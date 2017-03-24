@@ -46,3 +46,8 @@ export function saveFollowUp (params) {
   console.debug('saving followup')
   return apiClient.post('/v1/follow-ups/', params)
 }
+
+export function saveCorrespondence (params) {
+  console.debug('saving correspondence')
+  return apiClient.post('/v1/correspondences/', params)
+}
