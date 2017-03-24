@@ -117,20 +117,24 @@ export default function MainContactInfo (props) {
       </div>
       <div className="ms-Grid-row">
         <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-          <Cleave className="ms-TextField-field"
-            placeholder="Minimum"
-            options={ {numeral: true} }
-            maxLength="2"
-            onChange={props.onMinimumIrrReturnChanged} value={props.minimumIrrReturn}
-            />
+          <div className="ms-TextField">
+            <Cleave className="ms-TextField-field"
+              placeholder="Minimum"
+              options={ {numeral: true} }
+              maxLength="2"
+              onChange={props.onMinimumIrrReturnChanged} value={props.minimumIrrReturn}
+              />
+            </div>
         </div>
         <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-          <Cleave className="ms-TextField-field"
-            placeholder="Maximum"
-            options={ {numeral: true} }
-            maxLength="3"
-            onChange={props.onMaximumIrrReturnChanged} value={props.maximumIrrReturn}
-            />
+          <div className="ms-TextField">
+            <Cleave className="ms-TextField-field"
+              placeholder="Maximum"
+              options={ {numeral: true} }
+              maxLength="3"
+              onChange={props.onMaximumIrrReturnChanged} value={props.maximumIrrReturn}
+              />
+            </div>
         </div>
       </div>
       <div className="ms-Grid-row">

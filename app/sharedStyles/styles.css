@@ -80,10 +80,14 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* Overriding styling from modules */
+:global .ms-fontSize-l {
+  font-size: 16px !important;
+}
+
 :global .ms-Label {
   font-family: "Segoe UI WestEuropean","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
   -webkit-font-smoothing: antialiased;
-  font-size: 14px;
+  font-size: 12px !important;
   font-weight: 400;
   box-sizing: border-box;
   margin: 0;
@@ -93,6 +97,10 @@ input[type=number]::-webkit-outer-spin-button {
   box-sizing: border-box;
   display: block;
   padding: 5px 0;
+}
+
+:global .ms-TextField {
+  margin-bottom: 5px !important;
 }
 
 :global .Select-control {
