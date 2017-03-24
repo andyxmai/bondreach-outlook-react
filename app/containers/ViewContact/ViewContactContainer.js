@@ -37,9 +37,10 @@ const ViewContactContainer = React.createClass({
     this.props.handleNotesChanged(value)
   },
 
-  handleTrackEmailMessage () {
+  handleTagEmailMessage () {
     const messageId = Office.context.mailbox.item.itemId
-    this.props.trackeEmailMessage(messageId)
+    const dateTimeCreated = Office.context.mailbox.item.dateTimeCreated
+    this.props.handleTagEmailMessage(messageId, dateTimeCreated.toISOString())
   },
 
   handleViewItem (e) {
@@ -74,7 +75,7 @@ const ViewContactContainer = React.createClass({
         isSavingNotes={this.props.isSavingNotes}
         notesSavedSuccessMsg={this.props.notesSavedSuccessMsg}
         notesSavedErrorMsg={this.props.notesSavedErrorMsg}
-        onTrackEmailMessage={this.handleTrackEmailMessage}
+        onTagEmailMessage={this.handleTagEmailMessage}
         onViewItem={this.handleViewItem}
       />
     )

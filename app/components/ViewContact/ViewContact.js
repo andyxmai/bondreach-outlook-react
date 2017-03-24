@@ -191,7 +191,7 @@ export default function ViewContact (props) {
                       <div>{correspondence.correspondenceType}</div>
                     </div>
                     <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-                      <div>{ISOStringToDate(correspondence.createdAt)}</div>
+                      <div>{ISOStringToDate(correspondence.date)}</div>
                     </div>
                     <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
                       <div className={view} id={correspondence.itemId} onClick={props.onViewItem}>{'view'}</div>
@@ -207,9 +207,9 @@ export default function ViewContact (props) {
         <div className={buttonSection}>
           <PrimaryButton
             data-automation-id='track-message'
-            onClick={props.onTrackEmailMessage}
+            onClick={props.onTagEmailMessage}
             className={blockBtn}
-            >{'Track this email message'}</PrimaryButton>
+            >{'Tag this email message'}</PrimaryButton>
         </div>
       </div>
     }

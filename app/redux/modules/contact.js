@@ -34,8 +34,8 @@ const EDIT_CONTACT_UPDATE_CONTACT_FAILURE = 'EDIT_CONTACT_UPDATE_CONTACT_FAILURE
 const FETCH_EDIT_CONTACT_SELECT_OPTIONS = 'FETCH_EDIT_CONTACT_SELECT_OPTIONS'
 const FETCH_EDIT_CONTACT_SELECT_OPTIONS_SUCCESS = 'FETCH_EDIT_CONTACT_SELECT_OPTIONS_SUCCESS'
 const FETCH_EDIT_CONTACT_SELECT_OPTIONS_FAILURE = 'FETCH_EDIT_CONTACT_SELECT_OPTIONS_FAILURE'
-const ADD_CORRESPONDENCE = 'ADD_CORRESPONDENCE'
-
+const ADD_CORRESPONDENCE_SUCCESS = 'ADD_CORRESPONDENCE_SUCCESS'
+const ADD_CORRESPONDENCE_FAILURE = 'ADD_CORRESPONDENCE_FAILURE'
 
 function fetchingContact () {
   return {
@@ -326,28 +326,36 @@ export function saveNotes () {
   }
 }
 
-function addCorrespondence (correspondence) {
+function addCorrespondenceSuccess (correspondence) {
   return {
-    type: ADD_CORRESPONDENCE,
+    type: ADD_CORRESPONDENCE_SUCCESS,
     correspondence,
   }
 }
 
-export function trackeEmailMessage (messageId) {
+function addCorrespondenceFailure (error) {
+  return {
+    type: ADD_CORRESPONDENCE_FAILURE,
+    error,
+  }
+}
+
+export function handleTagEmailMessage (messageId, date) {
   return function (dispatch, getState) {
     const params = {
       correspondenceType: 'email',
       itemId: messageId,
       contact: getState().contact.id,
+      date,
     }
     saveCorrespondence(decamelizeKeys(params))
       .then((res) => {
-        console.log(res);
         const newCorrespondence = camelizeKeys(res.data)
-        dispatch(addCorrespondence(newCorrespondence))
+        dispatch(addCorrespondenceSuccess(newCorrespondence))
       })
       .catch((err) => {
         console.warn(err)
+        dispatch(addCorrespondenceFailure('Failed to tag email'))
       })
   }
 }
@@ -545,13 +553,19 @@ export default function contact (state = initialState, action) {
         notesSavedSuccessMsg: '',
         isSavingNotes: false,
       }
-    case ADD_CORRESPONDENCE:
+    case ADD_CORRESPONDENCE_SUCCESS:
       return {
         ...state,
+        error: '',
         correspondences: [
           action.correspondence,
           ...state.correspondences,
         ]
+      }
+    case ADD_CORRESPONDENCE_FAILURE:
+      return {
+        ...state,
+        error: action.error,
       }
     default:
       return state
