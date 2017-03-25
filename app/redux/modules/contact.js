@@ -82,8 +82,8 @@ export function fetchAndEdiContactSelectOptions () {
   return function (dispatch, getState) {
     dispatch(fetchingSelectOptions())
     fetchRegionAndInvestmentTypes().then(axios.spread((regionRes, typeRes) => {
-      const regionPreferenceOptions = formatToMultiSelectOptions(regionRes.data)
-      const investmentTypePreferenceOptions = formatToMultiSelectOptions(typeRes.data)
+      const regionPreferenceOptions = formatToMultiSelectOptions(regionRes.data.results)
+      const investmentTypePreferenceOptions = formatToMultiSelectOptions(typeRes.data.results)
 
       const regionPreferenceOptionsSelected = formatToMultiSelectOptions(getState().contact.regionPreferences)
       const investmentTypePreferenceOptionsSelected = formatToMultiSelectOptions(getState().contact.investmentTypePreferences)
@@ -105,23 +105,6 @@ export function fetchAndHandleContactWithId (contactId) {
     fetchContactWithId(contactId)
       .then((res) => {
         const contact = camelizeKeys(res.data)
-        dispatch(fetchingContactSuccess(contact))
-      })
-      .catch((err) => {
-        console.warn(err)
-        dispatch(fetchingContactError('Failed to get contact'))
-      })
-  }
-}
-
-// Note (Andy): This function is for searching contacts
-export function fetchAndStoreContact (params) {
-  const snakeCaseParams = decamelizeKeys(params)
-  return function (dispatch, getState) {
-    dispatch(fetchingContact())
-    fetchContactWithParams(snakeCaseParams)
-      .then((response) => {
-        const contact = camelizeKeys(response.data[0])
         dispatch(fetchingContactSuccess(contact))
       })
       .catch((err) => {
