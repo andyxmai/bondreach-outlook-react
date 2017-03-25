@@ -25,6 +25,7 @@ const productionPlugin = new webpack.DefinePlugin({
   'process.env': {
     'NODE_ENV': JSON.stringify('production'),
     'API_HOST': JSON.stringify(productionApiHost),
+    'AMPLITUDE_ID': JSON.stringify('91f11eeff27600bba31199da4107f74a'),
   }
 })
 
@@ -32,6 +33,7 @@ const devPlugin = new webpack.DefinePlugin({
   'process.env': {
     'NODE_ENV': JSON.stringify('development'),
     'API_HOST': JSON.stringify(devApiHost),
+    'AMPLITUDE_ID': JSON.stringify('a2fcc11da4b7eac3832b414aa0078296'),
   }
 })
 

@@ -15,9 +15,10 @@ import * as analytics from 'helpers/analytics'
 
 var location = window.history.location || window.location  // need to polyfill to make broswerHistory work
 
+amplitude.getInstance().init(process.env.AMPLITUDE_ID)
+
 var store = null
 if (process.env.NODE_ENV === 'production')  {
-  amplitude.getInstance().init("91f11eeff27600bba31199da4107f74a")
   store = createStore(
     combineReducers({...reducers, routing: routerReducer}),
     compose(
@@ -25,7 +26,6 @@ if (process.env.NODE_ENV === 'production')  {
    )
   )
 } else {
-  amplitude.getInstance().init("a2fcc11da4b7eac3832b414aa0078296")
   store = createStore(
     combineReducers({...reducers, routing: routerReducer}),
     compose(
