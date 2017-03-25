@@ -8,7 +8,8 @@ import { Spinner, SpinnerType } from 'office-ui-fabric-react/lib/Spinner'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { Link } from 'office-ui-fabric-react/lib/Link'
-import { section, borderedSection, preferenceType, inline, subline, link, tasks, buttonSection, view } from './styles.css'
+import { section, borderedSection, preferenceType, inline, subline, link, tasks,
+          buttonSection, view, icon } from './styles.css'
 import { formatInvestmentSizePreference } from 'helpers/utils'
 import { blockBtn, centerPage, messageBar, spacedRow } from 'sharedStyles/styles.css'
 import { ISOStringToDate } from 'helpers/dates'
@@ -87,7 +88,7 @@ export default function ViewContact (props) {
                 <div className="ms-fontWeight-semibold ms-fontSize-l">{`${props.firstName} ${props.lastName}`}</div>
               </div>
               <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                <RouterLink to="/edit-contact"><div className="ms-fontSize-s"><i className="ms-Icon ms-Icon--Edit" aria-hidden="true"></i></div></RouterLink>
+                <RouterLink to="/edit-contact"><div className={`ms-fontSize-m ${icon}`}><i className="ms-Icon ms-Icon--Edit" aria-hidden="true"></i></div></RouterLink>
               </div>
             </div>
             <div className={`ms-Grid-row ${spacedRow}`}>
@@ -162,7 +163,7 @@ export default function ViewContact (props) {
                 <div className="ms-fontWeight-semibold ms-fontSize-l">{'Tasks'}</div>
               </div>
               <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                <RouterLink to={`/add-reminder/${props.id}`}><div className="ms-fontSize-l"><i className="ms-Icon ms-Icon--AddTo" aria-hidden="true"></i></div></RouterLink>
+                <RouterLink to={`/add-reminder/${props.id}`}><div className={`ms-fontSize-l ${icon}`}><i className="ms-Icon ms-Icon--AddTo" aria-hidden="true"></i></div></RouterLink>
               </div>
             </div>
             <div className={`ms-Grid-row ${spacedRow}`}>
