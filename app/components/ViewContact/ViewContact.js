@@ -158,8 +158,11 @@ export default function ViewContact (props) {
           </div>
           <div className={borderedSection}>
             <div className={`ms-Grid-row ${spacedRow}`}>
-              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
                 <div className="ms-fontWeight-semibold ms-fontSize-l">{'Tasks'}</div>
+              </div>
+              <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
+                <RouterLink to={`/add-reminder/${props.id}`}><div className="ms-fontSize-s">{'add'}</div></RouterLink>
               </div>
             </div>
             <div className={`ms-Grid-row ${spacedRow}`}>

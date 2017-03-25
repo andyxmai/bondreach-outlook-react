@@ -43,6 +43,7 @@ const AddReminderContainer = React.createClass({
   },
 
   goToContact () {
+    this.props.addFollowUpSuccessMsg('')
     amplitude.getInstance().logEvent(analytics.BR_OL_SKIP_REMINDER_CLICKED)
     this.context.router.push(`/view-contact/${this.props.contact}`)
   },
@@ -52,6 +53,7 @@ const AddReminderContainer = React.createClass({
       <AddReminder
         isFetching={this.props.isFetching}
         error={this.props.error}
+        successMsg={this.props.successMsg}
         beginDateObj={this.props.beginDateObj}
         frequency={this.props.frequency}
         contactObj={this.props.contactObj}
@@ -68,6 +70,7 @@ function mapStateToProps ({followUp}) {
   return {
     isFetching: followUp.isFetching,
     error: followUp.error,
+    successMsg: followUp.successMsg,
     beginDateObj: followUp.beginDateObj,
     frequency: followUp.frequency,
     isActive: followUp.isActive,

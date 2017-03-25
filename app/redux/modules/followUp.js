@@ -1,6 +1,6 @@
 import { camelizeKeys, decamelizeKeys } from 'humps'
 import { fetchContactWithId, saveFollowUp } from 'helpers/api'
-import { formatJSDateToPyDate } from 'helpers/utils'
+import { formatJSDateToPyDate } from 'helpers/dates'
 import { unauthUser } from 'redux/modules/user'
 import * as analytics from 'helpers/analytics'
 
@@ -12,6 +12,7 @@ const ADD_FOLLOW_UP_FAILURE = 'ADD_FOLLOWUP_FAILURE'
 const CHANGE_FOLLOW_UP_BEGIN_DATE = 'CHANGE_FOLLOWUP_BEGIN_DATE'
 const CHANGE_FOLLOW_UP_FREQUENCY = 'CHANGE_FOLLOWUP_FREQUENCY'
 const RESET_FOLLOW_UP = 'RESET_FOLLOW_UP'
+const ADD_FOLLOW_UP_SUCCESS_MSG = 'ADD_FOLLOW_UP_SUCCESS_MSG'
 
 function addingFollowUp () {
   return {
@@ -32,6 +33,13 @@ export function addFollowUpError (error) {
   }
 }
 
+export function addFollowUpSuccessMsg (successMsg) {
+  return {
+    type: ADD_FOLLOW_UP_SUCCESS_MSG,
+    successMsg,
+  }
+}
+
 export function addAndHandleFollowUp () {
   return function (dispatch, getState) {
     const { beginDate, frequency } = getState().followUp
@@ -42,6 +50,7 @@ export function addAndHandleFollowUp () {
     saveFollowUp(params)
       .then((res) => {
         dispatch(addFollowUpSuccess())
+        dispatch(addFollowUpSuccessMsg(''))  // reset the "contact added" banner
         amplitude.getInstance().logEvent(analytics.BR_OL_ADD_REMINDER_SUCCESS, eventProperties)
       })
       .catch((err) => {
@@ -113,6 +122,7 @@ export function resetFollowUp () {
 const initialState = {
   isFetching: false,
   error: '',
+  successMsg: '',
   beginDate: '',
   beginDateObj: '',
   frequency: '',
@@ -152,6 +162,11 @@ export default function followUp (state = initialState, action) {
         isFetching: false,
         error: action.error,
         followUpAdded: false,
+      }
+    case ADD_FOLLOW_UP_SUCCESS_MSG:
+      return {
+        ...state,
+        successMsg: action.successMsg,
       }
     case CHANGE_FOLLOW_UP_FREQUENCY:
       return {

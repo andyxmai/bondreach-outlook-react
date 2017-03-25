@@ -5,6 +5,7 @@ import { saveContact, fetchRegionAndInvestmentTypes } from 'helpers/api'
 import { maxInvestmentSizePreference, maxIrrReturn } from 'config/constants'
 import { unauthUser } from 'redux/modules/user'
 import * as analytics from 'helpers/analytics'
+import { addFollowUpSuccessMsg } from 'redux/modules/followUp'
 
 const LOADING_INFO = 'LOADING_INFO'
 const LOADING_INFO_COMPLETE = 'LOADING_INFO_COMPLETE'
@@ -215,6 +216,7 @@ export function handleAddContactSubmit () {
       .then((res) => {
         const newContact = camelizeKeys(res.data)
         dispatch(addContactSuccess(newContact))
+        dispatch(addFollowUpSuccessMsg('Contact added!'))
         amplitude.getInstance().logEvent(analytics.BR_OL_ADD_CONTACT_SUCCESS)
       })
       .catch((err) => {

@@ -53,6 +53,7 @@ const ViewContactContainer = React.createClass({
       <ViewContact
         isFetching={this.props.isFetching}
         error={this.props.error}
+        id={this.props.id}
         firstName={this.props.firstName}
         lastName={this.props.lastName}
         company={this.props.company}
@@ -86,6 +87,7 @@ function mapStateToProps ({contact}) {
   return {
     isFetching: contact.isFetching,
     error: contact.error,
+    id: contact.id,
     firstName: contact.firstName,
     lastName: contact.lastName,
     company: contact.company,

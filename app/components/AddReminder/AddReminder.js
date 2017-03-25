@@ -72,18 +72,21 @@ export default function AddReminder (props) {
           {props.error}</MessageBar>
         : null
       }
-      <div className="ms-Grid-row">
-        <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-          <div className={messageBar}><MessageBar
-            messageBarType={ MessageBarType.success }
-            isMultiline={ false }>
-            <b>{'Contact Added!'}</b>
-          </MessageBar></div>
-        </div>
-      </div>
+      { props.successMsg !== ''
+        ? <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+              <div className={messageBar}><MessageBar
+                messageBarType={ MessageBarType.success }
+                isMultiline={ false }>
+                <b>{props.successMsg}</b>
+              </MessageBar></div>
+            </div>
+          </div>
+        : null
+      }
       <div className={`ms-Grid-row ${spacedRow}`}>
         <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-          <div className="ms-fontSize-l">{`Add reminder for ${props.contactObj.firstName}`}</div>
+          <div className="ms-fontSize-l">{`Add reminder for ${props.contactObj.firstName} ${props.contactObj.lastName}`}</div>
         </div>
       </div>
       <div className="ms-Grid-row">
@@ -131,7 +134,7 @@ export default function AddReminder (props) {
             data-automation-id='skip-reminders'
             onClick={props.goToContact}
             className={blockBtn}
-          >{'Skip reminder'}</DefaultButton>
+          >{'Not now'}</DefaultButton>
         </div>
       </div>
     </div>

@@ -60,10 +60,6 @@ export function formatFromSelectionOptions (options) {
   return formatedOptions
 }
 
-export function formatJSDateToPyDate (date) {
-  return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
-}
-
 export function formatInvestmentSizePreference (size, isMax) {
   if (isMax) {
     if (size === maxInvestmentSizePreference) {
