@@ -87,7 +87,7 @@ export default function ViewContact (props) {
                 <div className="ms-fontWeight-semibold ms-fontSize-l">{`${props.firstName} ${props.lastName}`}</div>
               </div>
               <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                <RouterLink to="/edit-contact"><div className="ms-fontSize-s">{'edit'}</div></RouterLink>
+                <RouterLink to="/edit-contact"><div className="ms-fontSize-s"><i className="ms-Icon ms-Icon--Edit" aria-hidden="true"></i></div></RouterLink>
               </div>
             </div>
             <div className={`ms-Grid-row ${spacedRow}`}>
@@ -162,7 +162,7 @@ export default function ViewContact (props) {
                 <div className="ms-fontWeight-semibold ms-fontSize-l">{'Tasks'}</div>
               </div>
               <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
-                <RouterLink to={`/add-reminder/${props.id}`}><div className="ms-fontSize-s">{'add'}</div></RouterLink>
+                <RouterLink to={`/add-reminder/${props.id}`}><div className="ms-fontSize-l"><i className="ms-Icon ms-Icon--AddTo" aria-hidden="true"></i></div></RouterLink>
               </div>
             </div>
             <div className={`ms-Grid-row ${spacedRow}`}>
