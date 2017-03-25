@@ -21,6 +21,7 @@ export default function Search (props) {
           <TextField placeholder="Search your contacts..."
             value={props.query}
             onChanged={props.onSearchQueryChanged}
+            onKeyUp={props.onSearchClicked}
           />
         </div>
         <div className={`ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2 ${searchBtnColor}`}>
