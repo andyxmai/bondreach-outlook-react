@@ -51,3 +51,8 @@ export function saveCorrespondence (params) {
   console.debug('saving correspondence')
   return apiClient.post('/v1/correspondences/', params)
 }
+
+export function fetchProfile () {
+  console.debug('fetching profile')
+  return apiClient.get('/v1/customers/me/')
+}

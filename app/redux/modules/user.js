@@ -1,7 +1,9 @@
 import auth, { loginWithToken } from 'helpers/auth'
+import { camelizeKeys } from 'humps'
 import cookie from 'react-cookie'
 import apiClient from 'common/ApiClient'
 import * as analytics from 'helpers/analytics'
+import { fetchProfile } from 'helpers/api'
 
 const AUTH_USER = 'AUTH_USER'
 const UNAUTH_USER = 'UNAUTH_USER'
@@ -11,6 +13,9 @@ const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS'
 const REMOVE_FETCHING_USER = 'REMOVE_FETCHING_USER'
 const SET_REDIRECT_URL = 'SET_REDIRECT_URL'
 const REMOVE_REDIRECT_URL = 'REMOVE_REDIRECT_URL'
+const FETCHING_PROFILE = 'FETCHING_PROFILE'
+const FETCHING_PROFILE_SUCCESS = 'FETCHING_PROFILE_SUCCESS'
+const FETCHING_PROFILE_FAILURE = 'FETCHING_PROFILE_FAILURE'
 
 function authUser (id) {
   return {
@@ -133,11 +138,55 @@ export function removeRedirectUrl () {
   }
 }
 
+function fetchingProfile () {
+  return {
+    type: FETCHING_PROFILE,
+  }
+}
+
+function fetchingProfileSuccess (firstName, lastName, email, company) {
+  return {
+    type: FETCHING_PROFILE_SUCCESS,
+    firstName,
+    lastName,
+    email,
+    company,
+  }
+}
+
+function fetchingProfileFailure (error) {
+  return {
+    type: FETCHING_PROFILE_FAILURE,
+    error,
+  }
+}
+
+export function fetchAndHandleProfile () {
+  return function (dispatch) {
+    dispatch(fetchingProfile())
+    fetchProfile()
+      .then((res) => {
+        const profile = camelizeKeys(res.data)
+        const { company } = profile
+        const { firstName, lastName, email } = profile.user
+        dispatch(fetchingProfileSuccess(firstName, lastName, email, company))
+      })
+      .catch((err) => {
+        dispatch(fetchingProfileFailure('Failed to get profile'))
+      })
+  }
+}
+
 const initialState = {
   isAuthed: false,
   isFetching: false,
+  isFetchingProfile: false,
   error: '',
   authedId: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  company: {},
   redirectUrl: '',
 }
 
@@ -186,6 +235,27 @@ export default function user (state = initialState, action) {
       return {
         ...state,
         isFetching: false,
+      }
+    case FETCHING_PROFILE:
+      return {
+        ...state,
+        isFetchingProfile: true,
+      }
+    case FETCHING_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isFetchingProfile: false,
+        error: '',
+        firstName: action.firstName,
+        lastName: action.lastName,
+        email: action.email,
+        company: action.company ? action.company : {},
+      }
+    case FETCHING_PROFILE_FAILURE:
+      return {
+        ...state,
+        isFetchingProfile: false,
+        error: action.error,
       }
     default:
       return state

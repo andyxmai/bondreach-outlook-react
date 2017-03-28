@@ -48,9 +48,13 @@ const MainContainer = React.createClass({
     this.context.router.push('/filter-contacts')
   },
 
-  gotToSearchContacts() {
+  gotToSearchContacts () {
     amplitude.getInstance().logEvent(analytics.BR_OL_SEARCH_CONTACTS_COMMAND_BAR_CLICKED)
     this.context.router.push('/search')
+  },
+
+  goToProfile () {
+    this.context.router.push('/profile')
   },
 
   getItems () {
@@ -71,7 +75,7 @@ const MainContainer = React.createClass({
       {
         key: 'addContact',
         name: '',
-        icon: 'AddFriend',
+        icon: 'Add',
         onClick: obj.goToAddContact,
       },
       {
@@ -79,7 +83,13 @@ const MainContainer = React.createClass({
         name: '',
         icon: 'Filter',
         onClick: obj.goToFilterContacts,
-      }
+      },
+      {
+        key: 'profile',
+        name: '',
+        icon: 'Contact',
+        onClick: obj.goToProfile,
+      },
     ]
   },
 
