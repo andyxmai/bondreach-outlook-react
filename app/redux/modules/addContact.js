@@ -236,6 +236,17 @@ export function loadAndStoreContactInfo () {
     dispatch(handleEmailChanged(email))
     dispatch(handleFirstNameChanged(firstName))
     dispatch(handleLastNameChanged(lastName))
+
+    // Experimental: extracing phone numbers from text
+    Office.context.mailbox.item.body.getAsync('text', (result) => {
+      const bodyText = result.value
+      const phoneNumbers = bodyText.match(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im)
+      if (phoneNumbers !== null && phoneNumbers.length) {
+        const phoneNumber = phoneNumbers[0].replace(/\D/g,'');
+        dispatch(handlePhoneChanged(phoneNumber))
+      }
+    })
+
     dispatch(loadingInfoComplete())
   }
 }
