@@ -296,7 +296,8 @@ export function saveNotes () {
     updateContact(contact)
       .then((res) => {
         dispatch(savingNotesSuccess('Notes saved'))
-        amplitude.getInstance().logEvent(analytics.BR_OL_VIEW_CONTACT_SAVE_NOTES_SUCCESS)
+        const eventProperties = { contactId: contact.id }
+        amplitude.getInstance().logEvent(analytics.BR_OL_VIEW_CONTACT_SAVE_NOTES_SUCCESS, eventProperties)
       })
       .catch((err) => {
         console.warn(err)
