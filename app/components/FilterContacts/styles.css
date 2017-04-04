@@ -59,8 +59,18 @@
   color: #0078d7;
 }
 
+.seeProfile:hover {
+  cursor: pointer;
+}
+
 .preference {
 
+}
+
+.preferenceType {
+  font-size: 12px;
+  padding-right: 10px;
+  color: #676767;
 }
 
 .pageLink {

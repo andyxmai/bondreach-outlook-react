@@ -1,30 +1,81 @@
 import React, { PropTypes } from 'react'
-import { ContactResult } from 'components'
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button'
+import { CompanyResult, ContactResult } from 'components'
+import { Button, DefaultButton } from 'office-ui-fabric-react/lib/Button'
+import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog'
 import { ContextualMenu, DirectionalHint } from 'office-ui-fabric-react/lib/ContextualMenu'
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox'
 import { Spinner, SpinnerSize, SpinnerType } from 'office-ui-fabric-react/lib/Spinner'
 import { contact, contactContainer, contactStyle, section, inline, name, company, chevron,
-  fixedBtn, actionBtn, pageLink, pageLinks, nextPage, downloadSpinner } from './styles.css'
+  fixedBtn, actionBtn, pageLink, pageLinks, nextPage, downloadSpinner, seeProfile } from './styles.css'
 import { blockBtn } from 'sharedStyles/styles.css'
 import { formatInvestmentSizePreferences, formatInvestmentReturnPreferences } from 'helpers/utils'
 
-function CompanyResult ({contact}) {
+function CompanyDetailDialog ({isDialogOpened, filteredCompanyContactDetail, onSeeDetailsClicked, onCloseDialog}) {
   return (
-    <div className={contactStyle}>
-      <div className="ms-Grid-row">
-        <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-          <div className={name}>{contact.company}</div>
-        </div>
-      </div>
-      <div className="ms-Grid-row">
-        <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-          <div key="size-preference" className={`${inline}`}>
-            {formatInvestmentSizePreferences(contact.minimumInvestmentSize, contact.maximumInvestmentSize)} • {`${formatInvestmentReturnPreferences(contact.minimumIrrReturn, contact.maximumIrrReturn)} return`}
+    <Dialog
+      isOpen={ isDialogOpened }
+      type={ DialogType.close }
+      onDismiss={ onCloseDialog }
+      title="Comany Details"
+      isBlocking={ false }
+      closeButtonAriaLabel='Close'
+    >
+      <div>
+        { filteredCompanyContactDetail.length
+        ? <div className="ms-Grid">
+            <div className="ms-Grid-row">
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                {filteredCompanyContactDetail[0].company}
+              </div>
+            </div>
+
+            <div className={`ms-Grid-row`}>
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                {filteredCompanyContactDetail[0].investmentTypePreferences.map((type) => (
+                  <span key={type.id} className={inline}>{type.name}</span>
+                ))}
+              </div>
+            </div>
+            <div className={`ms-Grid-row`}>
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                <span className={inline}>
+                  {formatInvestmentSizePreferences(filteredCompanyContactDetail[0].minimumInvestmentSize, filteredCompanyContactDetail[0].maximumInvestmentSize)}
+                </span>
+              </div>
+            </div>
+            <div className={`ms-Grid-row`}>
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                <span className={inline}>
+                  {`${formatInvestmentReturnPreferences(filteredCompanyContactDetail[0].minimumIrrReturn, filteredCompanyContactDetail[0].maximumIrrReturn)} return`}
+                </span>
+              </div>
+            </div>
+            <div className={`ms-Grid-row`}>
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                {filteredCompanyContactDetail[0].regionPreferences.map((region) => (
+                  <span key={region.id} className={inline}>{region.name}</span>
+                ))}
+              </div>
+            </div>
+            <br />
+            <div>
+              {'Contacts'}
+              { filteredCompanyContactDetail.map((contact) =>(
+                <div className="ms-Grid-row" key={contact.id}>
+                  <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+                    <div>{`${contact.firstName} ${contact.lastName}`}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        : <div><Spinner type={ SpinnerType.large } /></div>
+        }
       </div>
-    </div>
+      <DialogFooter>
+        <Button onClick={ onCloseDialog }>Close</Button>
+      </DialogFooter>
+    </Dialog>
   )
 }
 
@@ -37,6 +88,12 @@ export default function FilterResults (props) {
             {props.filteredContacts.length
               ?
               <div className={section}>
+                <CompanyDetailDialog
+                  isDialogOpened={props.isDialogOpened}
+                  filteredCompanyContactDetail={props.filteredCompanyContactDetail}
+                  onCloseDialog={props.onCloseDialog}
+                  onSeeDetailsClicked={props.onSeeDetailsClicked}
+                />
                 <div className="ms-Grid-row">
                   <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
                     <div className="ms-fontWeight-semibold ms-fontSize-l">{`Relevant Contacts (${props.filteredContactsCount})`}</div>
@@ -81,7 +138,12 @@ export default function FilterResults (props) {
                     filteredContact.id === undefined
                     ? <CompanyResult
                         key={filteredContact.company}
-                        contact={filteredContact}/>
+                        contact={filteredContact}
+                        isDialogOpened={props.isDialogOpened}
+                        filteredCompanyContactDetail={props.filteredCompanyContactDetail}
+                        onCloseDialog={props.onCloseDialog}
+                        onSeeDetailsClicked={props.onSeeDetailsClicked}
+                        />
                     : <ContactResult
                       key={filteredContact.id}
                       contact={filteredContact}/>

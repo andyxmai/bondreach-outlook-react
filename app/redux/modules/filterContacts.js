@@ -23,6 +23,10 @@ const CHANGE_SHOW_INPUTS = 'CHANGE_SHOW_INPUTS'
 const DOWNLOADING_FILTERED_CONTACTS = 'DOWNLOADING_FILTERED_CONTACTS'
 const REMOVE_DOWNLOADING_FILTERED_CONTACTS = 'REMOVE_DOWNLOADING_FILTERED_CONTACTS'
 const CHANGE_GROUP_BY_COMPANY = 'CHANGE_GROUP_BY_COMPANY'
+const SHOW_FILTER_CONTACTS_DIALOG = 'SHOW_FILTER_CONTACTS_DIALOG'
+const HIDE_FILTER_CONTACTS_DIALOG = 'HIDE_FILTER_CONTACTS_DIALOG'
+const FETCH_COMPANY_CONTACT_DETAIL_SUCCESS = 'FETCH_COMPANY_CONTACT_DETAIL_SUCCESS'
+const FETCH_COMPANY_CONTACT_DETAIL_FAILURE = 'FETCH_COMPANY_CONTACT_DETAIL_FAILURE'
 
 function fetchingSelectOptions () {
   return {
@@ -278,12 +282,55 @@ export function handleGroupByCompany (isChecked) {
   }
 }
 
+function showFilterContactsDialog () {
+  return {
+    type: SHOW_FILTER_CONTACTS_DIALOG,
+  }
+}
+
+export function hideFilterContactsDialog () {
+  return {
+    type: HIDE_FILTER_CONTACTS_DIALOG,
+  }
+}
+
+function fetchCompanyContactDetailSuccess (companyContactDetail) {
+  return {
+    type: FETCH_COMPANY_CONTACT_DETAIL_SUCCESS,
+    companyContactDetail,
+  }
+}
+
+function fetchCompanyContactDetailFailure (error) {
+  return {
+    type: FETCH_COMPANY_CONTACT_DETAIL_FAILURE,
+    error,
+  }
+}
+
+export function fetchCompanyContactDetail (company) {
+  return function (dispatch) {
+    dispatch(showFilterContactsDialog())
+    fetchContactWithParams({company})
+      .then((res) => {
+        console.log(res.data);
+        const companyContactDetail = camelizeKeys(res.data.results)
+        dispatch(fetchCompanyContactDetailSuccess(companyContactDetail))
+      })
+      .catch((err) => {
+        console.warn(err);
+        fetchCompanyContactDetailFailure('Failed to get company contact details')
+      })
+  }
+}
+
 const initialState = {
   showInputs: true,
   isFetching: false,
   isFiltering: false,
   isDownloading: false,
   isGroupByCompanyChecked: false,
+  isDialogOpened: false,
   error: '',
   investmentSize: '',
   targetReturn: '',
@@ -295,6 +342,7 @@ const initialState = {
   filteredContactsPrevUrl: '',
   regionPreferenceOptions: [],
   investmentTypePreferenceOptions: [],
+  filteredCompanyContactDetail: [],
 }
 
 export default function filterContacts (state = initialState, action) {
@@ -323,10 +371,6 @@ export default function filterContacts (state = initialState, action) {
       return {
         ...state,
         isFiltering: true,
-        filteredContactsCount: 0,
-        filteredContactsNextUrl: '',
-        filteredContactsPrevUrl: '',
-        filteredContacts: [],
       }
     case FETCHING_FILTERED_CONTACTS_SUCCESS:
       return {
@@ -396,6 +440,26 @@ export default function filterContacts (state = initialState, action) {
       return {
         ...state,
         isGroupByCompanyChecked: action.isChecked,
+      }
+    case SHOW_FILTER_CONTACTS_DIALOG:
+      return {
+        ...state,
+        isDialogOpened: true,
+      }
+    case HIDE_FILTER_CONTACTS_DIALOG:
+      return {
+        ...state,
+        isDialogOpened: false,
+      }
+    case FETCH_COMPANY_CONTACT_DETAIL_SUCCESS:
+      return {
+        ...state,
+        filteredCompanyContactDetail: action.companyContactDetail,
+      }
+    case FETCH_COMPANY_CONTACT_DETAIL_FAILURE:
+      return {
+        ...state,
+        error: action.error,
       }
     default:
       return state

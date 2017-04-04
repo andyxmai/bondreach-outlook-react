@@ -81,6 +81,15 @@ const FilterContactsContainer = React.createClass({
     this.props.handleGroupByCompany(isChecked)
   },
 
+  handleCloseDialog () {
+    this.props.hideFilterContactsDialog()
+  },
+
+  handleSeeDetailsClicked (e) {
+    const company = e.target.id
+    this.props.fetchCompanyContactDetail(company)
+  },
+
   render () {
     return (
       <div>
@@ -105,17 +114,21 @@ const FilterContactsContainer = React.createClass({
           isFiltering={this.props.isFiltering}
           isDownloading={this.props.isDownloading}
           isGroupByCompanyChecked={this.props.isGroupByCompanyChecked}
+          isDialogOpened={this.props.isDialogOpened}
           filteredContactsCount={this.props.filteredContactsCount}
           filteredContacts={this.props.filteredContacts}
           filteredContactsNextUrl={this.props.filteredContactsNextUrl}
           filteredContactsPrevUrl={this.props.filteredContactsPrevUrl}
           showInputs={this.props.showInputs}
           isComposeView={this.props.isComposeView}
+          filteredCompanyContactDetail={this.props.filteredCompanyContactDetail}
           onSearchResultsCollapseClicked={this.handleSearchResultsCollapseClicked}
           onNextPageClicked={this.handleNextPageClicked}
           onPrevPageClicked={this.handlePrevPageClicked}
           onDownloadContactsClicked={this.handleDownloadContactsClicked}
           onGroupByCompanyClicked={this.handleGroupByCompanyClicked}
+          onCloseDialog={this.handleCloseDialog}
+          onSeeDetailsClicked={this.handleSeeDetailsClicked}
           addToMail={this.addToMail}
           addToCc={this.addToCc}
           addToBcc={this.addToBcc}
@@ -131,6 +144,7 @@ function mapStateToProps ({filterContacts}, props) {
     isFiltering: filterContacts.isFiltering,
     isDownloading: filterContacts.isDownloading,
     isGroupByCompanyChecked: filterContacts.isGroupByCompanyChecked,
+    isDialogOpened: filterContacts.isDialogOpened,
     showInputs: filterContacts.showInputs,
     error: filterContacts.error,
     investmentTypePreferences: filterContacts.investmentTypePreferences,
@@ -143,7 +157,8 @@ function mapStateToProps ({filterContacts}, props) {
     filteredContactsPrevUrl: filterContacts.filteredContactsPrevUrl,
     regionPreferenceOptions: filterContacts.regionPreferenceOptions,
     investmentTypePreferenceOptions: filterContacts.investmentTypePreferenceOptions,
-    isComposeView: props.isComposeView ? true : false
+    filteredCompanyContactDetail: filterContacts.filteredCompanyContactDetail,
+    isComposeView: props.isComposeView ? true : false,
   }
 }
 
