@@ -47,7 +47,10 @@ export function cleanFilteredContactsExportData (filteredContacts) {
 
 export function downloadJsonToCsv (data) {
   var csvContent = "data:text/csv;charset=utf-8,";
-  csvContent += json2csv(data)
-  const encodedUri = encodeURI(csvContent)
-  window.open(encodedUri)
+  json2csv({ data: data }, function (error, csvString) {
+    csvContent += csvString
+    const encodedUri = encodeURI(csvContent)
+    window.open(encodedUri)
+  })
+
 }
