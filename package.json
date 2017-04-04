@@ -22,6 +22,7 @@
     "express": "^4.15.2",
     "html5-history-api": "^4.2.8",
     "humps": "^2.0.0",
+    "json2csv": "^3.7.3",
     "numeral": "^2.0.4",
     "office-ui-fabric-react": "^1.14.1",
     "react": "^15.4.2",

@@ -24,6 +24,13 @@ export function fetchContactWithParams (params) {
   })
 }
 
+export function downloadContactsWithParams (params) {
+  console.debug('downloading contact')
+  return apiClient.get('/v1/contacts-downloads/', {
+    params: params,
+  })
+}
+
 export function fetchContactsWithUrl (url) {
   return apiClient.get(url)
 }

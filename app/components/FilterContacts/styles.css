@@ -20,6 +20,11 @@
   background-color: #e8f6ff;
 }
 
+.downloadSpinner {
+  width: 15px !important;
+  height: 15px !important;
+}
+
 .inline {
   padding-right: 7px;
   font-size: 12px;
@@ -61,6 +66,7 @@
 .pageLink {
   font-size: 12px;
   align-self: center;
+  padding-right: 10px;
 }
 
 .pageLink:hover {

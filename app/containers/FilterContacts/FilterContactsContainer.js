@@ -3,8 +3,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as filterContactsActionCreators from 'redux/modules/filterContacts'
 import { FilterContacts, FilterResults } from 'components'
-import { formatToSelectOptions } from 'helpers/utils'
-
 
 const FilterContactsContainer = React.createClass({
   propTypes: {
@@ -75,6 +73,10 @@ const FilterContactsContainer = React.createClass({
     this.props.handlePageClicked(this.props.filteredContactsPrevUrl)
   },
 
+  handleDownloadContactsClicked () {
+    this.props.downloadContacts()
+  },
+
   render () {
     return (
       <div>
@@ -97,6 +99,7 @@ const FilterContactsContainer = React.createClass({
         }
         <FilterResults
           isFiltering={this.props.isFiltering}
+          isDownloading={this.props.isDownloading}
           filteredContactsCount={this.props.filteredContactsCount}
           filteredContacts={this.props.filteredContacts}
           filteredContactsNextUrl={this.props.filteredContactsNextUrl}
@@ -106,6 +109,7 @@ const FilterContactsContainer = React.createClass({
           onSearchResultsCollapseClicked={this.handleSearchResultsCollapseClicked}
           onNextPageClicked={this.handleNextPageClicked}
           onPrevPageClicked={this.handlePrevPageClicked}
+          onDownloadContactsClicked={this.handleDownloadContactsClicked}
           addToMail={this.addToMail}
           addToCc={this.addToCc}
           addToBcc={this.addToBcc}
@@ -119,6 +123,7 @@ function mapStateToProps ({filterContacts}, props) {
   return {
     isFetching: filterContacts.isFetching,
     isFiltering: filterContacts.isFiltering,
+    isDownloading: filterContacts.isDownloading,
     showInputs: filterContacts.showInputs,
     error: filterContacts.error,
     investmentTypePreferences: filterContacts.investmentTypePreferences,
