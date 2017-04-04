@@ -77,6 +77,10 @@ const FilterContactsContainer = React.createClass({
     this.props.downloadContacts()
   },
 
+  handleGroupByCompanyClicked (e, isChecked) {
+    this.props.handleGroupByCompany(isChecked)
+  },
+
   render () {
     return (
       <div>
@@ -100,6 +104,7 @@ const FilterContactsContainer = React.createClass({
         <FilterResults
           isFiltering={this.props.isFiltering}
           isDownloading={this.props.isDownloading}
+          isGroupByCompanyChecked={this.props.isGroupByCompanyChecked}
           filteredContactsCount={this.props.filteredContactsCount}
           filteredContacts={this.props.filteredContacts}
           filteredContactsNextUrl={this.props.filteredContactsNextUrl}
@@ -110,6 +115,7 @@ const FilterContactsContainer = React.createClass({
           onNextPageClicked={this.handleNextPageClicked}
           onPrevPageClicked={this.handlePrevPageClicked}
           onDownloadContactsClicked={this.handleDownloadContactsClicked}
+          onGroupByCompanyClicked={this.handleGroupByCompanyClicked}
           addToMail={this.addToMail}
           addToCc={this.addToCc}
           addToBcc={this.addToBcc}
@@ -124,6 +130,7 @@ function mapStateToProps ({filterContacts}, props) {
     isFetching: filterContacts.isFetching,
     isFiltering: filterContacts.isFiltering,
     isDownloading: filterContacts.isDownloading,
+    isGroupByCompanyChecked: filterContacts.isGroupByCompanyChecked,
     showInputs: filterContacts.showInputs,
     error: filterContacts.error,
     investmentTypePreferences: filterContacts.investmentTypePreferences,

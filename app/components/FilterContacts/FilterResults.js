@@ -2,10 +2,31 @@ import React, { PropTypes } from 'react'
 import { ContactResult } from 'components'
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button'
 import { ContextualMenu, DirectionalHint } from 'office-ui-fabric-react/lib/ContextualMenu'
+import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox'
 import { Spinner, SpinnerSize, SpinnerType } from 'office-ui-fabric-react/lib/Spinner'
-import { contact, contactContainer, section, inline, name, company, chevron,
+import { contact, contactContainer, contactStyle, section, inline, name, company, chevron,
   fixedBtn, actionBtn, pageLink, pageLinks, nextPage, downloadSpinner } from './styles.css'
 import { blockBtn } from 'sharedStyles/styles.css'
+import { formatInvestmentSizePreferences, formatInvestmentReturnPreferences } from 'helpers/utils'
+
+function CompanyResult ({contact}) {
+  return (
+    <div className={contactStyle}>
+      <div className="ms-Grid-row">
+        <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+          <div className={name}>{contact.company}</div>
+        </div>
+      </div>
+      <div className="ms-Grid-row">
+        <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+          <div key="size-preference" className={`${inline}`}>
+            {formatInvestmentSizePreferences(contact.minimumInvestmentSize, contact.maximumInvestmentSize)} • {`${formatInvestmentReturnPreferences(contact.minimumIrrReturn, contact.maximumIrrReturn)} return`}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function FilterResults (props) {
   return (
@@ -28,26 +49,40 @@ export default function FilterResults (props) {
                   </div>
                 </div>
                 <div className="ms-Grid-row">
-                  <div className={`ms-Grid-col ms-u-sm7 ms-u-md7 ms-u-lg7 ${pageLinks}`}>
-                    { props.filteredContactsPrevUrl !== ''
-                      ? <span onClick={props.onPrevPageClicked} className={pageLink}><span><i className="ms-Icon ms-Icon--DoubleChevronLeft" aria-hidden="true"></i> Previous</span></span>
-                      : null
-                    }
-                    { props.filteredContactsNextUrl !== ''
-                      ? <span onClick={props.onNextPageClicked} className={pageLink}><span>Next <i className="ms-Icon ms-Icon--DoubleChevronRight" aria-hidden="true"></i></span></span>
-                      : null
-                    }
+                  <div className="ms-Grid-col ms-u-sm7 ms-u-md7 ms-u-lg7">
+                    <Checkbox
+                      label='group by company'
+                      checked={ props.isGroupByCompanyChecked }
+                      onChange={ props.onGroupByCompanyClicked } />
                   </div>
                   <div className={`ms-Grid-col ms-u-sm5 ms-u-md5 ms-u-lg5 ${pageLinks} ${nextPage}`}>
                     { props.isDownloading
                       ? <div><Spinner type={ SpinnerSize.xSmall }/></div>
-                      : <div className={pageLink} onClick={props.onDownloadContactsClicked}>{'download'}</div>
+                      : <div className={pageLink} onClick={props.onDownloadContactsClicked}><i className="ms-Icon ms-Icon--Download" aria-hidden="true"></i>{'download'}</div>
+                    }
+                  </div>
+                </div>
+                <div className="ms-Grid-row">
+                  <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 ${pageLinks}`}>
+                    { props.filteredContactsPrevUrl !== ''
+                      ? <div onClick={props.onPrevPageClicked} className={pageLink}><span><i className="ms-Icon ms-Icon--DoubleChevronLeft" aria-hidden="true"></i> Previous</span></div>
+                      : null
+                    }
+                  </div>
+                  <div className={`ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6 ${pageLinks} ${nextPage}`}>
+                    { props.filteredContactsNextUrl !== ''
+                      ? <div onClick={props.onNextPageClicked} className={pageLink}><span>Next <i className="ms-Icon ms-Icon--DoubleChevronRight" aria-hidden="true"></i></span></div>
+                      : null
                     }
                   </div>
                 </div>
                 <div className={contactContainer}>
                   {props.filteredContacts.map((filteredContact) => (
-                    <ContactResult
+                    filteredContact.id === undefined
+                    ? <CompanyResult
+                        key={filteredContact.company}
+                        contact={filteredContact}/>
+                    : <ContactResult
                       key={filteredContact.id}
                       contact={filteredContact}/>
                   ))}

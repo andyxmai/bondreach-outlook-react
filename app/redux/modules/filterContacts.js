@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { camelizeKeys, decamelizeKeys } from 'humps'
 import { fetchContactWithParams, fetchRegionAndInvestmentTypes, fetchContactsWithUrl,
-        downloadContactsWithParams } from 'helpers/api'
+        downloadContactsWithParams, fetchContactsByCompanyWithParams } from 'helpers/api'
 import { formatToSelectOptions } from 'helpers/utils'
 import { unauthUser } from 'redux/modules/user'
 import * as analytics from 'helpers/analytics'
@@ -22,6 +22,7 @@ const RESET_FILTER_CONTACTS = 'RESET_FILTER_CONTACTS'
 const CHANGE_SHOW_INPUTS = 'CHANGE_SHOW_INPUTS'
 const DOWNLOADING_FILTERED_CONTACTS = 'DOWNLOADING_FILTERED_CONTACTS'
 const REMOVE_DOWNLOADING_FILTERED_CONTACTS = 'REMOVE_DOWNLOADING_FILTERED_CONTACTS'
+const CHANGE_GROUP_BY_COMPANY = 'CHANGE_GROUP_BY_COMPANY'
 
 function fetchingSelectOptions () {
   return {
@@ -54,7 +55,7 @@ export function fetchAndAddSelectOptions () {
       dispatch(fetchSelectOptionsSuccess(regionPreferenceOptions, investmentTypePreferenceOptions))
     })).catch((err) => {
       console.warn('Failed to get regions and investment types', err)
-      if (err.response.status === 403) {
+      if (err.response !== undefined && err.response.status === 403) {
         dispatch(unauthUser())
       }
       dispatch(fetchSelectOptionsFailure('Failed to get select options. Please reload!'))
@@ -135,7 +136,7 @@ function handleFilterContactsSuccessResponse (dispatch, res) {
 
 function handleFilterContactsFailureResponse (dispatch, err) {
   console.warn('Error filtering', err)
-  if (err.response.status === 403) {
+  if (err.response !== undefined && err.response.status === 403) {
     dispatch(unauthUser())
   }
   dispatch(fetchingFilteredContactFailure('Error filtering contacts'))
@@ -154,6 +155,20 @@ function getSearchContactsParams (getState) {
   return params
 }
 
+function filterContactsSuccessHandler (dispatch, data) {
+  const camelizeResponse = camelizeKeys(data)
+  const { count, next, previous, results } = camelizeResponse
+  const filteredContacts = results
+  dispatch(fetchingFilteredContactSuccess(count, next, previous, results))
+}
+
+function filterContactsErrorHandler (dispatch, err) {
+  if (err.response !== undefined && err.response.status === 403) {
+    dispatch(unauthUser())
+  }
+  dispatch(fetchingFilteredContactFailure('Error filtering contacts'))
+}
+
 export function fetchFilterContacts () {
   return function (dispatch, getState) {
     const params = getSearchContactsParams(getState)
@@ -162,18 +177,12 @@ export function fetchFilterContacts () {
     amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_CLICKED, eventProperties)
     fetchContactWithParams(decamelizeKeys(params))
       .then((res) => {
-        const camelizeResponse = camelizeKeys(res.data)
-        const { count, next, previous, results } = camelizeResponse
-        const filteredContacts = results
-        dispatch(fetchingFilteredContactSuccess(count, next, previous, results))
+        filterContactsSuccessHandler(dispatch, res.data)
         amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_SUCCESS, eventProperties)
       })
       .catch((err) => {
         console.warn('Error filtering', err)
-        if (err.response.status === 403) {
-          dispatch(unauthUser())
-        }
-        dispatch(fetchingFilteredContactFailure('Error filtering contacts'))
+        filterContactsErrorHandler(dispatch, err)
         amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_FAILURE, eventProperties)
       })
   }
@@ -205,7 +214,7 @@ export function downloadContacts () {
         amplitude.getInstance().logEvent(analytics.BR_OL_DOWLOAD_CONTACTS_SUCCESS)
       })
       .catch((err) => {
-        console.log(err);
+        console.warn(err);
         dispatch(removeDownloadingFilteredContacts())
         amplitude.getInstance().logEvent(analytics.BR_OL_DOWLOAD_CONTACTS_FAILURE)
       })
@@ -224,11 +233,57 @@ export function handlePageClicked (pageUrl) {
   }
 }
 
+function changeGroupByCompany (isChecked) {
+  return {
+    type: CHANGE_GROUP_BY_COMPANY,
+    isChecked,
+  }
+}
+
+export function handleGroupByCompany (isChecked) {
+  return function (dispatch, getState) {
+    const params = getSearchContactsParams(getState)
+    if (isChecked) {
+      dispatch(changeGroupByCompany(isChecked))
+      dispatch(fetchingFilteredContacts())
+      fetchContactsByCompanyWithParams(decamelizeKeys(params))
+        .then((res) => {
+          const camelizeResponse = camelizeKeys(res.data)
+          const { count, next, previous, results } = camelizeResponse
+          const filteredContacts = results
+          dispatch(fetchingFilteredContactSuccess(count, next, previous, results))
+
+        })
+        .catch((err) => {
+          console.warn('Error filtering', err)
+          if (err.response !== undefined && err.response.status === 403) {
+            dispatch(unauthUser())
+          }
+          dispatch(fetchingFilteredContactFailure('Error filtering contacts'))
+        })
+    } else {
+      dispatch(fetchingFilteredContacts())
+      fetchContactWithParams(decamelizeKeys(params))
+        .then((res) => {
+          dispatch(changeGroupByCompany(isChecked))
+          filterContactsSuccessHandler(dispatch, res.data)
+        })
+        .catch((err) => {
+          console.warn('Error filtering', err)
+          dispatch(changeGroupByCompany(isChecked))
+          filterContactsErrorHandler(dispatch, err)
+        })
+    }
+    amplitude.getInstance().logEvent(analytics.BR_OL_GROUP_CONTACTS_BY_COMPANY)
+  }
+}
+
 const initialState = {
   showInputs: true,
   isFetching: false,
   isFiltering: false,
   isDownloading: false,
+  isGroupByCompanyChecked: false,
   error: '',
   investmentSize: '',
   targetReturn: '',
@@ -336,6 +391,11 @@ export default function filterContacts (state = initialState, action) {
       return {
         ...state,
         isDownloading: false,
+      }
+    case CHANGE_GROUP_BY_COMPANY:
+      return {
+        ...state,
+        isGroupByCompanyChecked: action.isChecked,
       }
     default:
       return state

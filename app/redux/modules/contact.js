@@ -91,7 +91,7 @@ export function fetchAndEdiContactSelectOptions () {
       dispatch(handleTypePreferenceChanged(investmentTypePreferenceOptionsSelected))
       dispatch(fetchSelectOptionsSuccess(regionPreferenceOptions, investmentTypePreferenceOptions))
     })).catch((err) => {
-      if (err.response.status === 403) {
+      if (err.response !== undefined && err.response.status === 403) {
         dispatch(unauthUser())
       }
       console.warn('Add contact error', err)
@@ -301,7 +301,7 @@ export function saveNotes () {
       })
       .catch((err) => {
         console.warn(err)
-        if (err.response.status === 403) {
+        if (err.response !== undefined && err.response.status === 403) {
           dispatch(unauthUser())
         }
         dispatch(savingNotesFailure('Could not save notes. Try again!'))

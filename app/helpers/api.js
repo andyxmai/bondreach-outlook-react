@@ -24,6 +24,13 @@ export function fetchContactWithParams (params) {
   })
 }
 
+export function fetchContactsByCompanyWithParams (params) {
+  console.debug('fetching contact grouped by company')
+  return apiClient.get('/v1/contacts-companies/', {
+    params: params,
+  })
+}
+
 export function downloadContactsWithParams (params) {
   console.debug('downloading contact')
   return apiClient.get('/v1/contacts-downloads/', {

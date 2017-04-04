@@ -64,7 +64,7 @@ export function fetchAndAddContactSelectOptions () {
 
       dispatch(fetchSelectOptionsSuccess(regionPreferenceOptions, investmentTypePreferenceOptions))
     })).catch((err) => {
-      if (err.response.status === 403) {
+      if (err.response !== undefined && err.response.status === 403) {
         dispatch(unauthUser())
       }
       console.warn('Add contact error', err)
