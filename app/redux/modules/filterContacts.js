@@ -205,7 +205,7 @@ export function downloadContacts () {
         amplitude.getInstance().logEvent(analytics.BR_OL_DOWLOAD_CONTACTS_SUCCESS)
       })
       .catch((err) => {
-        console.log(error);
+        console.log(err);
         dispatch(removeDownloadingFilteredContacts())
         amplitude.getInstance().logEvent(analytics.BR_OL_DOWLOAD_CONTACTS_FAILURE)
       })
