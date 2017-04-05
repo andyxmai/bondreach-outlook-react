@@ -2,6 +2,14 @@
   padding: 10px 0px;
 }
 
+.add {
+  color: #0078d7;
+}
+
+.add:hover {
+  cursor: pointer;
+}
+
 .borderedSection {
   border-top: 1px solid #D7DADA;
   padding: 10px 0px;
@@ -20,6 +28,12 @@
 
 .icon {
   color: #676767;
+}
+
+.info {
+  font-size: 11px;
+  color: #676767;
+  font-weight: bold;
 }
 
 .inline {

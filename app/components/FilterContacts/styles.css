@@ -25,6 +25,10 @@
   height: 15px !important;
 }
 
+.info {
+  font-size: 12px;
+}
+
 .inline {
   padding-right: 7px;
   font-size: 12px;

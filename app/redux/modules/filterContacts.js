@@ -313,7 +313,6 @@ export function fetchCompanyContactDetail (company) {
     dispatch(showFilterContactsDialog())
     fetchContactWithParams({company})
       .then((res) => {
-        console.log(res.data);
         const companyContactDetail = camelizeKeys(res.data.results)
         dispatch(fetchCompanyContactDetailSuccess(companyContactDetail))
       })

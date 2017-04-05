@@ -36,6 +36,7 @@ const FETCH_EDIT_CONTACT_SELECT_OPTIONS_SUCCESS = 'FETCH_EDIT_CONTACT_SELECT_OPT
 const FETCH_EDIT_CONTACT_SELECT_OPTIONS_FAILURE = 'FETCH_EDIT_CONTACT_SELECT_OPTIONS_FAILURE'
 const ADD_CORRESPONDENCE_SUCCESS = 'ADD_CORRESPONDENCE_SUCCESS'
 const ADD_CORRESPONDENCE_FAILURE = 'ADD_CORRESPONDENCE_FAILURE'
+const CHANGE_OUTLOOK_CONTACT_FLAG = 'CHANGE_OUTLOOK_CONTACT_FLAG'
 
 function fetchingContact () {
   return {
@@ -344,6 +345,13 @@ export function handleTagEmailMessage (messageId, date) {
   }
 }
 
+export function changeOutlookContactFlag (hasOutlookContact) {
+  return {
+    type: CHANGE_OUTLOOK_CONTACT_FLAG,
+    hasOutlookContact,
+  }
+}
+
 const initialState = {
   isFetching: true,
   error: '',
@@ -371,6 +379,7 @@ const initialState = {
   notesSavedErrorMsg: '',
   creator: '',
   correspondences: [],
+  hasOutlookContact: true,
   updated: false,  // to keep track of whether the contact has been updated in edit mode
 }
 
@@ -550,6 +559,11 @@ export default function contact (state = initialState, action) {
       return {
         ...state,
         error: action.error,
+      }
+    case CHANGE_OUTLOOK_CONTACT_FLAG:
+      return {
+        ...state,
+        hasOutlookContact: action.hasOutlookContact,
       }
     default:
       return state

@@ -9,7 +9,7 @@ import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBa
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { Link } from 'office-ui-fabric-react/lib/Link'
 import { section, borderedSection, preferenceType, inline, subline, link, tasks,
-          buttonSection, view, icon } from './styles.css'
+          buttonSection, view, icon, info, add } from './styles.css'
 import { formatInvestmentSizePreference } from 'helpers/utils'
 import { blockBtn, centerPage, messageBar, spacedRow } from 'sharedStyles/styles.css'
 import { ISOStringToDate } from 'helpers/dates'
@@ -69,6 +69,13 @@ export default function ViewContact (props) {
               messageBarType={ MessageBarType.error }>
               {props.error}</MessageBar></div>
             : null
+          }
+          { props.hasOutlookContact
+            ? null
+            : <MessageBar
+                messageBarType={ MessageBarType.warning }>
+                <div>{'Contact not found in Outlook. '}<div className={add} onClick={props.onAddContactToOutlook}>{'Add to Outlook'}</div></div>
+              </MessageBar>
           }
           <NotesPanel
             isNotesPanelOpened={props.isNotesPanelOpened}

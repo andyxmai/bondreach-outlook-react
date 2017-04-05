@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { AddContact } from 'components'
 import * as addContactActionCreators from 'redux/modules/addContact'
 import { formatToMultiSelectOptions, formatOutlookContactNotes } from 'helpers/utils'
-import { createContact } from 'common/EWS'
+import { createOutlookContact } from 'common/EWS'
 import * as analytics from 'helpers/analytics'
 
 const AddContactContainer = React.createClass({
@@ -24,9 +24,7 @@ const AddContactContainer = React.createClass({
   componentDidUpdate(prevProps) {
     if (this.props.addedContactId !== '' && prevProps.addedContactId === '') {
       const addedContactId = this.props.addedContactId
-      const { firstName, lastName, email, company, phone } = this.props.addedContact
-      const notes = formatOutlookContactNotes(this.props.addedContact)
-      createContact(firstName, lastName, email, company, phone, notes, (asyncResult) => {})
+      createOutlookContact(this.props.addedContact)
       this.context.router.push(`/add-reminder/${addedContactId}`)
     }
   },

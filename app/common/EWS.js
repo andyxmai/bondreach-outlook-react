@@ -1,3 +1,6 @@
+import XMLParser from 'react-xml-parser'
+import { formatOutlookContactNotes } from 'helpers/utils'
+
 function getSoapEnvelope (request) {
   // Wrap an Exchange Web Services request in a SOAP envelope.
   var result =
@@ -102,35 +105,99 @@ export function createContact (firstName, lastName, email, company, phone, notes
   Office.context.mailbox.makeEwsRequestAsync(envelope, callback)
 }
 
+// Root function. Need to remove exports for other child functions
+export function createOutlookContact (contact) {
+  const { firstName, lastName, email, company, phone } = contact
+  const notes = formatOutlookContactNotes(contact)
+  createContact(firstName, lastName, email, company, phone, notes, (asyncResult) => {})
+}
 
-function findContactRequest () {
+function findContactByEmailRequest (email) {
   const result =
   '    <FindItem xmlns="http://schemas.microsoft.com/exchange/services/2006/messages"' +
   '               xmlns:t="http://schemas.microsoft.com/exchange/services/2006/types"' +
   '              Traversal="Shallow">' +
   '      <ItemShape>' +
   '        <t:BaseShape>IdOnly</t:BaseShape>' +
+  '        <t:AdditionalProperties>' +
+  '          <t:FieldURI FieldURI="contacts:DisplayName" />' +
+  '        </t:AdditionalProperties>' +
   '      </ItemShape>' +
   '      <ParentFolderIds>' +
   '        <t:DistinguishedFolderId Id="contacts"/>' +
   '      </ParentFolderIds>' +
   '      <Restriction>' +
-  '        <IsEqualTo>' +
-  '          <FieldURI FieldURI="contacts:GivenName" />' +
-  '          <FieldURIOrConstant>' +
-  '            <Constant Value="Kyrie" />' +
-  '          </FieldURIOrConstant>' +
-  '        </IsEqualTo>' +
+  '        <t:Or>' +
+  '          <t:Contains ContainmentMode="Substring" ContainmentComparison="IgnoreCase">' +
+  '            <t:IndexedFieldURI FieldURI="contacts:EmailAddress" FieldIndex="EmailAddress1" />' +
+  '              <t:Constant Value="' + email + '" />' +
+  '          </t:Contains>' +
+  '          <t:Contains ContainmentMode="Substring" ContainmentComparison="IgnoreCase">' +
+  '            <t:IndexedFieldURI FieldURI="contacts:EmailAddress" FieldIndex="EmailAddress2" />' +
+  '              <t:Constant Value="' + email + '" />' +
+  '          </t:Contains>' +
+  '          <t:Contains ContainmentMode="Substring" ContainmentComparison="IgnoreCase">' +
+  '            <t:IndexedFieldURI FieldURI="contacts:EmailAddress" FieldIndex="EmailAddress3" />' +
+  '              <t:Constant Value="' + email + '" />' +
+  '          </t:Contains>' +
+  '        </t:Or>' +
   '      </Restriction>' +
   '    </FindItem>'
 
   return result
 }
 
-export function updateContact () {
-  const request = findContactRequest()
+function updateContactNotesRequest (itemId, changeKey, email, notes) {
+  const result =
+  '    <UpdateItem xmlns="http://schemas.microsoft.com/exchange/services/2006/messages"' +
+  '                ConflictResolution="AlwaysOverwrite">' +
+  '      <ItemChanges>' +
+  '        <t:ItemChange>' +
+  '          <t:ItemId Id="' + itemId + '" ChangeKey="' + changeKey + '" />' +
+  '          <t:Updates>' +
+  '            <t:SetItemField>' +
+  '              <t:IndexedFieldURI FieldURI="contacts:EmailAddress" FieldIndex="EmailAddress1"/>' +
+  '              <t:Contact>' +
+  '                <t:EmailAddresses>' +
+  '                  <t:Entry Key="EmailAddress1">' + email + '</t:Entry>' +
+  '                </t:EmailAddresses>' +
+  '              </t:Contact>' +
+  '            </t:SetItemField>' +
+  '            <t:SetItemField>' +
+  '              <t:FieldURI FieldURI="contacts:Notes" />' +
+  '              <t:Contact>' +
+  '                <t:Notes>' + notes + '</t:Notes>' +
+  '              </t:Contact>' +
+  '            </t:SetItemField>' +
+  '          </t:Updates>' +
+  '        </t:ItemChange>' +
+  '      </ItemChanges>' +
+  '    </UpdateItem>'
+
+  return result
+}
+
+export function updateContact (email, notes) {
+  const request = findContactByEmailRequest(email)
   const envelope = getSoapEnvelope(request)
   Office.context.mailbox.makeEwsRequestAsync(envelope, (asyncResult) => {
-    console.log(asyncResult);
+    // Get Item Id and Change key from response
+    const xml = new XMLParser().parseFromString(asyncResult.value)
+    const itemIdElems = xml.getElementsByTagName('t:ItemId')
+    if (itemIdElems.length) {
+      const itemIdElem = itemIdElems[0]
+      const itemId = itemIdElem.attributes.Id + '='
+      const changeKey = itemIdElem.attributes.ChangeKey.slice(0, -1)
+      const updateRequest = updateContactNotesRequest(itemId, changeKey, email, notes)
+      const updateEnvelope = getSoapEnvelope(updateRequest)
+
+      Office.context.mailbox.makeEwsRequestAsync(updateEnvelope, (asyncResult) => {})
+    }
   })
+}
+
+export function checkEmailInOutlookContact (email, callback) {
+  const request = findContactByEmailRequest(email)
+  const envelope = getSoapEnvelope(request)
+  Office.context.mailbox.makeEwsRequestAsync(envelope, callback)
 }
