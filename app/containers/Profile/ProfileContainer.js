@@ -1,12 +1,18 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import * as filterContactActionCreators from 'redux/modules/filterContacts'
 import * as userActionCreators from 'redux/modules/user'
 import { Profile } from 'components'
 
 const ProfileContainer = React.createClass({
   componentDidMount () {
     this.props.fetchAndHandleProfile()
+  },
+
+  handleExportContacts () {
+    this.props.resetFilterContacts()
+    this.props.downloadContacts()
   },
 
   render () {
@@ -16,12 +22,14 @@ const ProfileContainer = React.createClass({
         lastName={this.props.lastName}
         email={this.props.email}
         company={this.props.company}
+        isDownloading={this.props.isDownloading}
+        onExportContacts={this.handleExportContacts}
       />
     )
   }
 })
 
-function mapStateToProps ({user}) {
+function mapStateToProps ({user, filterContacts}) {
   return {
     isFetching: user.isFetching,
     error: user.error,
@@ -30,11 +38,15 @@ function mapStateToProps ({user}) {
     lastName: user.lastName,
     email: user.email,
     company: user.company,
+    isDownloading: filterContacts.isDownloading,
   }
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators(userActionCreators, dispatch)
+  return bindActionCreators({
+    ...userActionCreators,
+    ...filterContactActionCreators,
+  }, dispatch)
 }
 
 export default connect(

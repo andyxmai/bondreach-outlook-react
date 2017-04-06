@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react'
+import { PrimaryButton } from 'office-ui-fabric-react/lib/Button'
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner'
 import { header, section, subline } from './styles.css'
+import { blockBtn } from 'sharedStyles/styles.css'
 
 export default function Profile (props) {
   return (
@@ -32,6 +35,16 @@ export default function Profile (props) {
             { props.company.name
               ? <div>{props.company.name}</div>
               : <div className={subline}>{'You are not part of an organization. Join one to share your contacts.'}</div>
+            }
+          </div>
+        </div>
+      </div>
+      <div className={section}>
+        <div className="ms-Grid-row">
+          <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+            { props.isDownloading
+              ? <Spinner type={ SpinnerSize.medium } label="Exporting..."/>
+              : <PrimaryButton className={blockBtn} onClick={props.onExportContacts}>{ 'Export your contacts' }</PrimaryButton>
             }
           </div>
         </div>
