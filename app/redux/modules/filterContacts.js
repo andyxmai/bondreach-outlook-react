@@ -197,6 +197,7 @@ export function downloadCompanyContacts () {
   return function (dispatch, getState) {
     const params = getSearchContactsParams(getState)
     dispatch(downloadingFilteredContacts())
+    amplitude.getInstance().logEvent(analytics.BR_OL_DOWLOAD_CONTACTS_BY_COMPANY_CLICKED)
     downloadCompanyContactsWithParams(decamelizeKeys(params))
       .then((res) => {
         const allFilteredContacts = pascalizeKeys(res.data)

@@ -82,6 +82,7 @@ const ViewContactContainer = React.createClass({
     }
     createOutlookContact(contact)
     this.props.changeOutlookContactFlag(true)
+    amplitude.getInstance().logEvent(analytics.BR_OL_VIEW_CONTACT_ADD_CONTACT_TO_OUTLOOK)
   },
 
   render () {
