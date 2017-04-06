@@ -24,6 +24,13 @@ export function fetchContactWithParams (params) {
   })
 }
 
+export function downloadContactsWithParams (params) {
+  console.debug('downloading contact')
+  return apiClient.get('/v1/contacts-downloads/', {
+    params: params,
+  })
+}
+
 export function fetchContactsByCompanyWithParams (params) {
   console.debug('fetching contact grouped by company')
   return apiClient.get('/v1/contacts-companies/', {
@@ -31,9 +38,9 @@ export function fetchContactsByCompanyWithParams (params) {
   })
 }
 
-export function downloadContactsWithParams (params) {
-  console.debug('downloading contact')
-  return apiClient.get('/v1/contacts-downloads/', {
+export function downloadCompanyContactsWithParams (params) {
+  console.debug('downloading contact group by companies')
+  return apiClient.get('/v1/contacts-companies-downloads/', {
     params: params,
   })
 }

@@ -7,7 +7,7 @@ import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox'
 import { Spinner, SpinnerSize, SpinnerType } from 'office-ui-fabric-react/lib/Spinner'
 import { contact, contactContainer, contactStyle, section, inline, name, company, chevron,
   fixedBtn, actionBtn, pageLink, pageLinks, nextPage, downloadSpinner, seeProfile } from './styles.css'
-import { blockBtn } from 'sharedStyles/styles.css'
+import { blockBtn, centerPage } from 'sharedStyles/styles.css'
 import { formatInvestmentSizePreferences, formatInvestmentReturnPreferences } from 'helpers/utils'
 
 function CompanyDetailDialog ({isDialogOpened, filteredCompanyContactDetail, onSeeDetailsClicked, onCloseDialog}) {
@@ -69,7 +69,7 @@ function CompanyDetailDialog ({isDialogOpened, filteredCompanyContactDetail, onS
               ))}
             </div>
           </div>
-        : <div><Spinner type={ SpinnerType.large } /></div>
+        : <div><Spinner type={ SpinnerType.large } className={centerPage} /></div>
         }
       </div>
       <DialogFooter>
@@ -83,7 +83,7 @@ export default function FilterResults (props) {
   return (
     <div>
       {props.isFiltering
-        ? <div><Spinner type={ SpinnerType.large } label='Loading...' /></div>
+        ? <div><Spinner type={ SpinnerType.large } className={centerPage} label='Loading...' /></div>
         : <div className="ms-Grid">
             {props.filteredContacts.length
               ?

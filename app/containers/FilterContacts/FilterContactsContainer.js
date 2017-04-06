@@ -62,7 +62,7 @@ const FilterContactsContainer = React.createClass({
   },
 
   handleFilterContacts () {
-    this.props.fetchFilterContacts()
+    this.props.handleFilterContacts()
   },
 
   handleNextPageClicked () {
@@ -74,11 +74,16 @@ const FilterContactsContainer = React.createClass({
   },
 
   handleDownloadContactsClicked () {
-    this.props.downloadContacts()
+    if (this.props.isGroupByCompanyChecked) {
+      this.props.downloadCompanyContacts()
+    } else {
+      this.props.downloadContacts()
+    }
   },
 
   handleGroupByCompanyClicked (e, isChecked) {
-    this.props.handleGroupByCompany(isChecked)
+    this.props.changeGroupByCompany(isChecked)
+    this.props.handleFilterContacts()
   },
 
   handleCloseDialog () {

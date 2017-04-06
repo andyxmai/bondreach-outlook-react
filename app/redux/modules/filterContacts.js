@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { camelizeKeys, decamelizeKeys } from 'humps'
+import { camelizeKeys, decamelizeKeys, pascalizeKeys } from 'humps'
 import { fetchContactWithParams, fetchRegionAndInvestmentTypes, fetchContactsWithUrl,
-        downloadContactsWithParams, fetchContactsByCompanyWithParams } from 'helpers/api'
+        downloadContactsWithParams, fetchContactsByCompanyWithParams,
+        downloadCompanyContactsWithParams, } from 'helpers/api'
 import { formatToSelectOptions } from 'helpers/utils'
 import { unauthUser } from 'redux/modules/user'
 import * as analytics from 'helpers/analytics'
@@ -159,39 +160,6 @@ function getSearchContactsParams (getState) {
   return params
 }
 
-function filterContactsSuccessHandler (dispatch, data) {
-  const camelizeResponse = camelizeKeys(data)
-  const { count, next, previous, results } = camelizeResponse
-  const filteredContacts = results
-  dispatch(fetchingFilteredContactSuccess(count, next, previous, results))
-}
-
-function filterContactsErrorHandler (dispatch, err) {
-  if (err.response !== undefined && err.response.status === 403) {
-    dispatch(unauthUser())
-  }
-  dispatch(fetchingFilteredContactFailure('Error filtering contacts'))
-}
-
-export function fetchFilterContacts () {
-  return function (dispatch, getState) {
-    const params = getSearchContactsParams(getState)
-    dispatch(fetchingFilteredContacts())
-    const eventProperties = { 'filterParams' : params }
-    amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_CLICKED, eventProperties)
-    fetchContactWithParams(decamelizeKeys(params))
-      .then((res) => {
-        filterContactsSuccessHandler(dispatch, res.data)
-        amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_SUCCESS, eventProperties)
-      })
-      .catch((err) => {
-        console.warn('Error filtering', err)
-        filterContactsErrorHandler(dispatch, err)
-        amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_FAILURE, eventProperties)
-      })
-  }
-}
-
 function downloadingFilteredContacts () {
   return {
     type: DOWNLOADING_FILTERED_CONTACTS,
@@ -218,9 +186,26 @@ export function downloadContacts () {
         amplitude.getInstance().logEvent(analytics.BR_OL_DOWLOAD_CONTACTS_SUCCESS)
       })
       .catch((err) => {
-        console.warn(err);
+        console.warn(err)
         dispatch(removeDownloadingFilteredContacts())
         amplitude.getInstance().logEvent(analytics.BR_OL_DOWLOAD_CONTACTS_FAILURE)
+      })
+  }
+}
+
+export function downloadCompanyContacts () {
+  return function (dispatch, getState) {
+    const params = getSearchContactsParams(getState)
+    dispatch(downloadingFilteredContacts())
+    downloadCompanyContactsWithParams(decamelizeKeys(params))
+      .then((res) => {
+        const allFilteredContacts = pascalizeKeys(res.data)
+        downloadJsonToCsv(allFilteredContacts)
+        dispatch(removeDownloadingFilteredContacts())
+      })
+      .catch((err) => {
+        console.warn(err)
+        dispatch(removeDownloadingFilteredContacts())
       })
   }
 }
@@ -237,48 +222,65 @@ export function handlePageClicked (pageUrl) {
   }
 }
 
-function changeGroupByCompany (isChecked) {
+export function changeGroupByCompany (isChecked) {
   return {
     type: CHANGE_GROUP_BY_COMPANY,
     isChecked,
   }
 }
 
-export function handleGroupByCompany (isChecked) {
+function filterContactsSuccessHandler (dispatch, data) {
+  const camelizeResponse = camelizeKeys(data)
+  const { count, next, previous, results } = camelizeResponse
+  const filteredContacts = results
+  dispatch(fetchingFilteredContactSuccess(count, next, previous, results))
+}
+
+function filterContactsErrorHandler (dispatch, err) {
+  if (err.response !== undefined && err.response.status === 403) {
+    dispatch(unauthUser())
+  }
+  dispatch(fetchingFilteredContactFailure('Error filtering contacts'))
+}
+
+function handleFilterByCompany (dispatch, params) {
+  amplitude.getInstance().logEvent(analytics.BR_OL_GROUP_CONTACTS_BY_COMPANY_CLICKED)
+  dispatch(fetchingFilteredContacts())
+  fetchContactsByCompanyWithParams(decamelizeKeys(params))
+    .then((res) => {
+      filterContactsSuccessHandler(dispatch, res.data)
+    })
+    .catch((err) => {
+      console.warn('Error filtering', err)
+      filterContactsErrorHandler(dispatch, err)
+    })
+}
+
+function handleFilterByContacts (dispatch, params) {
+  dispatch(fetchingFilteredContacts())
+  const eventProperties = { 'filterParams' : params }
+  amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_CLICKED, eventProperties)
+  fetchContactWithParams(decamelizeKeys(params))
+    .then((res) => {
+      filterContactsSuccessHandler(dispatch, res.data)
+      amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_SUCCESS, eventProperties)
+    })
+    .catch((err) => {
+      console.warn('Error filtering', err)
+      filterContactsErrorHandler(dispatch, err)
+      amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_FAILURE, eventProperties)
+    })
+}
+
+export function handleFilterContacts () {
   return function (dispatch, getState) {
     const params = getSearchContactsParams(getState)
-    if (isChecked) {
-      dispatch(changeGroupByCompany(isChecked))
-      dispatch(fetchingFilteredContacts())
-      fetchContactsByCompanyWithParams(decamelizeKeys(params))
-        .then((res) => {
-          const camelizeResponse = camelizeKeys(res.data)
-          const { count, next, previous, results } = camelizeResponse
-          const filteredContacts = results
-          dispatch(fetchingFilteredContactSuccess(count, next, previous, results))
-
-        })
-        .catch((err) => {
-          console.warn('Error filtering', err)
-          if (err.response !== undefined && err.response.status === 403) {
-            dispatch(unauthUser())
-          }
-          dispatch(fetchingFilteredContactFailure('Error filtering contacts'))
-        })
+    const isGroupByCompanyChecked = getState().filterContacts.isGroupByCompanyChecked
+    if (isGroupByCompanyChecked) {
+      handleFilterByCompany(dispatch, params)
     } else {
-      dispatch(fetchingFilteredContacts())
-      fetchContactWithParams(decamelizeKeys(params))
-        .then((res) => {
-          dispatch(changeGroupByCompany(isChecked))
-          filterContactsSuccessHandler(dispatch, res.data)
-        })
-        .catch((err) => {
-          console.warn('Error filtering', err)
-          dispatch(changeGroupByCompany(isChecked))
-          filterContactsErrorHandler(dispatch, err)
-        })
+      handleFilterByContacts(dispatch, params)
     }
-    amplitude.getInstance().logEvent(analytics.BR_OL_GROUP_CONTACTS_BY_COMPANY)
   }
 }
 
