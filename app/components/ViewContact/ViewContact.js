@@ -9,9 +9,9 @@ import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBa
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { Link } from 'office-ui-fabric-react/lib/Link'
 import { section, borderedSection, preferenceType, inline, subline, link, tasks,
-          buttonSection, view, icon, info, add } from './styles.css'
+         view, icon, info, add, mainView } from './styles.css'
 import { formatInvestmentSizePreference } from 'helpers/utils'
-import { blockBtn, centerPage, messageBar, spacedRow } from 'sharedStyles/styles.css'
+import { blockBtn, buttonSection, centerPage, messageBar, spacedRow } from 'sharedStyles/styles.css'
 import { ISOStringToDate } from 'helpers/dates'
 
 function NotesPanel (props) {
@@ -63,7 +63,7 @@ export default function ViewContact (props) {
       <div className={centerPage}><Spinner type={ SpinnerType.large } label='Loading...' /></div>
       :
       <div>
-        <div className="ms-Grid">
+        <div className={`ms-Grid ${mainView}`}>
           { props.error !== ''
             ? <div className={messageBar}><MessageBar
               messageBarType={ MessageBarType.error }>
@@ -74,7 +74,7 @@ export default function ViewContact (props) {
             ? null
             : <MessageBar
                 messageBarType={ MessageBarType.warning }>
-                <div>{'Contact not found in Outlook. '}<div className={add} onClick={props.onAddContactToOutlook}>{'Add to Outlook'}</div></div>
+                <div>{'Contact not found in Outlook'}<div className={add} onClick={props.onAddContactToOutlook}>{'Add to my Outlook account'}</div></div>
               </MessageBar>
           }
           <NotesPanel
@@ -184,7 +184,7 @@ export default function ViewContact (props) {
                     </div>
                   </div>
                 : <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
-                    <div>{'None'}</div>
+                    <div className={inline}>{'None'}</div>
                   </div>
               }
             </div>
@@ -210,7 +210,7 @@ export default function ViewContact (props) {
                   </div>
                 ))}</div>
               : <div className={`ms-Grid-row ${spacedRow}`}>
-                  <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">{'None'}</div>
+                  <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12"><div className={inline}>{'None'}</div></div>
                 </div>
             }
           </div>

@@ -1,3 +1,7 @@
 .cancel:hover {
   cursor: pointer;
 }
+
+.mainView {
+  padding-bottom: 55px;
+}
