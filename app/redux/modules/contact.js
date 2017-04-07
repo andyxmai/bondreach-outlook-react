@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { camelizeKeys, decamelizeKeys } from 'humps'
 import { fetchRegionAndInvestmentTypes, fetchContactWithId, fetchContactWithParams, updateContact, saveCorrespondence } from 'helpers/api'
 import { formatFromSelectionOptions, formatToMultiSelectOptions } from 'helpers/utils'
 import { maxInvestmentSizePreference, maxIrrReturn, investmentSizeTypeEquity } from 'config/constants'
@@ -106,7 +105,7 @@ export function fetchAndHandleContactWithId (contactId) {
   return function (dispatch) {
     fetchContactWithId(contactId)
       .then((res) => {
-        const contact = camelizeKeys(res.data)
+        const contact = res.data
         dispatch(fetchingContactSuccess(contact))
       })
       .catch((err) => {
@@ -247,7 +246,7 @@ export function handleUpdateContactSubmit () {
     const regionPreferences = formatFromSelectionOptions(getState().contact.regionPreferencesSelected)
     dispatch(updatingContact())
     dispatch(convertEditContactOptions(investmentTypePreferences, regionPreferences))
-    const contact = decamelizeKeys(getState().contact)
+    const contact = getState().contact
     updateContact(contact)
       .then((res) => {
         dispatch(updateContactSuccess())
@@ -301,7 +300,7 @@ function savingNotesFailure (notesSavedErrorMsg) {
 export function saveNotes () {
   return function (dispatch, getState) {
     dispatch(savingNotes())
-    const contact = decamelizeKeys(getState().contact)
+    const contact = getState().contact
     updateContact(contact)
       .then((res) => {
         dispatch(savingNotesSuccess('Notes saved'))
@@ -341,9 +340,9 @@ export function handleTagEmailMessage (messageId, date) {
       contact: getState().contact.id,
       date,
     }
-    saveCorrespondence(decamelizeKeys(params))
+    saveCorrespondence(params)
       .then((res) => {
-        const newCorrespondence = camelizeKeys(res.data)
+        const newCorrespondence = res.data
         dispatch(addCorrespondenceSuccess(newCorrespondence))
       })
       .catch((err) => {

@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { camelizeKeys, decamelizeKeys } from 'humps'
 import { formatFromSelectionOptions, formatToMultiSelectOptions, parseDisplayName } from 'helpers/utils'
 import { saveContact, fetchRegionAndInvestmentTypes } from 'helpers/api'
 import { maxInvestmentSizePreference, maxIrrReturn, investmentSizeTypeEquity } from 'config/constants'
@@ -218,11 +217,11 @@ export function handleAddContactSubmit () {
     const regionPreferences = formatFromSelectionOptions(getState().addContact.regionPreferencesSelected)
     dispatch(addingContact())
     dispatch(convertAddContactOptions(investmentTypePreferences, regionPreferences))
-    const contact = decamelizeKeys(getState().addContact)
+    const contact = getState().addContact
     amplitude.getInstance().logEvent(analytics.BR_OL_ADD_CONTACT_CLICKED)
     saveContact(contact)
       .then((res) => {
-        const newContact = camelizeKeys(res.data)
+        const newContact = res.data
         dispatch(addContactSuccess(newContact))
         dispatch(addFollowUpSuccessMsg('Contact added!'))
         amplitude.getInstance().logEvent(analytics.BR_OL_ADD_CONTACT_SUCCESS)
