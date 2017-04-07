@@ -10,10 +10,8 @@ var apiClient = axios.create({
 apiClient.interceptors.request.use((config) => {
   config.data = decamelizeKeys(config.data)
   config.params = decamelizeKeys(config.params)
-  console.log(config);
   return config
 }, (err) => {
-  console.log(err);
   return Promise.reject(err)
 })
 
