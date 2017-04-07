@@ -2,7 +2,7 @@ import axios from 'axios'
 import { camelizeKeys, decamelizeKeys } from 'humps'
 import { formatFromSelectionOptions, formatToMultiSelectOptions, parseDisplayName } from 'helpers/utils'
 import { saveContact, fetchRegionAndInvestmentTypes } from 'helpers/api'
-import { maxInvestmentSizePreference, maxIrrReturn } from 'config/constants'
+import { maxInvestmentSizePreference, maxIrrReturn, investmentSizeTypeEquity } from 'config/constants'
 import { unauthUser } from 'redux/modules/user'
 import * as analytics from 'helpers/analytics'
 import { addFollowUpSuccessMsg } from 'redux/modules/followUp'
@@ -17,6 +17,7 @@ const CHANGE_COMPANY = 'CHANGE_COMPANY'
 const CHANGE_TYPE_PREFERENCE = 'CHANGE_TYPE_PREFERENCE'
 const CHANGE_MIN_SIZE_PREFERENCE = 'CHANGE_MIN_SIZE_PREFERENCE'
 const CHANGE_MAX_SIZE_PREFERENCE = 'CHANGE_MAX_SIZE_PREFERENCE'
+const CHANGE_SIZE_TYPE_PREFERENCE = 'CHANGE_SIZE_TYPE_PREFERENCE'
 const CHANGE_MIN_IRR_PREFERENCE = 'CHANGE_MIN_IRR_PREFERENCE'
 const CHANGE_MAX_IRR_PREFERENCE = 'CHANGE_MAX_IRR_PREFERENCE'
 const CHANGE_REGION_PREFERENCE = 'CHANGE_REGION_PREFERENCE'
@@ -137,6 +138,13 @@ export function handleMinSizePreferenceChanged (value) {
 export function handleMaxSizePreferenceChanged (value) {
   return {
     type: CHANGE_MAX_SIZE_PREFERENCE,
+    value,
+  }
+}
+
+export function handleInvestmentPreferenceSizeTypeChanged (value) {
+  return {
+    type: CHANGE_SIZE_TYPE_PREFERENCE,
     value,
   }
 }
@@ -294,6 +302,7 @@ const initialState = {
   company: '',
   minimumInvestmentSize: 0,
   maximumInvestmentSize: maxInvestmentSizePreference,
+  investmentType: investmentSizeTypeEquity,
   minimumIrrReturn: 0,
   maximumIrrReturn: maxIrrReturn,
   investmentTypePreferences: [],
@@ -358,6 +367,11 @@ export default function addContact (state = initialState, action) {
       return {
         ...state,
         maximumInvestmentSize: action.value,
+      }
+    case CHANGE_SIZE_TYPE_PREFERENCE:
+      return {
+        ...state,
+        investmentType: action.value,
       }
     case CHANGE_MIN_IRR_PREFERENCE:
       return {

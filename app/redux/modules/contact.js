@@ -2,7 +2,7 @@ import axios from 'axios'
 import { camelizeKeys, decamelizeKeys } from 'humps'
 import { fetchRegionAndInvestmentTypes, fetchContactWithId, fetchContactWithParams, updateContact, saveCorrespondence } from 'helpers/api'
 import { formatFromSelectionOptions, formatToMultiSelectOptions } from 'helpers/utils'
-import { maxInvestmentSizePreference, maxIrrReturn } from 'config/constants'
+import { maxInvestmentSizePreference, maxIrrReturn, investmentSizeTypeEquity } from 'config/constants'
 import { unauthUser } from 'redux/modules/user'
 import * as analytics from 'helpers/analytics'
 
@@ -23,6 +23,7 @@ const EDIT_CONTACT_CHANGE_COMPANY = 'EDIT_CONTACT_CHANGE_COMPANY'
 const EDIT_CONTACT_CHANGE_TYPE_PREFERENCE = 'EDIT_CONTACT_CHANGE_TYPE_PREFERENCE'
 const EDIT_CONTACT_CHANGE_MIN_SIZE_PREFERENCE = 'EDIT_CONTACT_CHANGE_MIN_SIZE_PREFERENCE'
 const EDIT_CONTACT_CHANGE_MAX_SIZE_PREFERENCE = 'EDIT_CONTACT_CHANGE_MAX_SIZE_PREFERENCE'
+const EDIT_CONTACT_CHANGE_SIZE_TYPE_PREFERENCE = 'EDIT_CONTACT_CHANGE_SIZE_TYPE_PREFERENCE'
 const EDIT_CONTACT_CHANGE_MIN_IRR_PREFERENCE = 'EDIT_CONTACT_CHANGE_MIN_IRR_PREFERENCE'
 const EDIT_CONTACT_CHANGE_MAX_IRR_PREFERENCE = 'EDIT_CONTACT_CHANGE_MAX_IRR_PREFERENCE'
 const EDIT_CONTACT_CHANGE_REGION_PREFERENCE = 'EDIT_CONTACT_CHANGE_REGION_PREFERENCE'
@@ -167,6 +168,13 @@ export function handleMinSizePreferenceChanged (value) {
 export function handleMaxSizePreferenceChanged (value) {
   return {
     type: EDIT_CONTACT_CHANGE_MAX_SIZE_PREFERENCE,
+    value,
+  }
+}
+
+export function handleSizeTypePreferenceChanged (value) {
+  return {
+    type: EDIT_CONTACT_CHANGE_SIZE_TYPE_PREFERENCE,
     value,
   }
 }
@@ -366,6 +374,7 @@ const initialState = {
   investmentTypePreferenceOptions: [],
   minimumInvestmentSize: 0,
   maximumInvestmentSize: maxInvestmentSizePreference,
+  investmentType: investmentSizeTypeEquity,
   minimumIrrReturn: 0,
   maximumIrrReturn: maxIrrReturn,
   regionPreferences: [],
@@ -442,6 +451,11 @@ export default function contact (state = initialState, action) {
       return {
         ...state,
         maximumInvestmentSize: action.value,
+      }
+    case EDIT_CONTACT_CHANGE_SIZE_TYPE_PREFERENCE:
+      return {
+        ...state,
+        investmentType: action.value,
       }
     case EDIT_CONTACT_CHANGE_MIN_IRR_PREFERENCE:
       return {

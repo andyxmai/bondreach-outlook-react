@@ -42,6 +42,8 @@ export default function EditContact (props) {
           onInvestmentPreferenceMinSizeChanged={props.onInvestmentPreferenceMinSizeChanged}
           maximumInvestmentSize={props.maximumInvestmentSize}
           onInvestmentPreferenceMaxSizeChanged={props.onInvestmentPreferenceMaxSizeChanged}
+          investmentType={props.investmentType}
+          onInvestmentPreferenceSizeTypeChanged={props.onInvestmentPreferenceSizeTypeChanged}
           minimumIrrReturn={props.minimumIrrReturn}
           onMinimumIrrReturnChanged={props.onMinimumIrrReturnChanged}
           maximumIrrReturn={props.maximumIrrReturn}

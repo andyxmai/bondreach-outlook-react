@@ -5,11 +5,11 @@ import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown'
 import { Label } from 'office-ui-fabric-react/lib/Label'
 import { notesField, dropdown } from './styles.css'
 import Select from 'react-select'
-import { maxInvestmentSizePreference } from 'config/constants'
+import { maxInvestmentSizePreference, investmentSizeTypeEquity, investmentSizeTypeDebt } from 'config/constants'
 import { blockBtn, centerPage, spacedRow } from 'sharedStyles/styles.css'
 
 const minInvestmentSizeOptions = [
-  { label: 'No minimum', value: 0 },
+  { label: 'no min', value: 0 },
   { label: '$1mm', value: 1000000 },
   { label: '$10mm', value: 10000000 },
   { label: '$20mm', value: 20000000 },
@@ -33,7 +33,12 @@ const maxInvestmentSizeOptions = [
   { label: '$70mm', value: 70000000 },
   { label: '$80mm', value: 80000000 },
   { label: '$90mm', value: 90000000 },
-  { label: 'No maximum', value: maxInvestmentSizePreference },
+  { label: 'no max', value: maxInvestmentSizePreference },
+]
+
+const investmentSizeTypeOptions = [
+  { label: 'equity', value: investmentSizeTypeEquity},
+  { label: 'debt', value: investmentSizeTypeDebt},
 ]
 
 export default function MainContactInfo (props) {
@@ -70,7 +75,7 @@ export default function MainContactInfo (props) {
       </div>
       <div className="ms-Grid-row">
         <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-          <Label>{'Type'}</Label>
+          <Label>{'Product type'}</Label>
           <Select
             multi={true}
             simpleValues
@@ -85,11 +90,11 @@ export default function MainContactInfo (props) {
       </div>
       <div className="ms-Grid-row">
         <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-          <Label>{'Investment size'}</Label>
+          <Label>{'Investment size and type'}</Label>
         </div>
       </div>
       <div className="ms-Grid-row">
-        <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+        <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
           <Select
             name="min-investment-size"
             clearable={false}
@@ -99,13 +104,23 @@ export default function MainContactInfo (props) {
             className={`ms-Dropdown ${dropdown}`}
           />
         </div>
-        <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+        <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
           <Select
             name="max-investment-size"
             clearable={false}
             options={maxInvestmentSizeOptions}
             value={props.maximumInvestmentSize}
             onChange={props.onInvestmentPreferenceMaxSizeChanged}
+            className={`ms-Dropdown ${dropdown}`}
+          />
+        </div>
+        <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+          <Select
+            name="investment-size-type"
+            clearable={false}
+            options={investmentSizeTypeOptions}
+            value={props.investmentType}
+            onChange={props.onInvestmentPreferenceSizeTypeChanged}
             className={`ms-Dropdown ${dropdown}`}
           />
         </div>

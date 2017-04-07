@@ -57,6 +57,10 @@ const AddContactContainer = React.createClass({
     this.props.handleMaxSizePreferenceChanged(item.value)
   },
 
+  handleInvestmentPreferenceSizeTypeChanged (item) {
+    this.props.handleInvestmentPreferenceSizeTypeChanged(item.value)
+  },
+
   handleMinimumIrrReturnChanged (e) {
     this.props.handleMinimumIrrReturnChanged(e.target.rawValue)
   },
@@ -114,6 +118,7 @@ const AddContactContainer = React.createClass({
         investmentTypePreferencesSelected={this.props.investmentTypePreferencesSelected}
         minimumInvestmentSize={this.props.minimumInvestmentSize}
         maximumInvestmentSize={this.props.maximumInvestmentSize}
+        investmentType={this.props.investmentType}
         minimumIrrReturn={this.props.minimumIrrReturn}
         maximumIrrReturn={this.props.maximumIrrReturn}
         regionPreferencesSelected={this.props.regionPreferencesSelected}
@@ -124,6 +129,7 @@ const AddContactContainer = React.createClass({
         onCompanyChanged={this.handleCompanyChanged}
         onInvestmentPreferenceMinSizeChanged={this.handleInvestmentPreferenceMinSizeChanged}
         onInvestmentPreferenceMaxSizeChanged={this.handleInvestmentPreferenceMaxSizeChanged}
+        onInvestmentPreferenceSizeTypeChanged={this.handleInvestmentPreferenceSizeTypeChanged}
         onMinimumIrrReturnChanged={this.handleMinimumIrrReturnChanged}
         onMaximumIrrReturnChanged={this.handleMaximumIrrReturnChanged}
         onTypePreferenceChanged={this.handleTypePreferenceChanged}
@@ -157,6 +163,7 @@ function mapStateToProps ({addContact}) {
     investmentTypePreferencesSelected: addContact.investmentTypePreferencesSelected,
     minimumInvestmentSize: addContact.minimumInvestmentSize,
     maximumInvestmentSize: addContact.maximumInvestmentSize,
+    investmentType: addContact.investmentType,
     minimumIrrReturn: addContact.minimumIrrReturn,
     maximumIrrReturn: addContact.maximumIrrReturn,
     regionPreferences: addContact.regionPreferences,

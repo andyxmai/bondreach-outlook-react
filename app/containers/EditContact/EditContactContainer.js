@@ -48,6 +48,10 @@ const EditContactContainer = React.createClass({
     this.props.handleMaxSizePreferenceChanged(item.value)
   },
 
+  handleInvestmentPreferenceSizeTypeChanged (item) {
+    this.props.handleSizeTypePreferenceChanged(item.value)
+  },
+
   handleMinimumIrrReturnChanged (e) {
     this.props.handleMinimumIrrReturnChanged(e.target.rawValue)
   },
@@ -94,6 +98,8 @@ const EditContactContainer = React.createClass({
         onInvestmentPreferenceMinSizeChanged={this.handleInvestmentPreferenceMinSizeChanged}
         maximumInvestmentSize={this.props.maximumInvestmentSize}
         onInvestmentPreferenceMaxSizeChanged={this.handleInvestmentPreferenceMaxSizeChanged}
+        investmentType={this.props.investmentType}
+        onInvestmentPreferenceSizeTypeChanged={this.handleInvestmentPreferenceSizeTypeChanged}
         minimumIrrReturn={this.props.minimumIrrReturn}
         onMinimumIrrReturnChanged={this.handleMinimumIrrReturnChanged}
         maximumIrrReturn={this.props.maximumIrrReturn}
@@ -120,6 +126,7 @@ function mapStateToProps ({contact}) {
     phone: contact.phone,
     minimumInvestmentSize: contact.minimumInvestmentSize,
     maximumInvestmentSize: contact.maximumInvestmentSize,
+    investmentType: contact.investmentType,
     minimumIrrReturn: contact.minimumIrrReturn,
     maximumIrrReturn: contact.maximumIrrReturn,
     investmentTypePreferences: contact.investmentTypePreferences,

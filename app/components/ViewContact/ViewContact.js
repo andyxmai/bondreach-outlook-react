@@ -13,6 +13,7 @@ import { section, borderedSection, preferenceType, inline, subline, link, tasks,
 import { formatInvestmentSizePreference } from 'helpers/utils'
 import { blockBtn, buttonSection, centerPage, messageBar, spacedRow } from 'sharedStyles/styles.css'
 import { ISOStringToDate } from 'helpers/dates'
+import { investmentSizeTypeEquity, investmentSizeTypeDebt } from 'config/constants'
 
 function NotesPanel (props) {
   return (
@@ -132,7 +133,12 @@ export default function ViewContact (props) {
             </div>
             <div className={`ms-Grid-row ${spacedRow}`}>
               <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                <span className={preferenceType}>{'SIZE'}</span>
+                { props.investmentType === ''
+                  ? <span className={preferenceType}>{'SIZE'}</span>
+                  : props.investmentType === investmentSizeTypeEquity
+                    ? <span className={preferenceType}>{'EQUITY SIZE'}</span>
+                    : <span className={preferenceType}>{'DEBT SIZE'}</span>
+                }
                 <span className={inline}>
                   {formatInvestmentSizePreference(props.minimumInvestmentSize, false)} - {formatInvestmentSizePreference(props.maximumInvestmentSize, true)}
                 </span>
