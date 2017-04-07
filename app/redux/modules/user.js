@@ -1,5 +1,4 @@
 import auth, { loginWithToken } from 'helpers/auth'
-import { camelizeKeys } from 'humps'
 import cookie from 'react-cookie'
 import apiClient from 'common/ApiClient'
 import * as analytics from 'helpers/analytics'
@@ -166,7 +165,7 @@ export function fetchAndHandleProfile () {
     dispatch(fetchingProfile())
     fetchProfile()
       .then((res) => {
-        const profile = camelizeKeys(res.data)
+        const profile = res.data
         const { company } = profile
         const { firstName, lastName, email } = profile.user
         dispatch(fetchingProfileSuccess(firstName, lastName, email, company))

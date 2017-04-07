@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { camelizeKeys, decamelizeKeys, pascalizeKeys } from 'humps'
+import { pascalizeKeys } from 'humps'
 import { fetchContactWithParams, fetchRegionAndInvestmentTypes, fetchContactsWithUrl,
         downloadContactsWithParams, fetchContactsByCompanyWithParams,
         downloadCompanyContactsWithParams, } from 'helpers/api'
@@ -133,7 +133,7 @@ export function exchangeShowInputs () {
 
 
 function handleFilterContactsSuccessResponse (dispatch, res) {
-  const camelizeResponse = camelizeKeys(res.data)
+  const camelizeResponse = res.data
   const { count, next, previous, results } = camelizeResponse
   const filteredContacts = results
   dispatch(fetchingFilteredContactSuccess(count, next, previous, results))
@@ -177,9 +177,9 @@ export function downloadContacts () {
     const params = getSearchContactsParams(getState)
     dispatch(downloadingFilteredContacts())
     amplitude.getInstance().logEvent(analytics.BR_OL_DOWLOAD_CONTACTS_CLICKED)
-    downloadContactsWithParams(decamelizeKeys(params))
+    downloadContactsWithParams(params)
       .then((res) => {
-        const allFilteredContacts = camelizeKeys(res.data)
+        const allFilteredContacts = res.data
         const exportCleanContacts = cleanFilteredContactsExportData(allFilteredContacts)
         downloadJsonToCsv(exportCleanContacts)
         dispatch(removeDownloadingFilteredContacts())
@@ -198,7 +198,7 @@ export function downloadCompanyContacts () {
     const params = getSearchContactsParams(getState)
     dispatch(downloadingFilteredContacts())
     amplitude.getInstance().logEvent(analytics.BR_OL_DOWLOAD_CONTACTS_BY_COMPANY_CLICKED)
-    downloadCompanyContactsWithParams(decamelizeKeys(params))
+    downloadCompanyContactsWithParams(params)
       .then((res) => {
         const allFilteredContacts = pascalizeKeys(res.data)
         downloadJsonToCsv(allFilteredContacts)
@@ -231,7 +231,7 @@ export function changeGroupByCompany (isChecked) {
 }
 
 function filterContactsSuccessHandler (dispatch, data) {
-  const camelizeResponse = camelizeKeys(data)
+  const camelizeResponse = data
   const { count, next, previous, results } = camelizeResponse
   const filteredContacts = results
   dispatch(fetchingFilteredContactSuccess(count, next, previous, results))
@@ -247,7 +247,7 @@ function filterContactsErrorHandler (dispatch, err) {
 function handleFilterByCompany (dispatch, params) {
   amplitude.getInstance().logEvent(analytics.BR_OL_GROUP_CONTACTS_BY_COMPANY_CLICKED)
   dispatch(fetchingFilteredContacts())
-  fetchContactsByCompanyWithParams(decamelizeKeys(params))
+  fetchContactsByCompanyWithParams(params)
     .then((res) => {
       filterContactsSuccessHandler(dispatch, res.data)
     })
@@ -261,7 +261,7 @@ function handleFilterByContacts (dispatch, params) {
   dispatch(fetchingFilteredContacts())
   const eventProperties = { 'filterParams' : params }
   amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_CLICKED, eventProperties)
-  fetchContactWithParams(decamelizeKeys(params))
+  fetchContactWithParams(params)
     .then((res) => {
       filterContactsSuccessHandler(dispatch, res.data)
       amplitude.getInstance().logEvent(analytics.BR_OL_FILTER_CONTACTS_SUCCESS, eventProperties)
@@ -316,7 +316,7 @@ export function fetchCompanyContactDetail (company) {
     dispatch(showFilterContactsDialog())
     fetchContactWithParams({company})
       .then((res) => {
-        const companyContactDetail = camelizeKeys(res.data.results)
+        const companyContactDetail = res.data.results
         dispatch(fetchCompanyContactDetailSuccess(companyContactDetail))
       })
       .catch((err) => {

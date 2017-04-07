@@ -1,4 +1,3 @@
-import { camelizeKeys, decamelizeKeys } from 'humps'
 import { fetchContactWithId, saveFollowUp } from 'helpers/api'
 import { formatJSDateToPyDate } from 'helpers/dates'
 import { unauthUser } from 'redux/modules/user'
@@ -44,7 +43,7 @@ export function addAndHandleFollowUp () {
   return function (dispatch, getState) {
     const { beginDate, frequency } = getState().followUp
     const eventProperties = { beginDate, frequency }
-    const params = decamelizeKeys(getState().followUp)
+    const params = getState().followUp
     dispatch(addingFollowUp())
     amplitude.getInstance().logEvent(analytics.BR_OL_ADD_REMINDER_CLICKED, eventProperties)
     saveFollowUp(params)
@@ -83,7 +82,7 @@ export function fetchAndHandleContact (id) {
     fetchContactWithId(id)
       .then((res) => {
         dispatch(addFollowUpContactId(id))
-        dispatch(addFollowUpContact(camelizeKeys(res.data)))
+        dispatch(addFollowUpContact(res.data))
       })
       .catch((err) => {
         dispatch(addFollowUpError('Failed to get contact info. Please try again!'))
