@@ -69,7 +69,7 @@ function CompanyDetailDialog ({isDialogOpened, filteredCompanyContactDetail, onS
               ))}
             </div>
           </div>
-        : <div><Spinner type={ SpinnerType.large } className={centerPage} /></div>
+        : <div><Spinner type={ SpinnerType.large } /></div>
         }
       </div>
       <DialogFooter>
@@ -83,7 +83,7 @@ export default function FilterResults (props) {
   return (
     <div>
       {props.isFiltering
-        ? <div><Spinner type={ SpinnerType.large } className={centerPage} label='Loading...' /></div>
+        ? <div><Spinner type={ SpinnerType.large } label='Loading...' /></div>
         : <div className="ms-Grid">
             {props.filteredContacts.length
               ?
