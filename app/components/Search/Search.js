@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react'
 import { ContactResult } from 'components'
 import { TextField } from 'office-ui-fabric-react/lib/TextField'
 import { IconButton, ButtonType  } from 'office-ui-fabric-react/lib/Button'
+import { List } from 'office-ui-fabric-react/lib/List'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
-import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox'
-import { searchBtnColor, contactContainer } from './styles.css'
+import { searchBtnColor, contactContainer, searchField } from './styles.css'
 import { spacedRow } from 'sharedStyles/styles.css'
 
 export default function Search (props) {
@@ -16,12 +16,14 @@ export default function Search (props) {
           {props.error}</MessageBar>
         : null
       }
+      <div className={spacedRow} />
       <div className="ms-Grid-row">
         <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
           <TextField placeholder="Search your contacts..."
             value={props.query}
             onChanged={props.onSearchQueryChanged}
             onKeyUp={props.onSearchClicked}
+            className={searchField}
           />
         </div>
         <div className={`ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2 ${searchBtnColor}`}>
@@ -31,10 +33,12 @@ export default function Search (props) {
             title='Search'
             ariaLabel='Search'
             onClick={props.onSearchClicked}
+            className={searchField}
             />
         </div>
       </div>
 
+      <div className={spacedRow} />
       <div className={spacedRow} />
 
       { props.hasQueried
@@ -45,11 +49,14 @@ export default function Search (props) {
               </div>
             </div>
             <div className={contactContainer}>
-              {props.results.map((contact) => (
-                <ContactResult
-                  key={contact.id}
-                  contact={contact}/>
-              ))}
+              <List
+                items={props.results}
+                onRenderCell={ (contact, index) => (
+                  <ContactResult
+                    key={contact.id}
+                    contact={contact}/>
+                )}
+              />
             </div>
           </div>
         : null
