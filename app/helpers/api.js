@@ -49,6 +49,18 @@ export function fetchContactsWithUrl (url) {
   return apiClient.get(url)
 }
 
+export function fetchCustomersWithParams (params) {
+  console.debug('fetching customer')
+  return apiClient.get('/v1/customers/', {
+    params: params,
+  })
+}
+
+export function fetchProfile () {
+  console.debug('fetching profile')
+  return apiClient.get('/v1/customers/me/')
+}
+
 export function fetchRegions () {
   console.debug('fetching regions')
   return apiClient.get('/v1/regions/')
@@ -71,9 +83,4 @@ export function saveFollowUp (params) {
 export function saveCorrespondence (params) {
   console.debug('saving correspondence')
   return apiClient.post('/v1/correspondences/', params)
-}
-
-export function fetchProfile () {
-  console.debug('fetching profile')
-  return apiClient.get('/v1/customers/me/')
 }
