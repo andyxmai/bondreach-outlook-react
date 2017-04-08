@@ -19,6 +19,14 @@ export function parseDisplayName (displayName) {
   return { firstName, lastName }
 }
 
+export function parseEmail (email) {
+  const tokens = email.split('@')
+  const handle = tokens[0]
+  const domain = tokens[1]
+
+  return { handle, domain }
+}
+
 export function formatToSelectOptions (options) {
   var formatedOptions = []
   for (let option of options) {

@@ -56,6 +56,11 @@ export function fetchCustomersWithParams (params) {
   })
 }
 
+export function saveTeamInvites (invites) {
+  console.debug('saving team invites')
+  return apiClient.post('/v1/team-invites/', invites)
+}
+
 export function fetchProfile () {
   console.debug('fetching profile')
   return apiClient.get('/v1/customers/me/')

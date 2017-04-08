@@ -54,6 +54,7 @@ const MainContainer = React.createClass({
   },
 
   goToProfile () {
+    amplitude.getInstance().logEvent(analytics.BR_OL_PROFILE_COMMAND_BAR_CLICKED)
     this.context.router.push('/profile')
   },
 

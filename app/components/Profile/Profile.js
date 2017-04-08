@@ -1,34 +1,58 @@
 import React, { PropTypes } from 'react'
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog'
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button'
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
+import { Button, PrimaryButton } from 'office-ui-fabric-react/lib/Button'
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner'
 import Select from 'react-select'
-import { header, section, subline } from './styles.css'
+import { header, link, section, subline, dialogText } from './styles.css'
 import { blockBtn, dropdown } from 'sharedStyles/styles.css'
 
-function AddMembersDialog ({isInvitesDialogOpened, team, invites, inviteCandidatesOptions, onCloseInvitesDialog, onInvitesChanged}) {
+function AddMembersDialog ({ isFetchingInviteCandidates, isInvitesDialogOpened,
+  team, invites, inviteCandidatesOptions, inviteError, inviteSuccessMsg,
+  onCloseInvitesDialog, onInvitesChanged,
+  onSubmitNewMembersClicked }
+) {
   return (
     <Dialog
       isOpen={ isInvitesDialogOpened }
       type={ DialogType.close }
       onDismiss={ onCloseInvitesDialog }
-      title={`Add members to ${team}`}
+      title={`Add members`}
       isBlocking={ false }
       closeButtonAriaLabel='Close'
     >
-      <Select
-        multi={true}
-        simpleValues
-        clearable={false}
-        name="add-members"
-        value={invites}
-        options={inviteCandidatesOptions}
-        onChange={onInvitesChanged}
-        className={`ms-Dropdown ${dropdown}`}
-      />
-      <DialogFooter>
-        <PrimaryButton onClick={ onCloseDialog }>Invite</PrimaryButton>
-      </DialogFooter>
+      { isFetchingInviteCandidates
+        ? <Spinner type={ SpinnerSize.large } />
+        : <div>
+            { inviteError !== ''
+              ? <MessageBar
+                messageBarType={ MessageBarType.error }>
+                {inviteError}</MessageBar>
+              : null
+            }
+            { inviteSuccessMsg !== ''
+              ? <MessageBar
+                messageBarType={ MessageBarType.success }>
+                {inviteSuccessMsg}</MessageBar>
+              : null
+            }
+            <div className={dialogText}>{'Search by name or email'}</div>
+            <Select
+              multi={true}
+              simpleValues
+              clearable={false}
+              name="add-members"
+              value={invites}
+              options={inviteCandidatesOptions}
+              onChange={onInvitesChanged}
+              className={`ms-Dropdown ${dropdown}`}
+            />
+            <DialogFooter>
+              <Button onClick={ onCloseInvitesDialog }>{'Close'}</Button>
+              <PrimaryButton onClick={ onSubmitNewMembersClicked }>{'Add'}</PrimaryButton>
+            </DialogFooter>
+          </div>
+      }
     </Dialog>
   )
 }
@@ -64,13 +88,17 @@ export default function Profile (props) {
             { props.team.name
               ? <div>
                   <div>{props.team.name}</div>
-                  <div>{'add team members'}</div>
+                  <div className={link} onClick={props.onAddMembersClicked}>{'add members'}</div>
                   <AddMembersDialog
                     isInvitesDialogOpened={props.isInvitesDialogOpened}
                     team={props.team.name}
                     invites={props.invites}
-                    onCloseDialog={props.onCloseDialog}
+                    inviteCandidatesOptions={props.inviteCandidatesOptions}
+                    inviteError={props.inviteError}
+                    inviteSuccessMsg={props.inviteSuccessMsg}
+                    onCloseInvitesDialog={props.onCloseInvitesDialog}
                     onInvitesChanged={props.onInvitesChanged}
+                    onSubmitNewMembersClicked={props.onSubmitNewMembersClicked}
                   />
                 </div>
               : <div className={subline}>{'You are not part of an team. Join one to share your contacts with team members.'}</div>

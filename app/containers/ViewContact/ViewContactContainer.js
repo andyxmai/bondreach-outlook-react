@@ -58,6 +58,7 @@ const ViewContactContainer = React.createClass({
     const messageId = Office.context.mailbox.item.itemId
     const dateTimeCreated = Office.context.mailbox.item.dateTimeCreated
     this.props.handleTagEmailMessage(messageId, dateTimeCreated.toISOString())
+    amplitude.getInstance().logEvent(analytics.BR_OL_VIEW_CONTACT_EMAIL_TAGGED)
   },
 
   handleViewItem (e) {

@@ -1,5 +1,18 @@
+.dialogText {
+  padding: 10px 0px;
+}
+
 .header {
   padding-bottom: 5px;
+}
+
+.link {
+  font-size: 13px;
+  color: #0078d7;
+}
+
+.link:hover {
+  cursor: pointer;
 }
 
 .section {
