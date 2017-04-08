@@ -27,14 +27,14 @@ export default function Profile (props) {
       <div className={section}>
         <div className="ms-Grid-row">
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-            <div className={`ms-fontWeight-semibold ms-fontSize-l ${header}`}>{ 'Organization' }</div>
+            <div className={`ms-fontWeight-semibold ms-fontSize-l ${header}`}>{ 'Team' }</div>
           </div>
         </div>
         <div className="ms-Grid-row">
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-            { props.company.name
-              ? <div>{props.company.name}</div>
-              : <div className={subline}>{'You are not part of an organization. Join one to share your contacts.'}</div>
+            { props.team.name
+              ? <div>{props.team.name}</div>
+              : <div className={subline}>{'You are not part of an team. Join one to share your contacts with team members.'}</div>
             }
           </div>
         </div>

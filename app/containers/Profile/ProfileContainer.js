@@ -21,7 +21,7 @@ const ProfileContainer = React.createClass({
         firstName={this.props.firstName}
         lastName={this.props.lastName}
         email={this.props.email}
-        company={this.props.company}
+        team={this.props.team}
         isDownloading={this.props.isDownloading}
         onExportContacts={this.handleExportContacts}
       />
@@ -37,7 +37,7 @@ function mapStateToProps ({user, filterContacts}) {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    company: user.company,
+    team: user.team,
     isDownloading: filterContacts.isDownloading,
   }
 }

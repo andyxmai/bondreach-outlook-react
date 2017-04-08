@@ -143,13 +143,13 @@ function fetchingProfile () {
   }
 }
 
-function fetchingProfileSuccess (firstName, lastName, email, company) {
+function fetchingProfileSuccess (firstName, lastName, email, team) {
   return {
     type: FETCHING_PROFILE_SUCCESS,
     firstName,
     lastName,
     email,
-    company,
+    team,
   }
 }
 
@@ -166,9 +166,9 @@ export function fetchAndHandleProfile () {
     fetchProfile()
       .then((res) => {
         const profile = res.data
-        const { company } = profile
+        const { team } = profile
         const { firstName, lastName, email } = profile.user
-        dispatch(fetchingProfileSuccess(firstName, lastName, email, company))
+        dispatch(fetchingProfileSuccess(firstName, lastName, email, team))
       })
       .catch((err) => {
         dispatch(fetchingProfileFailure('Failed to get profile'))
@@ -185,7 +185,7 @@ const initialState = {
   firstName: '',
   lastName: '',
   email: '',
-  company: {},
+  team: {},
   redirectUrl: '',
 }
 
@@ -248,7 +248,7 @@ export default function user (state = initialState, action) {
         firstName: action.firstName,
         lastName: action.lastName,
         email: action.email,
-        company: action.company ? action.company : {},
+        team: action.team ? action.team : {},
       }
     case FETCHING_PROFILE_FAILURE:
       return {
