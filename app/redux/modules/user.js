@@ -89,14 +89,14 @@ export function fetchAndLoginUser (redirectUrl) {
 }
 
 // This gets called when user clicks "Authenticate with Outlook" button
-export function fetchAndHandleAuthedUser (token, email) {
+export function fetchAndHandleAuthedUser (token, email, firstName, lastName) {
   return function (dispatch) {
     dispatch(fetchingUser())
     // remove the old token if there's any
     cookie.remove('token', { path: '/' })
     delete apiClient.defaults.headers.authorization
     amplitude.getInstance().logEvent(analytics.BR_OL_AUTHENTICATE_CLICKED)
-    auth(token, email)
+    auth(token, email, firstName, lastName)
       .then((res) => {
         const token = res.data.token
         cookie.save('token', token, { path: '/' })
