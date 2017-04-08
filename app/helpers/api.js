@@ -2,6 +2,10 @@ import axios from 'axios'
 import apiClient from 'common/ApiClient'
 import cookie from 'react-cookie'
 
+export function batchRequests (requests) {
+  return axios.all(requests)
+}
+
 export function saveContact (contact) {
   console.debug('saving contact')
   return apiClient.post('/v1/contacts/', contact)
@@ -56,9 +60,9 @@ export function fetchCustomersWithParams (params) {
   })
 }
 
-export function saveTeamInvites (invites) {
-  console.debug('saving team invites')
-  return apiClient.post('/v1/team-invites/', invites)
+export function updateCustomer (customer) {
+  console.debug('updating customer')
+  return apiClient.patch(`/v1/customers/${customer.id}/`, customer)
 }
 
 export function fetchProfile () {

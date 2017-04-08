@@ -1,4 +1,4 @@
-import { fetchCustomersWithParams, saveTeamInvites } from 'helpers/api'
+import { batchRequests, fetchCustomersWithParams, updateCustomer } from 'helpers/api'
 import { formatTeamInviteCandidatesToOptions } from 'helpers/reactSelect'
 import { parseEmail } from 'helpers/utils'
 import * as analytics from 'helpers/analytics'
@@ -112,15 +112,21 @@ export function handleSubmitNewMembers() {
       return
     }
     amplitude.getInstance().logEvent(analytics.BR_OL_PROFILE_ADD_MEMBERS_CLICKED)
-    saveTeamInvites({invites})
-      .then((res) => {
+    const currentTeam = getState().user.team
+    var updateCustomerRequests = []
+    for (var i = 0; i < invites.length; i++) {
+      const customer = {
+        id: invites[i],
+        team: currentTeam,
+      }
+      updateCustomerRequests.push(updateCustomer(customer))
+    }
+    batchRequests(updateCustomerRequests)
+      .then((responses) => {
         dispatch(addTeamMembersSuccess('Members added'))
-        amplitude.getInstance().logEvent(analytics.BR_OL_PROFILE_ADD_MEMBERS_SUCCESS)
-      })
-      .catch((err) => {
-        console.warn(err);
+      }).catch((error) => {
+        console.warn(error)
         dispatch(addTeamMembersFailure('Failed to add team members'))
-        amplitude.getInstance().logEvent(analytics.BR_OL_PROFILE_ADD_MEMBERS_FAILURE)
       })
   }
 }
