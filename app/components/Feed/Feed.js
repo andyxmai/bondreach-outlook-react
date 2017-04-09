@@ -3,7 +3,7 @@ import { List } from 'office-ui-fabric-react/lib/List'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner'
 import { ISOStringToDate, humanizedTime } from 'helpers/dates'
-import { company, date, feed, section, articleName } from './styles.css'
+import { articleName, company, date, feed, link, section } from './styles.css'
 import { centerPage } from 'sharedStyles/styles.css'
 
 function NewsFeed ({item, onArticleClicked}) {
@@ -11,7 +11,10 @@ function NewsFeed ({item, onArticleClicked}) {
     <div className={`ms-Grid-row ${feed}`}>
       <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
         <div className={company}>{ item.company }</div>
-        <div className={articleName} id={item.id} onClick={onArticleClicked}>{ item.name }</div>
+        <div className={articleName}>
+          <div>{ item.name }</div>
+          <div className={link} id={item.id} onClick={onArticleClicked}>read more</div>
+        </div>
         <div className={date}>{ humanizedTime(item.datePublished) }</div>
       </div>
     </div>

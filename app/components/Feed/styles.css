@@ -1,5 +1,6 @@
 .company {
-
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .date {
@@ -13,16 +14,20 @@
   padding: 11px 0px;
 }
 
+.link {
+  color: #00A7CF;
+  font-size: 13px;
+}
+
+.link:hover {
+  cursor: pointer;
+}
+
 .section {
   padding: 10px 0px;
 }
 
 .articleName {
-  font-size: 13px;
-  color: #00A7CF;
+  font-size: 14px;
   padding: 5px 0px;
-}
-
-.articleName:hover {
-  cursor: pointer;
 }
