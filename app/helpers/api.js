@@ -93,3 +93,8 @@ export function saveCorrespondence (params) {
   console.debug('saving correspondence')
   return apiClient.post('/v1/correspondences/', params)
 }
+
+export function fetchNewsFeed () {
+  console.debug('fetching news feed')
+  return apiClient.get(`/v1/news-feed/`)
+}

@@ -4,7 +4,7 @@ import {
   MainContainer, HomeContainer, AuthenticateContainer,
   AddContactContainer, AddReminderContainer, ComposeContainer, ViewContactContainer,
   EditContactContainer, ReadContainer, FilterContactsContainer, EnsureLoggedInContainer,
-  SearchContainer, ProfileContainer,
+  SearchContainer, ProfileContainer, FeedContainer,
 } from 'containers'
 
 export default function getRoutes (checkAuth, history) {
@@ -18,6 +18,7 @@ export default function getRoutes (checkAuth, history) {
           <Route path='add-reminder/:contactId' component={AddReminderContainer} />
           <Route path='compose' component={ComposeContainer} />
           <Route path='edit-contact' component={EditContactContainer} />
+          <Route path='feed' component={FeedContainer} />
           <Route path='filter-contacts' component={FilterContactsContainer} />
           <Route path='profile' component={ProfileContainer} />
           <Route path='read' component={ReadContainer} />

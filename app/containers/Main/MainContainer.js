@@ -36,6 +36,11 @@ const MainContainer = React.createClass({
     }
   },
 
+  goToFeed () {
+    amplitude.getInstance().logEvent(analytics.BR_OL_FEED_COMMAND_BAR_CLICKED)
+    this.context.router.push('/feed')
+  },
+
   goToAddContact () {
     amplitude.getInstance().logEvent(analytics.BR_OL_ADD_CONTACT_COMMAND_BAR_CLICKED)
     this.props.resetAddNewContact()
@@ -73,6 +78,12 @@ const MainContainer = React.createClass({
   getFilteredFarItems () {
     const obj = this
     return [
+      {
+        key: 'feed',
+        name: '',
+        icon: 'Articles',
+        onClick: obj.goToFeed,
+      },
       {
         key: 'addContact',
         name: '',
