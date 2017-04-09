@@ -38,6 +38,7 @@ const ProfileContainer = React.createClass({
   render () {
     return (
       <Profile
+        error={this.props.error}
         firstName={this.props.firstName}
         lastName={this.props.lastName}
         email={this.props.email}

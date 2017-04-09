@@ -60,6 +60,12 @@ function AddMembersDialog ({ isFetchingInviteCandidates, isInvitesDialogOpened,
 export default function Profile (props) {
   return (
     <div className="ms-Grid">
+      { props.error !== ''
+        ? <MessageBar
+          messageBarType={ MessageBarType.error }>
+          {props.error}</MessageBar>
+        : null
+      }
       <div className={section}>
         <div className="ms-Grid-row">
           <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
