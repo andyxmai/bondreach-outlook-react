@@ -11,6 +11,7 @@ import * as reducers from 'redux/modules'
 import { browserHistory, hashHistory } from 'react-router'
 import 'react-select/dist/react-select.css'
 import 'html5-history-api'
+import 'sharedStyles/theme'
 import * as analytics from 'helpers/analytics'
 
 var location = window.history.location || window.location  // need to polyfill to make broswerHistory work
@@ -55,13 +56,6 @@ function checkAuth (nextState, replace) {
     }
   }
 }
-
-// TODO (Andy): factor this to a separate file
-import load_themed_styles_1 from "@microsoft/load-themed-styles"
-load_themed_styles_1.loadTheme({
-    'themePrimary': '#00A7CF',
-    'themeDark': '#007995',
-})
 
 Office.initialize = function(reason) {
   amplitude.getInstance().logEvent(analytics.BR_OL_APP_OPENED)
