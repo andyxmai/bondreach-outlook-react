@@ -19,7 +19,8 @@ export default function AddContact (props) {
         { props.error !== ''
           ? <MessageBar
             messageBarType={ MessageBarType.error }
-            onDismiss={props.onRemoveErrorMsg}>
+            onDismiss={props.onRemoveErrorMsg}
+            >
             {props.error}</MessageBar>
           : null
         }

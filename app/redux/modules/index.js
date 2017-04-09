@@ -1,6 +1,7 @@
 export user from './user'
 export addContact from './addContact'
 export contact from './contact'
+export feed from './feed'
 export filterContacts from './filterContacts'
 export followUp from './followUp'
 export teamInvites from './teamInvites'

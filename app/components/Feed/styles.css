@@ -1,0 +1,28 @@
+.company {
+
+}
+
+.date {
+  font-size: 12px;
+  color: #757575;
+  padding: 2px 0px;
+}
+
+.feed {
+  border-bottom: 1px solid #D7DADA;
+  padding: 11px 0px;
+}
+
+.section {
+  padding: 10px 0px;
+}
+
+.articleName {
+  font-size: 13px;
+  color: #00A7CF;
+  padding: 5px 0px;
+}
+
+.articleName:hover {
+  cursor: pointer;
+}
