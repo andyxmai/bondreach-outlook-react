@@ -56,12 +56,12 @@ function checkAuth (nextState, replace) {
   }
 }
 
+// TODO (Andy): factor this to a separate file
 import load_themed_styles_1 from "@microsoft/load-themed-styles"
 load_themed_styles_1.loadTheme({
     'themePrimary': '#00A7CF',
     'themeDark': '#007995',
 })
-
 
 Office.initialize = function(reason) {
   amplitude.getInstance().logEvent(analytics.BR_OL_APP_OPENED)
