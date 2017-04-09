@@ -11,7 +11,7 @@ function NewsFeed ({item, onArticleClicked}) {
     <div className={`ms-Grid-row ${feed}`}>
       <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
         <div className={company}>{ item.company }</div>
-        <div className={articleName} id={item.link} onClick={onArticleClicked}>{ item.name }</div>
+        <div className={articleName} id={item.id} onClick={onArticleClicked}>{ item.name }</div>
         <div className={date}>{ humanizedTime(item.datePublished) }</div>
       </div>
     </div>

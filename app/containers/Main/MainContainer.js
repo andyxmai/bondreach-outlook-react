@@ -37,6 +37,7 @@ const MainContainer = React.createClass({
   },
 
   goToFeed () {
+    amplitude.getInstance().logEvent(analytics.BR_OL_FEED_COMMAND_BAR_CLICKED)
     this.context.router.push('/feed')
   },
 

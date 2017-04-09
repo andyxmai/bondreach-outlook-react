@@ -3,15 +3,28 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as feedActionCreators from 'redux/modules/feed'
 import { Feed } from 'components'
+import * as analytics from 'helpers/analytics'
 
 const FeedContainer = React.createClass({
 
   componentDidMount () {
     this.props.fetchAndHandleNewsFeed()
+    amplitude.getInstance().logEvent(analytics.BR_OL_NEWS_FEED)
   },
 
   handleArticleClicked (e) {
-    const url = e.target.id
+    const id = e.target.id
+    var url = ''
+    for (var i = 0; i < this.props.newsFeed.length; i++) {
+      const item = this.props.newsFeed[i]
+      if (item.id === id) {
+         url = item.url
+         break
+      }
+    }
+    const eventProperties = {id}
+    amplitude.getInstance().logEvent(analytics.BR_OL_NEWS_FEED_ARTICLE_CLICKED, eventProperties)
+
     var win = window.open(url, '_blank');
     win.focus();
   },
