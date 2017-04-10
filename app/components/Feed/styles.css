@@ -6,17 +6,17 @@
 .date {
   font-size: 12px;
   color: #757575;
-  padding: 2px 0px;
+  padding: 0px 0px;
 }
 
 .feed {
-  border-bottom: 1px solid #D7DADA;
-  padding: 11px 0px;
+  border-bottom: 1px solid #ebebeb;
+  padding: 8px 0px;
 }
 
 .link {
   color: #00A7CF;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .link:hover {
