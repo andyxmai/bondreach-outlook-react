@@ -96,7 +96,7 @@ export default function FilterResults (props) {
                 />
                 <div className="ms-Grid-row">
                   <div className="ms-Grid-col ms-u-sm10 ms-u-md10 ms-u-lg10">
-                    <div className="ms-fontWeight-semibold ms-fontSize-l">{`Relevant Contacts (${props.filteredContactsCount})`}</div>
+                    <div className="ms-fontWeight-semibold ms-fontSize-l" className={chevron} onClick={props.onSearchResultsCollapseClicked}>{`Relevant Contacts (${props.filteredContactsCount})`}</div>
                   </div>
                   <div className="ms-Grid-col ms-u-sm2 ms-u-md2 ms-u-lg2">
                     { props.showInputs
