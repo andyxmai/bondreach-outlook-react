@@ -1,9 +1,9 @@
 import load_themed_styles_1 from "@microsoft/load-themed-styles"
 
 load_themed_styles_1.loadTheme({
-  'themeDarker'         : '#004578',
+  'themeDarker'         : '#007995',
   'themeDark'           : '#007995',
-  'themeDarkAlt'        : '#106ebe',
+  'themeDarkAlt'        : '#00A8CF',
   'themePrimary'        : '#00A7CF',
   'themeSecondary'      : '#2b88d8',
   'themeTertiary'       : '#71afe5',
@@ -20,7 +20,7 @@ load_themed_styles_1.loadTheme({
   'neutralQuaternary'   : '#d0d0d0',
   'neutralQuaternaryAlt': '#dadada',
   'neutralLight'        : '#eaeaea',
-  'neutralLighter'      : '#f4f4f4',
+  'neutralLighter'      : '#ffffff',  // experimenting
   'neutralLighterAlt'   : '#f8f8f8',
   'alert'               : '#d83b01',
   'alertBackground'     : '#deecf9',
