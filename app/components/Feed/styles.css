@@ -11,7 +11,7 @@
 
 .feed {
   border-bottom: 1px solid #ebebeb;
-  padding: 8px 0px;
+  padding: 9px 0px;
 }
 
 .link {
@@ -30,4 +30,13 @@
 .articleName {
   font-size: 14px;
   padding: 5px 0px;
+}
+
+.text {
+  font-size: 14px;
+  padding: 5px 0px;
+}
+
+.hyperlink {
+  color: #00A7CF;
 }

@@ -98,3 +98,12 @@ export function fetchNewsFeed () {
   console.debug('fetching news feed')
   return apiClient.get(`/v1/news-feed/`)
 }
+
+export function fetchTeamFeed () {
+  console.debug('fetching team feed')
+  return apiClient.get('/v1/team-events/')
+}
+
+export function fetchFeed () {
+  return axios.all([fetchNewsFeed(), fetchTeamFeed()])
+}

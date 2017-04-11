@@ -8,7 +8,7 @@ import * as analytics from 'helpers/analytics'
 const FeedContainer = React.createClass({
 
   componentDidMount () {
-    this.props.fetchAndHandleNewsFeed()
+    this.props.fetchAndHandleFeed()
     amplitude.getInstance().logEvent(analytics.BR_OL_NEWS_FEED)
   },
 
@@ -35,6 +35,7 @@ const FeedContainer = React.createClass({
         isFetching={this.props.isFetching}
         error={this.props.error}
         newsFeed={this.props.newsFeed}
+        teamFeed={this.props.teamFeed}
         onArticleClicked={this.handleArticleClicked}
       />
     )
@@ -46,6 +47,7 @@ function mapStateToProps ({feed}) {
     isFetching: feed.isFetching,
     error: feed.error,
     newsFeed: feed.newsFeed,
+    teamFeed: feed.teamFeed,
   }
 }
 

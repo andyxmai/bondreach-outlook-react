@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react'
+import { TeamFeed } from 'components'
 import { List } from 'office-ui-fabric-react/lib/List'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
+import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner'
 import { ISOStringToDate, humanizedTime } from 'helpers/dates'
 import { articleName, company, date, feed, link, section } from './styles.css'
@@ -36,21 +38,46 @@ export default function Feed (props) {
             <div className={section}>
               <div className="ms-Grid-row">
                 <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
-                  <div className="ms-fontWeight-semibold ms-fontSize-l">{ 'News feed' }</div>
+                  <div className="ms-fontWeight-semibold ms-fontSize-l">{ 'Feed' }</div>
                 </div>
               </div>
-            </div>
-            <div>
-              <List
-                items={props.newsFeed}
-                onRenderCell={ (item, index) => (
-                  <NewsFeed
-                    key={index}
-                    item={item}
-                    onArticleClicked={props.onArticleClicked}
-                  />
-                )}
-              />
+              <div>
+                <Pivot>
+                  <PivotItem linkText='Contact News'>
+                    { props.newsFeed.length
+                      ? <List
+                          items={props.newsFeed}
+                          onRenderCell={ (item, index) => (
+                            <NewsFeed
+                              key={index}
+                              item={item}
+                              onArticleClicked={props.onArticleClicked}
+                            />
+                          )}
+                        />
+                      : <div className={section}>
+                          {'No contact news yet!'}
+                        </div>
+                    }
+                  </PivotItem>
+                  <PivotItem linkText='Team News'>
+                    { props.teamFeed.length
+                      ? <List
+                          items={props.teamFeed}
+                          onRenderCell={ (item, index) => (
+                            <TeamFeed
+                              key={index}
+                              item={item}
+                            />
+                          )}
+                        />
+                      : <div className={section}>
+                          {'No team news yet!'}
+                        </div>
+                    }
+                  </PivotItem>
+                </Pivot>
+              </div>
             </div>
           </div>
       }
