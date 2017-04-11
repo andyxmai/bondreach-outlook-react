@@ -21,7 +21,7 @@ export default function getRoutes (checkAuth, history) {
           <Route path='feed' component={FeedContainer} />
           <Route path='filter-contacts' component={FilterContactsContainer} />
           <Route path='profile' component={ProfileContainer} />
-          <Route path='read' component={FeedContainer} />
+          <Route path='read' component={ReadContainer} />
           <Route path='search' component={SearchContainer} />
           <Route path='view-contact/:contactId' component={ViewContactContainer} />
         </Route>
