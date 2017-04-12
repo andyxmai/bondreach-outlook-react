@@ -332,13 +332,15 @@ function addCorrespondenceFailure (error) {
   }
 }
 
-export function handleTagEmailMessage (messageId, date) {
+export function handleTagEmailMessage (messageId, date, subject, preview) {
   return function (dispatch, getState) {
     const params = {
       correspondenceType: 'email',
       itemId: messageId,
       contact: getState().contact.id,
       date,
+      subject,
+      preview,
     }
     saveCorrespondence(params)
       .then((res) => {

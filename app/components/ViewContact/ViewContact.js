@@ -9,7 +9,8 @@ import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBa
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel'
 import { Link } from 'office-ui-fabric-react/lib/Link'
 import { section, borderedSection, preferenceType, inline, subline, link, tasks,
-         view, icon, info, add, mainView } from './styles.css'
+         view, icon, info, add, mainView, card, subject, preview, emailContent,
+       } from './styles.css'
 import { formatInvestmentSizePreference } from 'helpers/utils'
 import { blockBtn, buttonSection, centerPage, messageBar, spacedRow } from 'sharedStyles/styles.css'
 import { ISOStringToDate } from 'helpers/dates'
@@ -53,6 +54,34 @@ function NotesPanel (props) {
         </div>
       }
     </Panel>
+  )
+}
+
+function Correspondence ({correspondence, onViewItem}) {
+  return (
+    <div className={`ms-Grid-row ${spacedRow} ${card}`} key={correspondence.id}>
+      <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+        <div>{correspondence.correspondenceType}</div>
+      </div>
+      <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+        <div>{ISOStringToDate(correspondence.date)}</div>
+      </div>
+      <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
+        <div className={view} id={correspondence.itemId} onClick={onViewItem}>{'view'}</div>
+      </div>
+      { correspondence.subject
+        ? <div className={`ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12 ${emailContent}`}>
+            <div className={subject}>{correspondence.subject}</div>
+          </div>
+        : null
+      }
+      { correspondence.preview
+        ? <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12">
+            <div className={preview}>{correspondence.preview}...</div>
+          </div>
+        : null
+      }
+    </div>
   )
 }
 
@@ -203,17 +232,11 @@ export default function ViewContact (props) {
             </div>
             { props.correspondences.length > 0
               ? <div>{ props.correspondences.map((correspondence) => (
-                  <div className={`ms-Grid-row ${spacedRow}`} key={correspondence.id}>
-                    <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-                      <div>{correspondence.correspondenceType}</div>
-                    </div>
-                    <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-                      <div>{ISOStringToDate(correspondence.date)}</div>
-                    </div>
-                    <div className="ms-Grid-col ms-u-sm4 ms-u-md4 ms-u-lg4">
-                      <div className={view} id={correspondence.itemId} onClick={props.onViewItem}>{'view'}</div>
-                    </div>
-                  </div>
+                  <Correspondence
+                     key={correspondence.id}
+                    correspondence={correspondence}
+                    onViewItem={props.onViewItem}
+                  />
                 ))}</div>
               : <div className={`ms-Grid-row ${spacedRow}`}>
                   <div className="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg12"><div className={inline}>{'None'}</div></div>

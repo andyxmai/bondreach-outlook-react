@@ -6,6 +6,7 @@ import * as contactActionCreators from 'redux/modules/contact'
 import * as analytics from 'helpers/analytics'
 import XMLParser from 'react-xml-parser'
 import { checkEmailInOutlookContact, createOutlookContact } from 'common/EWS'
+import { getEmailPreview } from 'helpers/utils'
 
 const ViewContactContainer = React.createClass({
   componentDidMount () {
@@ -55,10 +56,17 @@ const ViewContactContainer = React.createClass({
   },
 
   handleTagEmailMessage () {
-    const messageId = Office.context.mailbox.item.itemId
-    const dateTimeCreated = Office.context.mailbox.item.dateTimeCreated
-    this.props.handleTagEmailMessage(messageId, dateTimeCreated.toISOString())
-    amplitude.getInstance().logEvent(analytics.BR_OL_VIEW_CONTACT_EMAIL_TAGGED)
+    Office.context.mailbox.item.body.getAsync('text', (result) => {
+      var preview = ''
+      if (result.status === 'succeeded') {
+        preview = getEmailPreview(result.value)
+      }
+      const messageId = Office.context.mailbox.item.itemId
+      const dateTimeCreated = Office.context.mailbox.item.dateTimeCreated
+      const subject = Office.context.mailbox.item.subject
+      this.props.handleTagEmailMessage(messageId, dateTimeCreated.toISOString(), subject, preview)
+      amplitude.getInstance().logEvent(analytics.BR_OL_VIEW_CONTACT_EMAIL_TAGGED)
+    })
   },
 
   handleViewItem (e) {

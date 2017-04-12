@@ -27,6 +27,24 @@ export function parseEmail (email) {
   return { handle, domain }
 }
 
+export function getEmailPreview (text) {
+  const lines = text.split('\n')
+  var preview = ''
+  var count = 0
+  for (let line of lines) {
+    if (line.trim() !== '') {
+      preview += line.substring(0, 70-preview.length).trim()
+      count += 1
+    }
+
+    if (count === 2) {  // get two lines of preview
+      break
+    }
+  }
+
+  return preview
+}
+
 export function formatToSelectOptions (options) {
   var formatedOptions = []
   for (let option of options) {
