@@ -100,7 +100,7 @@ export default function ViewContact (props) {
               {props.error}</MessageBar></div>
             : null
           }
-          { props.hasOutlookContact === props.hasOutlookContact 
+          { props.hasOutlookContact
             ? null
             : <MessageBar
                 messageBarType={ MessageBarType.warning }>

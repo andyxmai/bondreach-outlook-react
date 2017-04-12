@@ -33,7 +33,7 @@ export function getEmailPreview (text) {
   var count = 0
   for (let line of lines) {
     if (line.trim() !== '') {
-      preview += line.substring(0, 70-preview.length).trim()
+      preview += line.substring(0, 70-preview.length).trim() + ' '
       count += 1
     }
 

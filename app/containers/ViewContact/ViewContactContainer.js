@@ -17,7 +17,7 @@ const ViewContactContainer = React.createClass({
 
   componentDidUpdate (prevProps) {
     if (prevProps.email !== this.props.email) {  // contact email changed
-      checkEmailInOutlookContact(this.props.email, (asyncResult) => {
+      checkEmailInOutlookContact(this.props.email.trim(), (asyncResult) => {
         const xml = new XMLParser().parseFromString(asyncResult.value)
         const itemIdElems = xml.getElementsByTagName('t:ItemId')
         var hasOutlookContact = true

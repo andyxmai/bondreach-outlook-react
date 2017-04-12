@@ -14,7 +14,10 @@ export default function TeamFeed ({item}) {
               {item.metadata.creatorName} added contact
               <Link to={`/view-contact/${item.metadata.newContactId}`}>
                 <span className={hyperlink}> {item.metadata.newContactFullName}</span>
-                <span> from {item.metadata.newContactCompany}</span>
+                { item.metadata.newContactCompany
+                  ? <span> from {item.metadata.newContactCompany}</span>
+                  : null
+                }
               </Link>
             </div>
 
@@ -24,7 +27,10 @@ export default function TeamFeed ({item}) {
                     {item.metadata.creatorName} updated contact
                     <Link to={`/view-contact/${item.metadata.contactId}`}>
                       <span className={hyperlink}> {item.metadata.contactFullName}</span>
-                      <span> from {item.metadata.contactCompany}</span>
+                      { item.metadata.contactCompany
+                        ? <span> from {item.metadata.contactCompany}</span>
+                        : null
+                      }
                     </Link>
                   </div>
 
@@ -34,7 +40,10 @@ export default function TeamFeed ({item}) {
                           {item.metadata.creatorName} is following up with
                           <Link to={`/view-contact/${item.metadata.contactId}`}>
                             <span className={hyperlink}> {item.metadata.contactFullName} </span>
-                            <span>from {item.metadata.contactCompany} </span>
+                            { item.metadata.contactCompany
+                              ? <span>from {item.metadata.contactCompany} </span>
+                              : null
+                            }
                             on {ISOStringToShortDate(item.metadata.followUpDate)}
                           </Link>
                         </div>
