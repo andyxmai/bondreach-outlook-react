@@ -84,6 +84,7 @@ export default function AddContact (props) {
             <DefaultButton
                 data-automation-id='add-notes'
                 onClick={props.onShowNotes}
+                className={blockBtn}
               >{'Add notes'}
             </DefaultButton>
           </div>
@@ -91,6 +92,7 @@ export default function AddContact (props) {
             <PrimaryButton
                 data-automation-id='add-contact'
                 onClick={props.onAddContactClicked}
+                className={blockBtn}
                 >{'Add contact'}</PrimaryButton>
           </div>
         </div>

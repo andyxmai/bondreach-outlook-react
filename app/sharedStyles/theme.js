@@ -20,7 +20,7 @@ load_themed_styles_1.loadTheme({
   'neutralQuaternary'   : '#d0d0d0',
   'neutralQuaternaryAlt': '#dadada',
   'neutralLight'        : '#eaeaea',
-  'neutralLighter'      : '#ffffff',  // experimenting
+  'neutralLighter'      : '#f4f4f4',  // experimenting
   'neutralLighterAlt'   : '#f8f8f8',
   'alert'               : '#d83b01',
   'alertBackground'     : '#deecf9',

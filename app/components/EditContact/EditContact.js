@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { MainContactInfo } from 'components'
-import { PrimaryButton } from 'office-ui-fabric-react/lib/Button'
+import { Button, PrimaryButton } from 'office-ui-fabric-react/lib/Button'
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar'
 import { mainView, cancel } from './styles.css'
 import { blockBtn, buttonSection } from 'sharedStyles/styles.css'
@@ -54,11 +54,24 @@ export default function EditContact (props) {
         />
       </div>
       <div className={buttonSection}>
-        <PrimaryButton
-            data-automation-id='update-contact'
-            onClick={props.onUpdateContactClicked}
-            className={blockBtn}
-            >{'Update contact'}</PrimaryButton>
+        <div className="ms-Grid">
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+              <Button
+                  data-automation-id='cancel'
+                  onClick={props.onCancelClicked}
+                  className={blockBtn}
+                  >{'Cancel'}</Button>
+            </div>
+            <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg6">
+              <PrimaryButton
+                  data-automation-id='update-contact'
+                  onClick={props.onUpdateContactClicked}
+                  className={blockBtn}
+                  >{'Update contact'}</PrimaryButton>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
